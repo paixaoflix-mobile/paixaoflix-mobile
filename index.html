@@ -2,78 +2,31 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PaixãoFlix Mobile</title>
-  <style>
-    /* Reset simples */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <title>PaixãoFlix</title>
 
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
+  <!-- Redirecionamento imediato -->
+  <meta http-equiv="refresh" content="0; url=http://app.paixaoflix.vip">
+
+  <script>
+    window.location.href = "http://app.paixaoflix.vip";
+  </script>
+
+  <style>
+    body {
       background-color: #000;
       color: #fff;
+      font-family: Arial, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-    }
-
-    /* Tela de carregamento */
-    #loader {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #loader img {
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      margin-bottom: 20px;
-    }
-
-    #loader span {
-      font-size: 1.2em;
-      color: #fff;
-    }
-
-    /* Conteúdo principal escondido até carregar */
-    #main {
-      display: none;
+      height: 100vh;
       text-align: center;
-      padding: 20px;
-    }
-
-    a {
-      color: #1E90FF;
-      text-decoration: none;
     }
   </style>
 </head>
 <body>
-
-  <div id="main">
-    <h1>Bem-vindo ao PaixãoFlix Mobile!</h1>
-    <p>Seu conteúdo de streaming para dispositivos móveis está pronto.</p>
-    <p>Acesse seus canais diretamente.</p>
-    <a href="#">Clique aqui para continuar</a>
+  <div>
+    <p>Redirecionando para o PaixãoFlix…</p>
   </div>
-
-  <script>
-    // Simula carregamento de conteúdo
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        document.getElementById('main').style.display = 'block';
-      }, 2000); // 2 segundos de tela de carregamento
-    });
-  </script>
-  
 </body>
 </html>

@@ -1,23 +1,24 @@
 <!--
   PaixãoFlix TV
-  Versão: v1.3.1
+  Versão: v1.4.0
   Data: 21/01/2026
-  Sidebar com botões 3D
+  Player integrado + logo inteligente + controle remoto
 -->
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PaixãoFlix TV — v1.3.1</title>
+  <title>PaixãoFlix TV — v1.4.0</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
 
+  <!-- Video.js -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -34,18 +35,14 @@
         position: fixed;
         inset: 0;
         background: #000;
-        color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 9999;
         font-size: 1.2rem;
-        text-align: center;
-        padding: 20px;
       }
     }
 
-    /* Layout */
     .app {
       display: flex;
       height: 100vh;
@@ -55,74 +52,66 @@
     .sidebar {
       width: 340px;
       background: linear-gradient(180deg, #0b0b0b, #050505);
-      padding: 20px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      box-shadow: inset -4px 0 10px rgba(0,0,0,0.8);
+      gap: 14px;
+      box-shadow: inset -4px 0 12px rgba(0,0,0,0.8);
+      transition: width 0.3s ease;
     }
 
-    /* Logo inteligente */
-    .logo {
-      width: 100%;
-      max-width: 240px;
-      min-width: 180px;
-      align-self: center;
-    }
-
+    /* LOGO INTELIGENTE */
     .logo img {
-      width: 100%;
-      height: auto;
+      width: clamp(100px, 20vh, 240px);
+      margin: 0 auto;
       display: block;
+      transition: width 0.3s ease;
     }
 
-    /* Data/Hora */
     .datetime {
       text-align: center;
       font-size: 14px;
       opacity: 0.85;
     }
 
-    /* Pesquisa */
     .search-box input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 10px 12px;
       border-radius: 8px;
       border: none;
-      font-size: 14px;
-      outline: none;
       background: #1a1a1a;
       color: #fff;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
-    }
-
-    /* GRID DE BOTÕES */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin-top: 10px;
+      font-size: 14px;
     }
 
     /* BOTÕES 3D */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+
     .menu-btn {
       background: linear-gradient(180deg, #2a2a2a, #161616);
       border: none;
       border-radius: 12px;
-      padding: 18px 10px;
-      font-size: 15px;
+      padding: 14px 6px;
+      font-size: 14px;
       color: #fff;
       cursor: pointer;
-      outline: none;
 
       box-shadow:
         0 6px 0 #0a0a0a,
         0 10px 18px rgba(0,0,0,0.7);
 
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, transform 0.2s;
     }
 
-    /* Pressão */
+    .menu-btn:hover {
+      transform: scale(1.03);
+    }
+
     .menu-btn:active {
       transform: translateY(4px);
       box-shadow:
@@ -130,18 +119,40 @@
         0 6px 10px rgba(0,0,0,0.8);
     }
 
-    /* Foco controle remoto */
     .menu-btn:focus {
       outline: none;
       box-shadow:
         0 6px 0 #e50914,
-        0 10px 22px rgba(229,9,20,0.8);
+        0 12px 24px rgba(229,9,20,0.9);
     }
 
-    /* Área futura de conteúdo */
+    /* CONTEÚDO */
     .content {
       flex: 1;
       background: radial-gradient(circle at center, #111, #000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease;
+    }
+
+    /* PLAYER */
+    .player-wrapper {
+      width: 90%;
+      height: 90%;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .player-wrapper.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .video-js {
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
@@ -150,10 +161,9 @@
 <div class="app">
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-
+  <aside class="sidebar" id="sidebar">
     <div class="logo">
-      <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png" alt="PaixãoFlix">
+      <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png">
     </div>
 
     <div class="datetime" id="datetime"></div>
@@ -162,9 +172,8 @@
       <input type="text" placeholder="Qual sua escolha de hoje?">
     </div>
 
-    <!-- BOTÕES -->
     <div class="menu-grid">
-      <button class="menu-btn" tabindex="0">📺 Tv ao Vivo</button>
+      <button class="menu-btn" tabindex="0" data-url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">📺 Tv ao Vivo</button>
       <button class="menu-btn" tabindex="0">🎬 Filmes</button>
       <button class="menu-btn" tabindex="0">📺 Séries</button>
       <button class="menu-btn" tabindex="0">⭐ Favoritos</button>
@@ -173,35 +182,59 @@
       <button class="menu-btn" tabindex="0">📺 Séries Kids</button>
       <button class="menu-btn" tabindex="0">🎞️ Trailers</button>
     </div>
-
   </aside>
 
   <!-- CONTEÚDO -->
-  <main class="content"></main>
+  <main class="content">
+    <div class="player-wrapper" id="playerWrapper">
+      <video id="player" class="video-js vjs-big-play-centered" controls playsinline></video>
+    </div>
+  </main>
 
 </div>
 
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
 <script>
-  const VERSION = "v1.3.1";
+  const VERSION = "v1.4.0";
+  const player = videojs("player", { responsive: true, fluid: true });
+  const wrapper = document.getElementById("playerWrapper");
 
+  // Data e hora
   function atualizarDataHora() {
-    const agora = new Date();
+    const d = new Date();
     const dias = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
-    const dia = dias[agora.getDay()];
-    const data = agora.toLocaleDateString("pt-BR");
-    const hora = agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-
     document.getElementById("datetime").textContent =
-      `${dia} ${data} | ${hora}`;
+      `${dias[d.getDay()]} ${d.toLocaleDateString("pt-BR")} | ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
   }
-
   atualizarDataHora();
   setInterval(atualizarDataHora, 60000);
 
-  // Controle remoto
+  // Abrir player
+  document.querySelectorAll(".menu-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const url = btn.dataset.url;
+      if (!url) return;
+
+      player.src({ src: url, type: "application/x-mpegURL" });
+      player.play();
+      wrapper.classList.add("active");
+    });
+  });
+
+  // Atalhos controle remoto
   document.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-      document.activeElement.click();
+    if (e.key === "Enter") document.activeElement.click();
+
+    // Voltar / fechar player
+    if (["Escape", "Backspace"].includes(e.key)) {
+      player.pause();
+      wrapper.classList.remove("active");
+    }
+
+    // Menu alterna foco
+    if (e.key.toLowerCase() === "m") {
+      document.querySelector(".menu-btn")?.focus();
     }
   });
 

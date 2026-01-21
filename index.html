@@ -1,6 +1,6 @@
 <!--
   PaixãoFlix TV
-  Versão: v1.0.0
+  Versão: v1.1.0
   Data: 2026-01-21
 -->
 
@@ -8,15 +8,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PaixãoFlix TV — v1.0.0</title>
+  <title>PaixãoFlix TV — v1.1.0</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
 
-  <!-- Video.js core -->
+  <!-- Video.js -->
   <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
 
-  <!-- Estilo base -->
   <style>
     body {
       margin: 0;
@@ -25,34 +24,63 @@
       font-family: Arial, sans-serif;
     }
 
-    .app-header {
+    header {
       padding: 10px;
-      font-size: 14px;
-      opacity: 0.7;
       text-align: center;
+      font-size: 14px;
+      opacity: 0.8;
     }
 
-    .player-wrapper {
-      max-width: 100%;
-      height: calc(100vh - 40px);
+    .layout {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      height: calc(100vh - 40px);
+    }
+
+    .player-area {
+      flex: 2;
     }
 
     .video-js {
       width: 100%;
       height: 100%;
     }
+
+    .channel-list {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      padding: 10px;
+      overflow-y: auto;
+      background: #111;
+    }
+
+    .channel {
+      background: #222;
+      padding: 10px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 14px;
+    }
+
+    .channel:hover,
+    .channel.active {
+      background: #e50914;
+    }
   </style>
 </head>
 <body>
 
-  <div class="app-header">
-    PaixãoFlix TV — <strong>v1.0.0</strong>
-  </div>
+<header>
+  PaixãoFlix TV — <strong>v1.1.0</strong>
+</header>
 
-  <div class="player-wrapper">
+<div class="layout">
+
+  <div class="player-area">
     <video
       id="paixaoflix-player"
       class="video-js vjs-big-play-centered"
@@ -63,61 +91,99 @@
     </video>
   </div>
 
-  <!-- Video.js -->
-  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  <div class="channel-list" id="channelList"></div>
 
-  <!-- Plugin HLS avançado (já embutido no Video.js 8, mas mantemos padrão) -->
-  <!-- Não precisa hls.js externo -->
+</div>
 
-  <!-- Inicialização -->
-  <script>
-    const VERSION = "v1.0.0";
+<!-- Video.js -->
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
-    const player = videojs('paixaoflix-player', {
-      autoplay: false,
-      controls: true,
-      fluid: true,
-      responsive: true,
-      playbackRates: [0.5, 1, 1.25, 1.5, 2],
-      controlBar: {
-        volumePanel: { inline: false }
-      }
-    });
+<script>
+  const VERSION = "v1.1.0";
 
-    // Exemplo de stream (trocar pelo seu)
+  // 🔗 Lista de canais (exemplo)
+  const channels = [
+    {
+      name: "Canal Demo 1",
+      url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+    },
+    {
+      name: "Canal Demo 2",
+      url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+    }
+  ];
+
+  const player = videojs('paixaoflix-player', {
+    autoplay: false,
+    controls: true,
+    fluid: true,
+    responsive: true,
+    playbackRates: [0.5, 1, 1.25, 1.5, 2]
+  });
+
+  const channelListEl = document.getElementById("channelList");
+
+  function loadChannel(channel, index) {
     player.src({
-      src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      src: channel.url,
       type: "application/x-mpegURL"
     });
 
-    // Teclas estilo YouTube / Netflix
-    document.addEventListener("keydown", (e) => {
-      switch (e.key) {
-        case " ":
-          e.preventDefault();
-          player.paused() ? player.play() : player.pause();
-          break;
-        case "ArrowRight":
-          player.currentTime(player.currentTime() + 10);
-          break;
-        case "ArrowLeft":
-          player.currentTime(player.currentTime() - 10);
-          break;
-        case "ArrowUp":
-          player.volume(Math.min(1, player.volume() + 0.1));
-          break;
-        case "ArrowDown":
-          player.volume(Math.max(0, player.volume() - 0.1));
-          break;
-        case "f":
-        case "F":
-          player.requestFullscreen();
-          break;
-      }
-    });
+    localStorage.setItem("lastChannel", index);
+    highlightChannel(index);
+  }
 
-    console.log("PaixãoFlix carregado:", VERSION);
-  </script>
+  function highlightChannel(index) {
+    document.querySelectorAll(".channel").forEach((el, i) => {
+      el.classList.toggle("active", i === index);
+    });
+  }
+
+  // Renderiza lista
+  channels.forEach((channel, index) => {
+    const div = document.createElement("div");
+    div.className = "channel";
+    div.textContent = channel.name;
+    div.onclick = () => loadChannel(channel, index);
+    channelListEl.appendChild(div);
+  });
+
+  // Último canal
+  const last = localStorage.getItem("lastChannel");
+  if (last !== null && channels[last]) {
+    loadChannel(channels[last], Number(last));
+  } else {
+    loadChannel(channels[0], 0);
+  }
+
+  // 🎮 Controles estilo Netflix / YouTube
+  document.addEventListener("keydown", (e) => {
+    switch (e.key) {
+      case " ":
+        e.preventDefault();
+        player.paused() ? player.play() : player.pause();
+        break;
+      case "ArrowRight":
+        player.currentTime(player.currentTime() + 10);
+        break;
+      case "ArrowLeft":
+        player.currentTime(player.currentTime() - 10);
+        break;
+      case "ArrowUp":
+        player.volume(Math.min(1, player.volume() + 0.1));
+        break;
+      case "ArrowDown":
+        player.volume(Math.max(0, player.volume() - 0.1));
+        break;
+      case "f":
+      case "F":
+        player.requestFullscreen();
+        break;
+    }
+  });
+
+  console.log("PaixãoFlix TV carregado:", VERSION);
+</script>
 
 </body>
 </html>

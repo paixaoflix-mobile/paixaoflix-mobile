@@ -1,25 +1,24 @@
 <!--
   PaixãoFlix TV
-  Versão: v1.2.1
-  Data: 2026-01-21
-  Mudanças:
-  - Botões ±10s aparecem apenas com interação
-  - Auto-hide após inatividade
+  Versão: v1.3.0
+  Data: 21/01/2026
+  Layout real com sidebar fixa
 -->
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PaixãoFlix TV — v1.2.1</title>
+  <title>PaixãoFlix TV — v1.3.0</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
 
-  <!-- Video.js -->
-  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       background: #000;
@@ -31,7 +30,7 @@
     /* Bloqueio portrait */
     @media (orientation: portrait) {
       body::before {
-        content: "Gire o dispositivo para modo paisagem";
+        content: "Gire o dispositivo para o modo paisagem";
         position: fixed;
         inset: 0;
         background: #000;
@@ -46,206 +45,155 @@
       }
     }
 
-    header {
-      text-align: center;
-      font-size: 13px;
-      padding: 6px;
-      opacity: 0.8;
-    }
-
-    .layout {
+    /* Layout principal */
+    .app {
       display: flex;
-      height: calc(100vh - 30px);
+      height: 100vh;
     }
 
-    .player-area {
-      flex: 3;
-      position: relative;
+    /* Sidebar */
+    .sidebar {
+      width: 320px;
+      background: #0b0b0b;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
-    .video-js {
+    /* Logo inteligente */
+    .logo {
       width: 100%;
-      height: 100%;
+      max-width: 240px;
+      min-width: 180px;
+      align-self: center;
     }
 
-    /* Skip controls (inicialmente ocultos) */
-    .skip-controls {
-      position: absolute;
-      bottom: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      z-index: 10;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
+    .logo img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
-    .skip-controls.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .skip-btn {
-      background: rgba(0,0,0,0.7);
-      border: 2px solid #fff;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 50%;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    /* Netflix style */
-    .catalog {
-      flex: 2;
-      background: #111;
-      overflow-y: auto;
-      padding: 10px;
-    }
-
-    .category {
-      margin-bottom: 16px;
-    }
-
-    .category-title {
-      margin-bottom: 6px;
-      font-size: 14px;
-      opacity: 0.9;
-    }
-
-    .row {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-    }
-
-    .item {
-      min-width: 140px;
-      background: #222;
-      padding: 10px;
-      border-radius: 6px;
+    /* Data/Hora */
+    .datetime {
       text-align: center;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* Pesquisa */
+    .search-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      outline: none;
+    }
+
+    /* Conteúdo */
+    .content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    /* Grade de botões */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 520px;
+    }
+
+    .grid button {
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 20px 10px;
+      font-size: 16px;
       cursor: pointer;
       outline: none;
     }
 
-    .item:focus {
+    .grid button:focus {
       outline: 3px solid #e50914;
+    }
+
+    .grid button:hover {
+      background: #222;
+    }
+
+    /* Scroll discreto */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
     }
   </style>
 </head>
 <body>
 
-<header>
-  PaixãoFlix TV — <strong>v1.2.1</strong>
-</header>
+<div class="app">
 
-<div class="layout">
-
-  <div class="player-area" id="playerArea">
-    <video
-      id="player"
-      class="video-js vjs-big-play-centered"
-      controls
-      preload="auto"
-      playsinline>
-    </video>
-
-    <!-- Botões ±10s -->
-    <div class="skip-controls" id="skipControls">
-      <button class="skip-btn" id="back10">⏪ 10s</button>
-      <button class="skip-btn" id="forward10">10s ⏩</button>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png" alt="PaixãoFlix">
     </div>
-  </div>
 
-  <div class="catalog" id="catalog"></div>
+    <div class="datetime" id="datetime">
+      carregando...
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Qual sua escolha de hoje?">
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO -->
+  <main class="content">
+    <div class="grid">
+      <button tabindex="0">📺 Tv ao Vivo</button>
+      <button tabindex="0">🎬 Filmes</button>
+      <button tabindex="0">📺 Séries</button>
+      <button tabindex="0">⭐ Favoritos</button>
+      <button tabindex="0">🧒 Tv Kids</button>
+      <button tabindex="0">🍿 Filmes Kids</button>
+      <button tabindex="0">📺 Séries Kids</button>
+      <button tabindex="0">🎞️ Trailers</button>
+    </div>
+  </main>
 
 </div>
 
-<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
 <script>
-  const VERSION = "v1.2.1";
-  let hideTimer;
+  const VERSION = "v1.3.0";
 
-  const player = videojs('player', {
-    responsive: true,
-    fluid: true
-  });
+  function atualizarDataHora() {
+    const agora = new Date();
+    const dias = ["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+    const dia = dias[agora.getDay()];
+    const data = agora.toLocaleDateString("pt-BR");
+    const hora = agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
 
-  const skipControls = document.getElementById("skipControls");
-  const playerArea = document.getElementById("playerArea");
-
-  function showControls() {
-    skipControls.classList.add("show");
-    clearTimeout(hideTimer);
-    hideTimer = setTimeout(() => {
-      skipControls.classList.remove("show");
-    }, 3000);
+    document.getElementById("datetime").textContent =
+      `${dia} ${data} | ${hora}`;
   }
 
-  // Mostrar controles com interação
-  ["mousemove", "click", "touchstart"].forEach(evt => {
-    playerArea.addEventListener(evt, showControls);
-  });
+  atualizarDataHora();
+  setInterval(atualizarDataHora, 60000);
 
+  // Controle remoto básico
   document.addEventListener("keydown", e => {
-    showControls();
-
     if (e.key === "Enter") {
       document.activeElement.click();
     }
-    if (e.key === " ") {
-      e.preventDefault();
-      player.paused() ? player.play() : player.pause();
-    }
-  });
-
-  // Skip 10s
-  document.getElementById("back10").onclick = () =>
-    player.currentTime(player.currentTime() - 10);
-
-  document.getElementById("forward10").onclick = () =>
-    player.currentTime(player.currentTime() + 10);
-
-  // Catálogo demo
-  const data = {
-    "Canais Ao Vivo": [
-      { title: "Demo 1", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" }
-    ]
-  };
-
-  const catalog = document.getElementById("catalog");
-
-  Object.keys(data).forEach(cat => {
-    const section = document.createElement("div");
-    section.className = "category";
-
-    const title = document.createElement("div");
-    title.className = "category-title";
-    title.textContent = cat;
-
-    const row = document.createElement("div");
-    row.className = "row";
-
-    data[cat].forEach(item => {
-      const el = document.createElement("div");
-      el.className = "item";
-      el.tabIndex = 0;
-      el.textContent = item.title;
-      el.onclick = () => {
-        player.src({ src: item.url, type: "application/x-mpegURL" });
-        player.play();
-        showControls();
-      };
-      row.appendChild(el);
-    });
-
-    section.appendChild(title);
-    section.appendChild(row);
-    catalog.appendChild(section);
   });
 
   console.log("PaixãoFlix TV carregado:", VERSION);

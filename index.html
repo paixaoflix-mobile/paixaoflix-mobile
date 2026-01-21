@@ -1,19 +1,17 @@
 <!--
   PaixãoFlix TV
-  Versão: v1.2.0
+  Versão: v1.2.1
   Data: 2026-01-21
-  Recursos:
-  - Categorias estilo Netflix
-  - Controle remoto avançado
-  - Botões visíveis de pular ±10s
-  - Landscape obrigatório
+  Mudanças:
+  - Botões ±10s aparecem apenas com interação
+  - Auto-hide após inatividade
 -->
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PaixãoFlix TV — v1.2.0</title>
+  <title>PaixãoFlix TV — v1.2.1</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
@@ -30,7 +28,7 @@
       overflow: hidden;
     }
 
-    /* Portrait bloqueado */
+    /* Bloqueio portrait */
     @media (orientation: portrait) {
       body::before {
         content: "Gire o dispositivo para modo paisagem";
@@ -42,7 +40,7 @@
         align-items: center;
         justify-content: center;
         z-index: 9999;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         text-align: center;
         padding: 20px;
       }
@@ -60,7 +58,6 @@
       height: calc(100vh - 30px);
     }
 
-    /* PLAYER */
     .player-area {
       flex: 3;
       position: relative;
@@ -71,7 +68,7 @@
       height: 100%;
     }
 
-    /* BOTÕES 10s */
+    /* Skip controls (inicialmente ocultos) */
     .skip-controls {
       position: absolute;
       bottom: 70px;
@@ -80,6 +77,14 @@
       display: flex;
       gap: 20px;
       z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .skip-controls.show {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .skip-btn {
@@ -92,7 +97,7 @@
       cursor: pointer;
     }
 
-    /* NETFLIX STYLE */
+    /* Netflix style */
     .catalog {
       flex: 2;
       background: #111;
@@ -134,13 +139,12 @@
 <body>
 
 <header>
-  PaixãoFlix TV — <strong>v1.2.0</strong>
+  PaixãoFlix TV — <strong>v1.2.1</strong>
 </header>
 
 <div class="layout">
 
-  <!-- PLAYER -->
-  <div class="player-area">
+  <div class="player-area" id="playerArea">
     <video
       id="player"
       class="video-js vjs-big-play-centered"
@@ -149,49 +153,72 @@
       playsinline>
     </video>
 
-    <!-- Botões 10s -->
-    <div class="skip-controls">
+    <!-- Botões ±10s -->
+    <div class="skip-controls" id="skipControls">
       <button class="skip-btn" id="back10">⏪ 10s</button>
       <button class="skip-btn" id="forward10">10s ⏩</button>
     </div>
   </div>
 
-  <!-- CATÁLOGO -->
   <div class="catalog" id="catalog"></div>
 
 </div>
 
-<!-- Video.js -->
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
 <script>
-  const VERSION = "v1.2.0";
+  const VERSION = "v1.2.1";
+  let hideTimer;
 
+  const player = videojs('player', {
+    responsive: true,
+    fluid: true
+  });
+
+  const skipControls = document.getElementById("skipControls");
+  const playerArea = document.getElementById("playerArea");
+
+  function showControls() {
+    skipControls.classList.add("show");
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      skipControls.classList.remove("show");
+    }, 3000);
+  }
+
+  // Mostrar controles com interação
+  ["mousemove", "click", "touchstart"].forEach(evt => {
+    playerArea.addEventListener(evt, showControls);
+  });
+
+  document.addEventListener("keydown", e => {
+    showControls();
+
+    if (e.key === "Enter") {
+      document.activeElement.click();
+    }
+    if (e.key === " ") {
+      e.preventDefault();
+      player.paused() ? player.play() : player.pause();
+    }
+  });
+
+  // Skip 10s
+  document.getElementById("back10").onclick = () =>
+    player.currentTime(player.currentTime() - 10);
+
+  document.getElementById("forward10").onclick = () =>
+    player.currentTime(player.currentTime() + 10);
+
+  // Catálogo demo
   const data = {
     "Canais Ao Vivo": [
-      { title: "Demo 1", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" },
-      { title: "Demo 2", url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8" }
-    ],
-    "Filmes": [
-      { title: "Sintel", url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8" }
+      { title: "Demo 1", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" }
     ]
   };
 
-  const player = videojs('player', {
-    autoplay: false,
-    controls: true,
-    fluid: true,
-    responsive: true
-  });
-
   const catalog = document.getElementById("catalog");
 
-  function load(url) {
-    player.src({ src: url, type: "application/x-mpegURL" });
-    player.play();
-  }
-
-  // Render Netflix-style
   Object.keys(data).forEach(cat => {
     const section = document.createElement("div");
     section.className = "category";
@@ -208,31 +235,17 @@
       el.className = "item";
       el.tabIndex = 0;
       el.textContent = item.title;
-      el.onclick = () => load(item.url);
+      el.onclick = () => {
+        player.src({ src: item.url, type: "application/x-mpegURL" });
+        player.play();
+        showControls();
+      };
       row.appendChild(el);
     });
 
     section.appendChild(title);
     section.appendChild(row);
     catalog.appendChild(section);
-  });
-
-  // Botões 10s FUNCIONANDO
-  document.getElementById("back10").onclick = () =>
-    player.currentTime(player.currentTime() - 10);
-
-  document.getElementById("forward10").onclick = () =>
-    player.currentTime(player.currentTime() + 10);
-
-  // Controle remoto (setas + OK)
-  document.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-      document.activeElement.click();
-    }
-    if (e.key === " ") {
-      e.preventDefault();
-      player.paused() ? player.play() : player.pause();
-    }
   });
 
   console.log("PaixãoFlix TV carregado:", VERSION);

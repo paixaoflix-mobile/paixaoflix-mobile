@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.4.2</title>
+<title>PaixãoFlix TV — v1.5.0</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#000">
@@ -15,108 +15,101 @@ body{
   margin:0;
   background:#000;
   color:#fff;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
   overflow:hidden;
 }
-
-/* Layout */
 .app{display:flex;height:100vh}
 
 /* SIDEBAR */
 .sidebar{
-  width:280px; /* reduzida */
-  background:linear-gradient(180deg,#0d0d0d,#070707);
+  width:260px;
+  background:#0b0b0b;
   display:flex;
   flex-direction:column;
-  box-shadow:2px 0 6px rgba(0,0,0,.35); /* sombra leve e elegante */
+  box-shadow:2px 0 6px rgba(0,0,0,.35);
 }
-
-/* TOPO FIXO */
 .sidebar-top{
-  padding:14px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  padding:12px;
   flex-shrink:0;
 }
-
 .logo img{
-  width:clamp(100px,16vh,220px);
+  width:clamp(100px,14vh,220px);
   display:block;
-  margin:0 auto;
+  margin:0 auto 6px;
 }
-
 .datetime{
   text-align:center;
   font-size:13px;
   opacity:.85;
 }
-
-.search-box input{
+.search input{
   width:100%;
-  padding:9px;
+  margin-top:8px;
+  padding:8px;
   border-radius:8px;
   border:none;
   background:#1a1a1a;
   color:#fff;
-  font-size:13px;
 }
 
-/* MENUS COM SCROLL */
-.menu-scroll{
-  padding:14px;
+/* MENU */
+.menu{
+  padding:12px;
   overflow-y:auto;
   flex:1;
 }
-
-/* GRID */
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-}
-
-.menu-btn{
-  background:linear-gradient(180deg,#2b2b2b,#161616);
+.menu button{
+  width:100%;
+  margin-bottom:8px;
+  padding:12px;
+  background:linear-gradient(180deg,#2a2a2a,#141414);
   border:none;
-  border-radius:12px;
-  padding:12px 6px;
-  font-size:13px;
+  border-radius:10px;
   color:#fff;
+  font-size:14px;
   cursor:pointer;
-  box-shadow:0 5px 0 #0a0a0a,0 8px 14px rgba(0,0,0,.6);
-  transition:.15s;
+  box-shadow:0 4px 0 #000;
 }
-.menu-btn:active{
-  transform:translateY(3px);
-  box-shadow:0 2px 0 #0a0a0a,0 5px 10px rgba(0,0,0,.7);
-}
-.menu-btn:focus{
-  outline:none;
-  box-shadow:0 5px 0 #e50914,0 10px 20px rgba(229,9,20,.8);
-}
+.menu button:active{transform:translateY(2px)}
+.menu button:focus{outline:2px solid #e50914}
 
-/* CONTEÚDO */
+/* CONTENT */
 .content{
   flex:1;
   display:flex;
-  align-items:center;
-  justify-content:center;
-  background:radial-gradient(circle,#111,#000);
+  flex-direction:column;
+  background:#000;
 }
+.header{
+  padding:14px;
+  font-size:18px;
+  border-bottom:1px solid #222;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:14px;
+  padding:16px;
+  overflow-y:auto;
+}
+.card{
+  background:#1a1a1a;
+  border-radius:10px;
+  padding:10px;
+  text-align:center;
+  cursor:pointer;
+}
+.card:hover{outline:2px solid #e50914}
 
+/* PLAYER */
 .player-wrapper{
-  width:94%;
-  height:94%;
-  opacity:0;
-  transform:scale(.96);
-  transition:.35s ease;
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:none;
+  z-index:10;
 }
-.player-wrapper.active{
-  opacity:1;
-  transform:scale(1);
-}
-
+.player-wrapper.active{display:block}
 .video-js{width:100%;height:100%}
 </style>
 </head>
@@ -131,73 +124,145 @@ body{
       <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png">
     </div>
     <div class="datetime" id="datetime"></div>
-    <div class="search-box">
-      <input type="text" placeholder="Qual sua escolha de hoje?">
+    <div class="search">
+      <input placeholder="Qual sua escolha de hoje?">
     </div>
   </div>
 
-  <!-- MENUS -->
-  <div class="menu-scroll">
-    <div class="menu-grid">
-
-      <!-- ORDEM ALFABÉTICA -->
-      <button class="menu-btn">🎬 Ação</button>
-      <button class="menu-btn">🎞️ Adulto</button>
-      <button class="menu-btn">🎨 Animação</button>
-      <button class="menu-btn">🇯🇵 Anime</button>
-      <button class="menu-btn">🗺️ Aventura</button>
-      <button class="menu-btn">📚 Clássicos</button>
-      <button class="menu-btn">😂 Comédia</button>
-      <button class="menu-btn">🕵️ Crime</button>
-      <button class="menu-btn">📄 Documentários</button>
-      <button class="menu-btn">🇰🇷 Dorama</button>
-      <button class="menu-btn">🎭 Drama</button>
-      <button class="menu-btn">🤠 Faroeste</button>
-      <button class="menu-btn">🚀 Ficção</button>
-      <button class="menu-btn">🎼 Musical</button>
-      <button class="menu-btn">🇧🇷 Nacional</button>
-      <button class="menu-btn">🕵️ Policial</button>
-      <button class="menu-btn">✝️ Religioso</button>
-      <button class="menu-btn">❤️ Romance</button>
-      <button class="menu-btn">😱 Terror</button>
-      <button class="menu-btn">🔍 Suspense</button>
-
-    </div>
+  <div class="menu">
+    <button onclick="abrirTV()">📡 TV ao Vivo</button>
+    <button onclick="abrirFilmes()">🎬 Filmes</button>
+    <button onclick="abrirSeries()">📺 Séries</button>
+    <button onclick="abrirFavoritos()">⭐ Favoritos</button>
+    <button onclick="abrirTVKids()">🧒 TV Kids</button>
+    <button onclick="abrirFilmesKids()">🎈 Filmes Kids</button>
+    <button onclick="abrirSeriesKids()">🧸 Séries Kids</button>
   </div>
 </aside>
 
-<!-- PLAYER -->
+<!-- CONTENT -->
 <main class="content">
-  <div class="player-wrapper" id="playerWrapper">
-    <video id="player" class="video-js vjs-big-play-centered" controls playsinline></video>
-  </div>
+  <div class="header" id="header">Bem-vindo ao PaixãoFlix TV</div>
+  <div class="grid" id="grid"></div>
 </main>
+
+<!-- PLAYER -->
+<div class="player-wrapper" id="playerBox">
+  <video id="player" class="video-js vjs-big-play-centered" controls playsinline></video>
+</div>
 
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
 <script>
-const player = videojs("player",{responsive:true,fluid:true});
-const wrapper=document.getElementById("playerWrapper");
+const player = videojs("player",{fluid:true,responsive:true});
+const grid=document.getElementById("grid");
+const header=document.getElementById("header");
+const box=document.getElementById("playerBox");
 
-/* Data/Hora */
-function atualizarDataHora(){
-  const d=new Date();
-  const dias=["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
-  document.getElementById("datetime").textContent=
-    `${dias[d.getDay()]} ${d.toLocaleDateString("pt-BR")} | ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
+/* DATA */
+function hora(){
+ const d=new Date();
+ const dias=["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
+ document.getElementById("datetime").textContent=
+ `${dias[d.getDay()]} ${d.toLocaleDateString("pt-BR")} | ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
 }
-atualizarDataHora();
-setInterval(atualizarDataHora,60000);
+hora(); setInterval(hora,60000);
 
-/* Controle remoto */
+/* HELPERS */
+function limpar(){grid.innerHTML=""}
+function card(t,fn){
+ const d=document.createElement("div");
+ d.className="card"; d.textContent=t; d.onclick=fn;
+ grid.appendChild(d);
+}
+
+/* MENUS PRINCIPAIS */
+function abrirTV(){
+ header.textContent="TV ao Vivo";
+ limpar();
+ card("Carregar canais",()=>alert("canais.m3u"));
+}
+
+function abrirFilmes(){
+ header.textContent="Filmes — Categorias";
+ limpar();
+ categoriasFilmes.forEach(c=>card(c,()=>listarFilmes(c)));
+}
+
+function abrirSeries(){
+ header.textContent="Séries — Categorias";
+ limpar();
+ categoriasSeries.forEach(c=>card(c,()=>listarSeries(c)));
+}
+
+function abrirFavoritos(){
+ header.textContent="Favoritos";
+ limpar();
+}
+
+function abrirTVKids(){
+ header.textContent="TV Kids";
+ limpar();
+ card("Carregar canais kids",()=>alert("kids_canais.m3u"));
+}
+
+function abrirFilmesKids(){
+ header.textContent="Filmes Kids";
+ limpar();
+ card("Carregar filmes kids",()=>alert("kids_filmes.json"));
+}
+
+function abrirSeriesKids(){
+ header.textContent="Séries Kids";
+ limpar();
+ card("Carregar séries kids",()=>alert("kids_series.json"));
+}
+
+/* CATEGORIAS */
+const categoriasFilmes=[
+"Ação","Aventura","Comédia","Drama","Nacional","Romance","Religioso",
+"Ficção","Anime","Animação","Clássicos","Dorama","Suspense","Policial",
+"Crime","Terror","Documentários","Faroeste","Musical","Adulto"
+];
+
+const categoriasSeries=[
+"Ação","Drama","Crime","Policial","Suspense","Dorama","Documentários","Adulto"
+];
+
+/* LISTAGEM */
+async function listarFilmes(cat){
+ header.textContent="Filmes — "+cat;
+ limpar();
+ const r=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/filmes.json");
+ const j=await r.json();
+ j.filter(i=>i.categoria===cat).forEach(i=>{
+   card(i.titulo,()=>play(i.url));
+ });
+}
+
+async function listarSeries(cat){
+ header.textContent="Séries — "+cat;
+ limpar();
+ const r=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/series.json");
+ const j=await r.json();
+ j.filter(i=>i.categoria===cat).forEach(i=>{
+   card(i.titulo,()=>play(i.url));
+ });
+}
+
+/* PLAYER */
+function play(url){
+ box.classList.add("active");
+ player.src({src:url,type:"application/x-mpegURL"});
+ player.play();
+}
+
 document.addEventListener("keydown",e=>{
-  if(e.key==="Enter")document.activeElement.click();
-  if(["Escape","Backspace"].includes(e.key)){
-    player.pause();
-    wrapper.classList.remove("active");
-  }
+ if(["Escape","Backspace"].includes(e.key)){
+   player.pause();
+   box.classList.remove("active");
+ }
 });
 </script>
 </body>

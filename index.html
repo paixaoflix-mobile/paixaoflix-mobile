@@ -2,12 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.4.1</title>
+<title>PaixãoFlix TV — v1.4.2</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#000">
 
-<link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+<link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
 
 <style>
 *{box-sizing:border-box}
@@ -24,42 +24,47 @@ body{
 
 /* SIDEBAR */
 .sidebar{
-  width:340px;
-  background:linear-gradient(180deg,#0b0b0b,#050505);
+  width:280px; /* reduzida */
+  background:linear-gradient(180deg,#0d0d0d,#070707);
   display:flex;
   flex-direction:column;
-  box-shadow:inset -4px 0 12px rgba(0,0,0,.8);
+  box-shadow:2px 0 6px rgba(0,0,0,.35); /* sombra leve e elegante */
 }
 
 /* TOPO FIXO */
 .sidebar-top{
-  padding:16px;
+  padding:14px;
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:10px;
   flex-shrink:0;
 }
 
 .logo img{
-  width:clamp(100px,18vh,240px);
+  width:clamp(100px,16vh,220px);
   display:block;
   margin:0 auto;
 }
 
-.datetime{text-align:center;font-size:14px;opacity:.85}
+.datetime{
+  text-align:center;
+  font-size:13px;
+  opacity:.85;
+}
 
 .search-box input{
   width:100%;
-  padding:10px;
+  padding:9px;
   border-radius:8px;
   border:none;
   background:#1a1a1a;
   color:#fff;
+  font-size:13px;
 }
 
 /* MENUS COM SCROLL */
 .menu-scroll{
-  padding:16px;
+  padding:14px;
   overflow-y:auto;
   flex:1;
 }
@@ -68,27 +73,27 @@ body{
 .menu-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  gap:10px;
 }
 
 .menu-btn{
-  background:linear-gradient(180deg,#2a2a2a,#161616);
+  background:linear-gradient(180deg,#2b2b2b,#161616);
   border:none;
   border-radius:12px;
-  padding:14px 6px;
-  font-size:14px;
+  padding:12px 6px;
+  font-size:13px;
   color:#fff;
   cursor:pointer;
-  box-shadow:0 6px 0 #0a0a0a,0 10px 18px rgba(0,0,0,.7);
+  box-shadow:0 5px 0 #0a0a0a,0 8px 14px rgba(0,0,0,.6);
   transition:.15s;
 }
 .menu-btn:active{
-  transform:translateY(4px);
-  box-shadow:0 2px 0 #0a0a0a,0 6px 10px rgba(0,0,0,.8);
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #0a0a0a,0 5px 10px rgba(0,0,0,.7);
 }
 .menu-btn:focus{
   outline:none;
-  box-shadow:0 6px 0 #e50914,0 12px 24px rgba(229,9,20,.9);
+  box-shadow:0 5px 0 #e50914,0 10px 20px rgba(229,9,20,.8);
 }
 
 /* CONTEÚDO */
@@ -101,16 +106,17 @@ body{
 }
 
 .player-wrapper{
-  width:90%;
-  height:90%;
+  width:94%;
+  height:94%;
   opacity:0;
-  transform:scale(.95);
-  transition:.4s;
+  transform:scale(.96);
+  transition:.35s ease;
 }
 .player-wrapper.active{
   opacity:1;
   transform:scale(1);
 }
+
 .video-js{width:100%;height:100%}
 </style>
 </head>
@@ -130,15 +136,32 @@ body{
     </div>
   </div>
 
+  <!-- MENUS -->
   <div class="menu-scroll">
     <div class="menu-grid">
-      <button class="menu-btn" data-type="m3u" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u">📺 Tv ao Vivo</button>
-      <button class="menu-btn" data-type="json" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/filmes.json">🎬 Filmes</button>
-      <button class="menu-btn" data-type="json" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/series.json">📺 Séries</button>
-      <button class="menu-btn" data-type="json" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/Favoritos.json">⭐ Favoritos</button>
-      <button class="menu-btn" data-type="m3u" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_canais.m3u">🧒 Tv Kids</button>
-      <button class="menu-btn" data-type="json" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_filmes.json">🍿 Filmes Kids</button>
-      <button class="menu-btn" data-type="json" data-url="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_series.json">📺 Séries Kids</button>
+
+      <!-- ORDEM ALFABÉTICA -->
+      <button class="menu-btn">🎬 Ação</button>
+      <button class="menu-btn">🎞️ Adulto</button>
+      <button class="menu-btn">🎨 Animação</button>
+      <button class="menu-btn">🇯🇵 Anime</button>
+      <button class="menu-btn">🗺️ Aventura</button>
+      <button class="menu-btn">📚 Clássicos</button>
+      <button class="menu-btn">😂 Comédia</button>
+      <button class="menu-btn">🕵️ Crime</button>
+      <button class="menu-btn">📄 Documentários</button>
+      <button class="menu-btn">🇰🇷 Dorama</button>
+      <button class="menu-btn">🎭 Drama</button>
+      <button class="menu-btn">🤠 Faroeste</button>
+      <button class="menu-btn">🚀 Ficção</button>
+      <button class="menu-btn">🎼 Musical</button>
+      <button class="menu-btn">🇧🇷 Nacional</button>
+      <button class="menu-btn">🕵️ Policial</button>
+      <button class="menu-btn">✝️ Religioso</button>
+      <button class="menu-btn">❤️ Romance</button>
+      <button class="menu-btn">😱 Terror</button>
+      <button class="menu-btn">🔍 Suspense</button>
+
     </div>
   </div>
 </aside>
@@ -167,32 +190,6 @@ function atualizarDataHora(){
 }
 atualizarDataHora();
 setInterval(atualizarDataHora,60000);
-
-/* Carregar dados SEM cache manual */
-async function carregarFonte(btn){
-  const url=btn.dataset.url;
-  const tipo=btn.dataset.type;
-
-  const res=await fetch(url,{cache:"no-store"});
-  if(tipo==="m3u"){
-    const text=await res.text();
-    const stream=text.split("\n").find(l=>l.startsWith("http"));
-    tocar(stream);
-  }else{
-    const json=await res.json();
-    tocar(json[0].url);
-  }
-}
-
-function tocar(url){
-  player.src({src:url,type:"application/x-mpegURL"});
-  player.play();
-  wrapper.classList.add("active");
-}
-
-document.querySelectorAll(".menu-btn").forEach(btn=>{
-  btn.onclick=()=>carregarFonte(btn);
-});
 
 /* Controle remoto */
 document.addEventListener("keydown",e=>{

@@ -1,15 +1,15 @@
 <!--
   PaixãoFlix TV
-  Versão: v1.3.0
+  Versão: v1.3.1
   Data: 21/01/2026
-  Layout real com sidebar fixa
+  Sidebar com botões 3D
 -->
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PaixãoFlix TV — v1.3.0</title>
+  <title>PaixãoFlix TV — v1.3.1</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
@@ -45,20 +45,21 @@
       }
     }
 
-    /* Layout principal */
+    /* Layout */
     .app {
       display: flex;
       height: 100vh;
     }
 
-    /* Sidebar */
+    /* SIDEBAR */
     .sidebar {
-      width: 320px;
-      background: #0b0b0b;
+      width: 340px;
+      background: linear-gradient(180deg, #0b0b0b, #050505);
       padding: 20px;
       display: flex;
       flex-direction: column;
       gap: 18px;
+      box-shadow: inset -4px 0 10px rgba(0,0,0,0.8);
     }
 
     /* Logo inteligente */
@@ -86,54 +87,61 @@
     .search-box input {
       width: 100%;
       padding: 12px 14px;
-      border-radius: 6px;
+      border-radius: 8px;
       border: none;
       font-size: 14px;
       outline: none;
-    }
-
-    /* Conteúdo */
-    .content {
-      flex: 1;
-      padding: 30px;
-      overflow-y: auto;
-    }
-
-    /* Grade de botões */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      max-width: 520px;
-    }
-
-    .grid button {
       background: #1a1a1a;
       color: #fff;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    /* GRID DE BOTÕES */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    /* BOTÕES 3D */
+    .menu-btn {
+      background: linear-gradient(180deg, #2a2a2a, #161616);
       border: none;
-      border-radius: 8px;
-      padding: 20px 10px;
-      font-size: 16px;
+      border-radius: 12px;
+      padding: 18px 10px;
+      font-size: 15px;
+      color: #fff;
       cursor: pointer;
       outline: none;
+
+      box-shadow:
+        0 6px 0 #0a0a0a,
+        0 10px 18px rgba(0,0,0,0.7);
+
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
     }
 
-    .grid button:focus {
-      outline: 3px solid #e50914;
+    /* Pressão */
+    .menu-btn:active {
+      transform: translateY(4px);
+      box-shadow:
+        0 2px 0 #0a0a0a,
+        0 6px 10px rgba(0,0,0,0.8);
     }
 
-    .grid button:hover {
-      background: #222;
+    /* Foco controle remoto */
+    .menu-btn:focus {
+      outline: none;
+      box-shadow:
+        0 6px 0 #e50914,
+        0 10px 22px rgba(229,9,20,0.8);
     }
 
-    /* Scroll discreto */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #333;
-      border-radius: 3px;
+    /* Área futura de conteúdo */
+    .content {
+      flex: 1;
+      background: radial-gradient(circle at center, #111, #000);
     }
   </style>
 </head>
@@ -143,37 +151,38 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
+
     <div class="logo">
       <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png" alt="PaixãoFlix">
     </div>
 
-    <div class="datetime" id="datetime">
-      carregando...
-    </div>
+    <div class="datetime" id="datetime"></div>
 
     <div class="search-box">
       <input type="text" placeholder="Qual sua escolha de hoje?">
     </div>
+
+    <!-- BOTÕES -->
+    <div class="menu-grid">
+      <button class="menu-btn" tabindex="0">📺 Tv ao Vivo</button>
+      <button class="menu-btn" tabindex="0">🎬 Filmes</button>
+      <button class="menu-btn" tabindex="0">📺 Séries</button>
+      <button class="menu-btn" tabindex="0">⭐ Favoritos</button>
+      <button class="menu-btn" tabindex="0">🧒 Tv Kids</button>
+      <button class="menu-btn" tabindex="0">🍿 Filmes Kids</button>
+      <button class="menu-btn" tabindex="0">📺 Séries Kids</button>
+      <button class="menu-btn" tabindex="0">🎞️ Trailers</button>
+    </div>
+
   </aside>
 
   <!-- CONTEÚDO -->
-  <main class="content">
-    <div class="grid">
-      <button tabindex="0">📺 Tv ao Vivo</button>
-      <button tabindex="0">🎬 Filmes</button>
-      <button tabindex="0">📺 Séries</button>
-      <button tabindex="0">⭐ Favoritos</button>
-      <button tabindex="0">🧒 Tv Kids</button>
-      <button tabindex="0">🍿 Filmes Kids</button>
-      <button tabindex="0">📺 Séries Kids</button>
-      <button tabindex="0">🎞️ Trailers</button>
-    </div>
-  </main>
+  <main class="content"></main>
 
 </div>
 
 <script>
-  const VERSION = "v1.3.0";
+  const VERSION = "v1.3.1";
 
   function atualizarDataHora() {
     const agora = new Date();
@@ -189,7 +198,7 @@
   atualizarDataHora();
   setInterval(atualizarDataHora, 60000);
 
-  // Controle remoto básico
+  // Controle remoto
   document.addEventListener("keydown", e => {
     if (e.key === "Enter") {
       document.activeElement.click();

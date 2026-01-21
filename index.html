@@ -1,25 +1,123 @@
+<!--
+  PaixãoFlix TV
+  Versão: v1.0.0
+  Data: 2026-01-21
+-->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>PaixãoFlix TV</title>
+  <title>PaixãoFlix TV — v1.0.0</title>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
 
+  <!-- Video.js core -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+
+  <!-- Estilo base -->
   <style>
     body {
-      background-color: #000;
+      margin: 0;
+      background: #000;
       color: #fff;
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+    }
+
+    .app-header {
+      padding: 10px;
+      font-size: 14px;
+      opacity: 0.7;
+      text-align: center;
+    }
+
+    .player-wrapper {
+      max-width: 100%;
+      height: calc(100vh - 40px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-js {
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
 
-  <h1>PaixãoFlix TV</h1>
-  <p>Aplicação carregada corretamente.</p>
+  <div class="app-header">
+    PaixãoFlix TV — <strong>v1.0.0</strong>
+  </div>
+
+  <div class="player-wrapper">
+    <video
+      id="paixaoflix-player"
+      class="video-js vjs-big-play-centered"
+      controls
+      preload="auto"
+      playsinline
+      data-setup='{}'>
+    </video>
+  </div>
+
+  <!-- Video.js -->
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+
+  <!-- Plugin HLS avançado (já embutido no Video.js 8, mas mantemos padrão) -->
+  <!-- Não precisa hls.js externo -->
+
+  <!-- Inicialização -->
+  <script>
+    const VERSION = "v1.0.0";
+
+    const player = videojs('paixaoflix-player', {
+      autoplay: false,
+      controls: true,
+      fluid: true,
+      responsive: true,
+      playbackRates: [0.5, 1, 1.25, 1.5, 2],
+      controlBar: {
+        volumePanel: { inline: false }
+      }
+    });
+
+    // Exemplo de stream (trocar pelo seu)
+    player.src({
+      src: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+      type: "application/x-mpegURL"
+    });
+
+    // Teclas estilo YouTube / Netflix
+    document.addEventListener("keydown", (e) => {
+      switch (e.key) {
+        case " ":
+          e.preventDefault();
+          player.paused() ? player.play() : player.pause();
+          break;
+        case "ArrowRight":
+          player.currentTime(player.currentTime() + 10);
+          break;
+        case "ArrowLeft":
+          player.currentTime(player.currentTime() - 10);
+          break;
+        case "ArrowUp":
+          player.volume(Math.min(1, player.volume() + 0.1));
+          break;
+        case "ArrowDown":
+          player.volume(Math.max(0, player.volume() - 0.1));
+          break;
+        case "f":
+        case "F":
+          player.requestFullscreen();
+          break;
+      }
+    });
+
+    console.log("PaixãoFlix carregado:", VERSION);
+  </script>
 
 </body>
 </html>

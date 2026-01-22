@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v1.9.5</title>
+    <title>PaixãoFlix TV — v1.9.6</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -23,6 +23,10 @@
             font-family: 'Poppins', sans-serif !important;
         }
         
+        /* Remove barras de rolagem em todos os navegadores */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+
         body {
             margin: 0; background: var(--bg-dark); color: var(--text);
             overflow: hidden; user-select: none;
@@ -51,6 +55,7 @@
             width: 200px; background: var(--bg-side);
             display: flex; flex-direction: column; padding: 15px;
             border-right: 1px solid #222; z-index: 100;
+            overflow-y: auto;
         }
 
         .logo { margin-bottom: 10px; text-align: center; }
@@ -76,7 +81,7 @@
         }
 
         .category-bar {
-            width: 200px; background: #080808; overflow-y: auto;
+            width: 160px; background: #080808; overflow-y: auto;
             display: none; border-right: 1px solid #1a1a1a;
         }
         .category-bar.active { display: block; }
@@ -90,9 +95,17 @@
             background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%);
         }
 
+        /* Configuração de Grid Responsiva */
         .grid {
             display: grid; padding: 25px; gap: 20px;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(5, 1fr); /* Padrão Desktop/TV */
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr); /* Mobile */
+                gap: 10px; padding: 15px;
+            }
         }
 
         .card {
@@ -107,6 +120,7 @@
         .card-info strong { 
             display: block; line-height: 1.3;
             overflow-wrap: break-word;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
         .tv-card .card-info { text-align: center; }
@@ -175,7 +189,6 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Controle de Navegação Teclado/Controle Remoto
     document.addEventListener('keydown', (e) => {
         const current = document.activeElement;
 
@@ -221,20 +234,12 @@
             }
         });
 
-        // Loop Infinito (Vertical no Grid)
-        if (!bestMatch && current.classList.contains('card')) {
-            const allCards = Array.from(document.querySelectorAll('.card'));
-            if (e.key === 'ArrowDown') bestMatch = allCards[0];
-            if (e.key === 'ArrowUp') bestMatch = allCards[allCards.length - 1];
-        }
-
         if (bestMatch) {
             bestMatch.focus();
             bestMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
 
-    // Eventos de Menu
     document.querySelectorAll('.sidebar button, .sidebar input').forEach(el => {
         el.addEventListener('focus', () => showCats(false));
     });
@@ -306,7 +311,6 @@
                 <img src="${imgUrl}" loading="lazy">
                 <div class="card-info">
                     <strong>${title}</strong>
-                    ${mode !== 'tv' ? `<span>${item.year || ''}</span>` : ''}
                 </div>
             `;
             div.onclick = (e) => { e.preventDefault(); openPlayer(item.url); };
@@ -323,11 +327,8 @@
         if (!url) return;
         const overlay = document.getElementById('player-overlay');
         const appUi = document.getElementById('app-ui');
-        
-        // Sumir com as capas
         appUi.classList.add('hidden');
         overlay.classList.add('active');
-        
         currentPlayer.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
         currentPlayer.play();
         document.getElementById('btn-back').focus();
@@ -337,14 +338,12 @@
         const appUi = document.getElementById('app-ui');
         currentPlayer.pause();
         document.getElementById('player-overlay').classList.remove('active');
-        // Reaparecer as capas
         appUi.classList.remove('hidden');
         document.querySelector('.card, button')?.focus();
     }
 
     document.getElementById('btn-back').onclick = closePlayer;
 
-    // Inicialização automática do seletor
     window.onload = () => {
         setTimeout(() => {
             const firstBtn = document.querySelector('#main-nav button');

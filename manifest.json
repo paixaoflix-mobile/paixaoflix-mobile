@@ -1,0 +1,16 @@
+{
+  "name": "PaixãoFlix TV",
+  "short_name": "PaixãoFlix",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#e50914",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
+<!-- FORÇAR PAISAGEM -->
 <style>
 @media (orientation: portrait) {
  body::before{
@@ -152,7 +153,7 @@ body{
   <input id="search" placeholder="Qual sua escolha de hoje?">
  </div>
 
- <div class="menu">
+ <div class="menu" id="menu">
   <button tabindex="0" onclick="tv()">📡 TV ao Vivo</button>
   <button tabindex="0" onclick="filmes()">🎬 Filmes</button>
   <button tabindex="0" onclick="series()">📺 Séries</button>
@@ -173,9 +174,10 @@ body{
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-
 <script>
 const player=videojs("player",{fluid:true});
+player.el().setAttribute("tabindex","-1");
+
 const box=document.getElementById("playerBox");
 const exitBtn=document.getElementById("exitBtn");
 const main=document.getElementById("main");
@@ -185,12 +187,15 @@ const cats=document.getElementById("cats");
 setInterval(()=>{
  const d=new Date();
  document.getElementById("datetime").textContent=
- d.toLocaleDateString("pt-BR",{weekday:"long"})+
+ d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"2-digit",year:"2-digit"})+
  " | "+
  d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 },1000);
 
-function limpar(){cats.innerHTML="";main.innerHTML=""}
+function limpar(){
+ cats.innerHTML="";
+ main.innerHTML="";
+}
 
 /* PLAYER */
 function play(url){
@@ -205,60 +210,125 @@ function sair(){
  exitBtn.classList.remove("active");
 }
 
-/* ===============================
-   NAVEGAÇÃO POR SETAS (FINAL)
-   =============================== */
-(function(){
- function focusables(){
-  return [...document.querySelectorAll(
-   'button,[tabindex="0"],.card,.cat-item,input'
-  )].filter(e=>e.offsetParent!==null)
+/* ===========================
+   NAVEGAÇÃO SETAS GLOBAL
+=========================== */
+let focoIndex=0;
+function focaveis(){
+ return [...document.querySelectorAll("button,.cat-item,.card")];
+}
+function focar(i){
+ const f=focaveis();
+ if(!f.length) return;
+ focoIndex=(i+f.length)%f.length;
+ f[focoIndex].focus();
+}
+
+document.addEventListener("keydown",e=>{
+ const f=focaveis();
+ if(!f.length) return;
+
+ const cols=window.innerWidth<1024?3:5;
+
+ if(["ArrowDown","ArrowUp","ArrowLeft","ArrowRight","Enter"].includes(e.key))
+  e.preventDefault();
+
+ if(e.key==="ArrowRight") focar(focoIndex+1);
+ if(e.key==="ArrowLeft") focar(focoIndex-1);
+ if(e.key==="ArrowDown") focar(focoIndex+cols);
+ if(e.key==="ArrowUp") focar(focoIndex-cols);
+ if(e.key==="Enter") f[focoIndex].click();
+ if(["Escape","Backspace"].includes(e.key)) sair();
+});
+
+window.onload=()=>setTimeout(()=>focar(0),300);
+
+/* ===========================
+   TV AO VIVO / TV KIDS
+=========================== */
+async function carregarM3U(url){
+ limpar();
+ const txt=await fetch(url).then(r=>r.text());
+ const linhas=txt.split("\n");
+ const grupos={};
+ let atual={};
+
+ linhas.forEach(l=>{
+  if(l.startsWith("#EXTINF")){
+   atual.nome=l.split(",")[1]||"";
+   atual.grupo=(l.match(/group-title="([^"]+)"/)||[])[1]||"Outros";
+  }else if(l.startsWith("http")){
+   if(!grupos[atual.grupo])grupos[atual.grupo]=[];
+   grupos[atual.grupo].push({nome:atual.nome,url:l});
+  }
+ });
+
+ Object.keys(grupos).sort().forEach(g=>{
+  const c=document.createElement("div");
+  c.className="cat-item";
+  c.tabIndex=0;
+  c.textContent=g;
+  c.onclick=()=>listar(grupos[g]);
+  cats.appendChild(c);
+ });
+}
+
+function tv(){
+ carregarM3U("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u");
+}
+function tvKids(){
+ carregarM3U("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_canais.m3u");
+}
+
+/* ===========================
+   FILMES / SÉRIES
+=========================== */
+const categorias=[
+"Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime",
+"Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional",
+"Policial","Religioso","Romance","Suspense","Terror","Adulto"
+];
+
+async function loadJSON(file,isSerie,isKids){
+ limpar();
+ const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
+ j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
+
+ if(isKids){
+  listar(j);
+  return;
  }
 
- function move(dir){
-  const els=focusables()
-  const cur=document.activeElement
-  if(!cur||!els.includes(cur)){els[0]?.focus();return}
+ categorias.forEach(cat=>{
+  const c=document.createElement("div");
+  c.className="cat-item";
+  c.tabIndex=0;
+  c.textContent=cat;
+  c.onclick=()=>listar(j.filter(i=>i.genero===cat),isSerie);
+  cats.appendChild(c);
+ });
+}
 
-  const r=cur.getBoundingClientRect()
-  let best=null,dist=1e9
+function filmes(){loadJSON("filmes.json",false,false)}
+function series(){loadJSON("series.json",true,false)}
+function filmesKids(){loadJSON("kids_filmes.json",false,true)}
+function seriesKids(){loadJSON("kids_series.json",true,true)}
 
-  els.forEach(e=>{
-   if(e===cur) return
-   const b=e.getBoundingClientRect()
-   const dx=b.left-r.left
-   const dy=b.top-r.top
+/* ===========================
+   LISTAGEM
+=========================== */
+function listar(lista,isSerie){
+ main.innerHTML="<div class='grid'></div>";
+ const g=main.querySelector(".grid");
 
-   if(dir==="left" && dx>=0) return
-   if(dir==="right" && dx<=0) return
-   if(dir==="up" && dy>=0) return
-   if(dir==="down" && dy<=0) return
-
-   const d=Math.hypot(dx,dy)
-   if(d<dist){dist=d;best=e}
-  })
-  best?.focus()
- }
-
- document.addEventListener("keydown",e=>{
-  if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)){
-   e.preventDefault()
-   move(e.key.replace("Arrow","").toLowerCase())
-  }
-  if(e.key==="Enter"){
-   e.preventDefault()
-   document.activeElement?.click()
-  }
-  if(["Escape","Backspace"].includes(e.key)){
-   sair()
-  }
- })
-
- window.addEventListener("load",()=>{
-  focusables()[0]?.focus()
- })
-})()
-</script>
-
-</body>
-</html>
+ lista.forEach(i=>{
+  const c=document.createElement("div");
+  c.className="card";
+  c.tabIndex=0;
+  c.innerHTML=`
+   <img src="${i.poster||''}">
+   <div class="info">
+    <strong>${i.titulo||i.nome}</strong><br>
+    <span>${i.year||""} ⭐ ${i.rating||""}</span>
+   </div>`;
+  c.onclick=()

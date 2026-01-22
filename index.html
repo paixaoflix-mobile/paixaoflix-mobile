@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v1.9.0</title>
+    <title>PaixãoFlix TV — v1.9.1</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -90,17 +90,24 @@
         .card {
             background: var(--bg-card); border-radius: 10px; overflow: hidden;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
         }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card-info { padding: 10px; font-size: 12px; }
         .card-info strong { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* EFEITO DE FOCO SMART TV */
+        /* EFEITO DE FOCO ATUALIZADO (v1.9.1) */
         :focus {
-            background: var(--primary) !important;
-            transform: scale(1.08);
-            box-shadow: 0 0 25px rgba(229, 9, 20, 0.5);
+            background: transparent !important; /* Remove o fundo sólido */
+            border: 3px solid var(--primary) !important; /* Borda discreta */
+            transform: scale(1.05); /* Escala levemente reduzida para não distorcer */
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.4); /* Brilho suave */
             z-index: 10;
+        }
+        
+        /* Ajuste específico para botões de menu e itens de lista ao focar */
+        button:focus, .cat-item:focus {
+            background: #1a1a1a !important; /* Mantém um fundo escuro nos botões */
         }
 
         /* Player */
@@ -226,7 +233,7 @@
         if (type === 'tv') loadLiveTV();
         else if (type === 'filmes') loadJSON('filmes.json');
         else if (type === 'series') loadJSON('series.json');
-        else if (type === 'tvkids') loadLiveTV(true); // Exemplo se houvesse filtro kids no m3u
+        else if (type === 'tvkids') loadLiveTV(true); 
         else if (type === 'filmeskids') loadJSON('kids_filmes.json', true);
         else if (type === 'serieskids') loadJSON('kids_series.json', true);
     });

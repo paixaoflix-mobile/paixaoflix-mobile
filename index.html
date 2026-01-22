@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v2.2.0</title>
+    <title>PaixãoFlix TV — v2.3.0</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#e50914">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="PaixãoFlix">
     
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/favicon-96x96.png">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
     
@@ -24,7 +21,6 @@
             --bg-side: #0b0b0b;
             --bg-card: #141414;
             --text: #ffffff;
-            --highlight: #F7F5F5;
         }
 
         * { box-sizing: border-box; outline: none; font-family: 'Poppins', sans-serif !important; -webkit-tap-highlight-color: transparent; }
@@ -32,12 +28,8 @@
         body { margin: 0; background: var(--bg-dark); color: var(--text); overflow: hidden; user-select: none; width: 100vw; height: 100vh; }
 
         .app-container { display: flex; height: 100vh; width: 100vw; }
-        
-        /* SIDEBAR */
-        .sidebar { width: 200px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; z-index: 100; transition: 0.3s; }
-        .logo img { width: 120px; display: block; margin: 0 auto 10px; }
-        .stats-counter { font-size: 10px; text-align: center; margin-bottom: 5px; color: var(--highlight); font-weight: 600; }
-        .date-display { font-size: 11px; text-align: center; opacity: 0.8; margin-bottom: 15px; }
+        .sidebar { width: 200px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; z-index: 100; }
+        .logo img { width: 110px; display: block; margin: 0 auto 10px; }
         
         .search-box input { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; font-size: 13px; margin-bottom: 10px; }
         
@@ -45,63 +37,65 @@
         .nav-menu button { width: 100%; padding: 12px; margin-bottom: 5px; border: none; border-radius: 8px; background: #222; color: #fff; cursor: pointer; text-align: left; font-size: 12px; font-weight: 600; }
         
         /* DROPDOWN CATEGORIES */
-        .dropdown-container { display: none; grid-template-columns: repeat(2, 1fr); gap: 5px; padding: 5px; background: #111; border-radius: 8px; margin-bottom: 10px; }
+        .dropdown-container { display: none; grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 8px; background: #0f0f0f; border-radius: 8px; margin-bottom: 10px; }
         .dropdown-container.active { display: grid; }
-        .drop-item { padding: 8px; font-size: 9px; background: #1a1a1a; color: #ccc; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; }
+        .drop-item { padding: 10px; font-size: 13px; background: #1a1a1a; color: #fff; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; font-weight: 400; }
 
-        .content-area { flex: 1; overflow-y: auto; background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%); }
+        .content-area { flex: 1; overflow-y: auto; background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%); position: relative; }
         .grid { display: grid; padding: 20px; gap: 15px; grid-template-columns: repeat(5, 1fr); }
 
-        /* CARDS */
-        .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 3px solid transparent; transition: 0.2s; cursor: pointer; position: relative; }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
-        .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; background: #000; padding: 10px; }
-        .card-info { padding: 8px; font-size: 10px; text-align: center; }
-        .card-tag { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.8); padding: 2px 5px; border-radius: 4px; font-size: 9px; color: gold; }
+        /* CARDS - OTIMIZADOS */
+        .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: 0.1s; cursor: pointer; position: relative; contain: content; }
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: #222; }
+        .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
+        .card-info { padding: 8px; font-size: 11px; text-align: center; }
+        .card-tag { position: absolute; top: 5px; right: 5px; background: rgba(229, 9, 20, 0.9); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
 
         @media (max-width: 768px) {
-            .sidebar { width: 130px; padding: 10px; }
-            .sidebar .logo img { width: 80px; }
+            .sidebar { width: 140px; padding: 10px; }
             .grid { grid-template-columns: repeat(3, 1fr) !important; gap: 8px; padding: 10px; }
             .grid.tv-grid { grid-template-columns: repeat(4, 1fr) !important; }
-            /* Ajuste para teclado mobile */
-            body.keyboard-open .sidebar { position: absolute; height: auto; }
         }
 
-        /* PLAYER E DETALHES */
-        #player-overlay, #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 20px; overflow-y: auto; }
-        #player-overlay.active, #details-screen.active { display: block; }
-        .back-button { padding: 10px 20px; background: var(--primary); color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
-        .episodes-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-top: 20px; }
-        .ep-item { background: #222; padding: 10px; border-radius: 5px; cursor: pointer; text-align: center; font-size: 11px; }
+        /* DETALHES E EPISÓDIOS */
+        #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 20px; overflow-y: auto; }
+        #details-screen.active { display: block; }
+        .episodes-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .ep-item { background: #1a1a1a; padding: 12px; border-radius: 6px; cursor: pointer; text-align: center; font-size: 12px; border: 1px solid #333; }
+        
+        .recommendations { margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; }
+        .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
-        :focus { border: 2px solid var(--primary) !important; transform: scale(1.02); }
+        #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
+        #player-overlay.active { display: block; }
+        .back-button { padding: 12px 20px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+
+        :focus { border-color: var(--primary) !important; scale: 1.03; z-index: 5; }
     </style>
 </head>
 <body>
 
-<div class="app-container" id="app-ui">
+<div class="app-container">
     <aside class="sidebar">
         <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
-        <div class="stats-counter" id="stats-counter">...</div>
-        <div class="date-display">Quinta, 22 de jan, 2026</div>
+        <div id="stats-counter" style="font-size:10px; text-align:center; color:grey; margin-bottom:10px;">Carregando...</div>
         
         <div class="search-box">
-            <input type="text" id="search" placeholder="Buscar em tudo..." tabindex="0">
+            <input type="text" id="search" placeholder="Pesquisar..." tabindex="0">
         </div>
 
-        <nav class="nav-menu" id="main-nav">
-            <button tabindex="0" onclick="loadLiveTV('canais.m3u')">📡 TV AO VIVO</button>
-            <button tabindex="0" onclick="loadLiveTV('canais_kids.m3u')">🧒 TV KIDS</button>
+        <nav class="nav-menu">
+            <button onclick="loadLiveTV('canais.m3u')">📡 TV AO VIVO</button>
+            <button onclick="loadLiveTV('canais_kids.m3u')">🧒 TV KIDS</button>
             
-            <button tabindex="0" onclick="toggleDrop('drop-filmes')">🎬 FILMES ▾</button>
+            <button onclick="toggleDrop('drop-filmes')">🎬 FILMES ▾</button>
             <div id="drop-filmes" class="dropdown-container"></div>
             
-            <button tabindex="0" onclick="toggleDrop('drop-series')">📺 SÉRIES ▾</button>
+            <button onclick="toggleDrop('drop-series')">📺 SÉRIES ▾</button>
             <div id="drop-series" class="dropdown-container"></div>
             
-            <button tabindex="0" onclick="loadVOD('kids_filmes.json', false)">🎈 FILMES KIDS</button>
-            <button tabindex="0" onclick="loadVOD('kids_series.json', false)">🧸 SÉRIES KIDS</button>
+            <button onclick="loadVOD('kids_filmes.json')">🎈 FILMES KIDS</button>
+            <button onclick="loadVOD('kids_series.json')">🧸 SÉRIES KIDS</button>
         </nav>
     </aside>
 
@@ -116,10 +110,8 @@
 </div>
 
 <div id="player-overlay">
-    <button class="back-button" onclick="closePlayer()" id="btn-player-back">⬅ VOLTAR</button>
-    <div style="width:100%; height:80vh;">
-        <video id="tv-player" class="video-js vjs-big-play-centered" controls preload="auto" playsinline style="width:100%; height:100%;"></video>
-    </div>
+    <button class="back-button" onclick="closePlayer()" style="position: absolute; top: 20px; left: 20px; z-index: 3001;">⬅ SAIR</button>
+    <video id="tv-player" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" playsinline style="width:100%; height:100%;"></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
@@ -130,80 +122,72 @@
         categories: ["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"]
     };
 
-    let allData = { filmes: [], series: [], tv: [] };
-    let currentPlayer = videojs('tv-player');
+    let cache = { filmes: [], series: [], tv: [] };
+    let player = videojs('tv-player');
 
-    // Inicialização
     window.onload = async () => {
-        await initData();
-        setupSearch();
+        await syncData();
         setupDropdowns();
+        setupSearch();
     };
 
-    async function initData() {
+    async function syncData() {
         try {
             const [f, s] = await Promise.all([
                 fetch(CONFIG.base_url + "filmes.json").then(r => r.json()),
                 fetch(CONFIG.base_url + "series.json").then(r => r.json())
             ]);
-            allData.filmes = f;
-            allData.series = s;
-            document.getElementById('stats-counter').textContent = `${f.length + s.length} Títulos no PaixãoFlix`;
-        } catch(e) { console.error("Erro ao carregar dados."); }
+            cache.filmes = f;
+            cache.series = s;
+            document.getElementById('stats-counter').textContent = `${f.length + s.length} Títulos Disponíveis`;
+        } catch(e) { console.error("Erro sincronização"); }
     }
 
     function setupDropdowns() {
-        const containers = ['drop-filmes', 'drop-series'];
-        containers.forEach(id => {
-            const el = document.getElementById(id);
-            const type = id.split('-')[1];
+        ['drop-filmes', 'drop-series'].forEach(id => {
+            const container = document.getElementById(id);
+            const type = id.includes('filmes') ? 'filmes' : 'series';
             CONFIG.categories.forEach(cat => {
                 const item = document.createElement('div');
                 item.className = 'drop-item';
                 item.textContent = cat;
-                item.onclick = () => {
-                    const file = type === 'filmes' ? 'filmes.json' : 'series.json';
-                    filterByCategory(file, cat);
-                };
-                el.appendChild(item);
+                item.onclick = () => filterByCat(type, cat);
+                container.appendChild(item);
             });
         });
     }
 
     function toggleDrop(id) {
         const el = document.getElementById(id);
-        const isActive = el.classList.contains('active');
+        const active = el.classList.contains('active');
         document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('active'));
-        if(!isActive) el.classList.add('active');
+        if(!active) el.classList.add('active');
     }
 
-    async function filterByCategory(file, cat) {
-        const res = await fetch(CONFIG.base_url + file);
-        const data = await res.json();
-        renderGrid(data.filter(i => i.genero === cat), 'vod');
+    function filterByCat(type, cat) {
+        const data = cache[type].filter(i => i.genero === cat);
+        renderGrid(data, 'vod');
     }
 
-    async function loadVOD(file, hasCats) {
-        document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('active'));
+    async function loadVOD(file) {
         const res = await fetch(CONFIG.base_url + file);
         const data = await res.json();
         renderGrid(data, 'vod');
     }
 
     async function loadLiveTV(file) {
-        document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('active'));
         const res = await fetch(CONFIG.base_url + file);
         const text = await res.text();
         const channels = [];
         text.split('\n').forEach((line, i, arr) => {
             if(line.startsWith('#EXTINF')) {
-                const url = arr[i+1]?.trim();
                 const name = line.split(',')[1] || "Canal";
                 const logo = line.match(/tvg-logo="([^"]+)"/)?.[1] || "";
+                const url = arr[i+1]?.trim();
                 if(url && !url.startsWith('#')) channels.push({nome: name, url: url, logo: logo});
             }
         });
-        allData.tv = channels;
+        cache.tv = channels;
         renderGrid(channels, 'tv');
     }
 
@@ -212,69 +196,65 @@
         grid.innerHTML = '';
         grid.className = mode === 'tv' ? 'grid tv-grid' : 'grid';
         
+        // Uso de DocumentFragment para carregamento imediato
+        const fragment = document.createDocumentFragment();
         list.forEach(item => {
             const div = document.createElement('div');
             div.className = 'card' + (mode === 'tv' ? ' tv-card' : '');
             div.tabIndex = 0;
             
-            const img = (mode === 'tv' ? item.logo : item.poster) || '';
+            const imgUrl = (mode === 'tv' ? item.logo : item.poster) || '';
             const rating = item.rating ? `<div class="card-tag">⭐ ${item.rating}</div>` : '';
-            const year = item.year ? `<div style="opacity:0.6">${item.year}</div>` : '';
             
             div.innerHTML = `
                 ${rating}
-                <img src="${img}">
+                <img src="${imgUrl}" loading="lazy" decoding="async">
                 <div class="card-info">
                     <strong>${item.titulo || item.nome}</strong>
-                    ${year}
+                    <div style="opacity:0.5">${item.year || ''}</div>
                 </div>
             `;
-            div.onclick = () => item.type === 'serie' ? openDetails(item) : openPlayer(item.url);
-            grid.appendChild(div);
+            div.onclick = () => item.identificador_archive ? openDetails(item) : openPlayer(item.url);
+            fragment.appendChild(div);
         });
-    }
-
-    function setupSearch() {
-        const input = document.getElementById('search');
-        input.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            if(term.length < 2) return;
-
-            const results = [
-                ...allData.filmes.filter(i => i.titulo.toLowerCase().includes(term)),
-                ...allData.series.filter(i => i.titulo.toLowerCase().includes(term)),
-                ...allData.tv.filter(i => i.nome.toLowerCase().includes(term))
-            ];
-            renderGrid(results, 'vod');
-        });
-        
-        // Ajuste teclado mobile
-        input.addEventListener('focus', () => document.body.classList.add('keyboard-open'));
-        input.addEventListener('blur', () => document.body.classList.remove('keyboard-open'));
+        grid.appendChild(fragment);
     }
 
     function openDetails(item) {
         const screen = document.getElementById('details-screen');
         const content = document.getElementById('details-content');
-        let epsHTML = '';
         
-        // Simulação de episódios baseada no identificador do archive
-        for(let i=1; i<=10; i++) {
-            const epUrl = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
-            epsHTML += `<div class="ep-item" tabindex="0" onclick="openPlayer('${epUrl}')">Episódio ${i}</div>`;
+        let eps = '';
+        for(let i=1; i<=12; i++) {
+            const url = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
+            eps += `<div class="ep-item" onclick="openPlayer('${url}')">EP ${i}</div>`;
         }
 
+        // Recomendados (Similares)
+        const recs = [...cache.series].sort(() => 0.5 - Math.random()).slice(0, 3);
+        let recsHTML = recs.map(r => `
+            <div class="card" onclick="openDetails(${JSON.stringify(r).replace(/"/g, '&quot;')})">
+                <img src="${r.poster}">
+                <div class="card-info"><strong>${r.titulo}</strong></div>
+            </div>
+        `).join('');
+
         content.innerHTML = `
-            <div style="display:flex; gap:20px; flex-wrap:wrap;">
-                <img src="${item.poster}" style="width:180px; border-radius:10px;">
+            <div style="display:flex; gap:20px; align-items:flex-start;">
+                <img src="${item.poster}" style="width:150px; border-radius:8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                 <div>
-                    <h2>${item.titulo}</h2>
-                    <p>⭐ ${item.rating} | ${item.year} | ${item.genero}</p>
-                    <p style="max-width:600px; opacity:0.8">${item.desc || 'Sem descrição.'}</p>
+                    <h1 style="margin:0; color:var(--primary);">${item.titulo}</h1>
+                    <p style="color:#aaa;">${item.year} • ${item.genero} • ⭐ ${item.rating}</p>
+                    <p style="font-size:13px; max-width:600px;">${item.desc || 'Sinopse não disponível.'}</p>
                 </div>
             </div>
-            <h3>Episódios</h3>
-            <div class="episodes-list">${epsHTML}</div>
+            <h3 style="border-left:4px solid var(--primary); padding-left:10px; margin-top:30px;">EPISÓDIOS</h3>
+            <div class="episodes-list">${eps}</div>
+            
+            <div class="recommendations">
+                <h3 style="margin-bottom:15px;">Títulos Semelhantes</h3>
+                <div class="rec-grid">${recsHTML}</div>
+            </div>
         `;
         screen.classList.add('active');
     }
@@ -284,13 +264,29 @@
     function openPlayer(url) {
         if(!url) return;
         document.getElementById('player-overlay').classList.add('active');
-        currentPlayer.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
-        currentPlayer.play();
+        
+        // Correção de Erro de Mídia: Detecção de Formato
+        const type = url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4';
+        player.src({ src: url, type: type });
+        player.play().catch(e => console.log("Erro ao dar play automático"));
     }
 
     function closePlayer() {
-        currentPlayer.pause();
+        player.pause();
         document.getElementById('player-overlay').classList.remove('active');
+    }
+
+    function setupSearch() {
+        document.getElementById('search').addEventListener('input', (e) => {
+            const t = e.target.value.toLowerCase();
+            if(t.length < 2) return;
+            const res = [
+                ...cache.filmes.filter(i => i.titulo.toLowerCase().includes(t)),
+                ...cache.series.filter(i => i.titulo.toLowerCase().includes(t)),
+                ...cache.tv.filter(i => i.nome.toLowerCase().includes(t))
+            ];
+            renderGrid(res, 'vod');
+        });
     }
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v2.0.1</title>
+    <title>PaixãoFlix TV — v2.0.2</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#e50914">
@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PaixãoFlix">
     
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/1c9ef48cb1d7032e1649f33c323a0d66bb4ff584/favicon.svg">
+    <link rel="shortcut icon" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/favicon.ico">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -126,6 +126,7 @@
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
 <script>
+    // Registro de Service Worker para PWA
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then(reg => {
@@ -157,6 +158,7 @@
     }
     setInterval(updateClock, 1000);
 
+    // Navegação Inteligente
     document.addEventListener('keydown', (e) => {
         resetIdleTimer();
         const current = document.activeElement;
@@ -242,12 +244,12 @@
         const epGrid = document.getElementById('episodes-grid');
         epGrid.innerHTML = '';
         currentEpisodes = [];
-        for(let i=1; i<=10; i++) {
+        for(let i=1; i<=12; i++) {
             const epUrl = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
             currentEpisodes.push({ title: `Episódio ${i}`, url: epUrl });
             const div = document.createElement('div');
             div.className = 'ep-item'; div.tabIndex = 0;
-            div.innerHTML = `<span>▶ ${i}. Episódio ${i}</span>`;
+            div.innerHTML = `<span>▶ EPISÓDIO ${i}</span>`;
             div.onclick = () => { currentEpIndex = i-1; openPlayer(epUrl); };
             epGrid.appendChild(div);
         }

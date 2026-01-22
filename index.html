@@ -2,117 +2,142 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.1</title>
+<title>PaixãoFlix TV — v1.7.2</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#000">
 
-<!-- FORÇA PAISAGEM -->
+<!-- FORÇAR PAISAGEM -->
 <style>
 @media (orientation: portrait) {
-  body::before{
-    content:"🔄 Gire o dispositivo para modo paisagem";
-    position:fixed;inset:0;
-    background:#000;color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    font-size:22px;z-index:9999;text-align:center;
-  }
+ body::before{
+  content:"🔄 Gire o dispositivo para modo paisagem";
+  position:fixed;inset:0;
+  background:#000;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;z-index:9999;text-align:center
+ }
 }
 </style>
 
+<!-- FONTE -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;overflow:hidden}
+body{
+ margin:0;background:#000;color:#fff;
+ font-family:'Poppins',sans-serif;
+ overflow:hidden
+}
+
+::-webkit-scrollbar{display:none}
+
 .app{display:flex;height:100vh}
 
-/* MENU ESQUERDO */
+/* MENU */
 .left{
-  width:230px;background:#0b0b0b;
-  box-shadow:2px 0 6px rgba(0,0,0,.35);
-  display:flex;flex-direction:column
+ width:230px;background:#0b0b0b;
+ box-shadow:2px 0 6px rgba(0,0,0,.35);
+ display:flex;flex-direction:column
 }
-.logo img{
-  width:clamp(100px,12vh,200px);
-  margin:10px auto;display:block
-}
-.datetime{text-align:center;font-size:13px;opacity:.85}
-.menu{padding:10px;overflow-y:auto}
-.menu button{
-  width:100%;margin-bottom:8px;padding:12px;
-  background:linear-gradient(180deg,#2a2a2a,#141414);
-  border:none;border-radius:10px;color:#fff;
-  cursor:pointer
-}
-.menu button:focus{outline:2px solid #e50914}
 
-/* CATEGORIAS (COLADA NO MENU) */
+.logo img{
+ width:clamp(100px,12vh,200px);
+ margin:10px auto;display:block
+}
+
+.datetime{text-align:center;font-size:13px;opacity:.8}
+
+/* BUSCA GLOBAL */
+.search{
+ padding:10px
+}
+.search input{
+ width:100%;padding:10px;
+ border-radius:8px;border:none;
+ background:#1a1a1a;color:#fff
+}
+
+.menu{
+ padding:10px;
+ overflow-y:auto;
+ flex:1
+}
+.menu button{
+ width:100%;margin-bottom:8px;padding:12px;
+ background:linear-gradient(180deg,#2a2a2a,#141414);
+ border:none;border-radius:10px;color:#fff;
+ cursor:pointer
+}
+.menu button:focus,
+.menu button.active{
+ outline:none;
+ background:#e50914
+}
+
+/* CATEGORIAS */
 .categories{
-  background:#111;
-  padding:8px;
-  min-width:max-content;
-  max-width:260px;
-  overflow-y:auto;
-  border-right:1px solid #222
+ background:#111;
+ padding:8px;
+ min-width:max-content;
+ max-width:260px;
+ overflow-y:auto
 }
 .cat-item{
-  padding:8px 12px;
-  cursor:pointer;
-  white-space:nowrap;
+ padding:8px 12px;
+ cursor:pointer;
+ white-space:nowrap
 }
-.cat-item:hover,.cat-item.active{
-  background:#1a1a1a;
-  border-left:4px solid #e50914
+.cat-item.active{
+ background:#1a1a1a;
+ border-left:4px solid #e50914
 }
 
-/* CONTEÚDO */
+/* MAIN */
 .main{
-  flex:1;
-  overflow-y:auto;
-  background:radial-gradient(circle,#111,#000)
+ flex:1;
+ overflow-y:auto;
+ background:radial-gradient(circle,#111,#000)
 }
 
-/* GRID RESPONSIVO */
+/* GRID */
 .grid{
-  display:grid;
-  gap:16px;
-  padding:16px;
+ display:grid;
+ gap:16px;
+ padding:16px
 }
 @media (max-width:1024px){
-  .grid{grid-template-columns:repeat(3,1fr)}
+ .grid{grid-template-columns:repeat(3,1fr)}
 }
 @media (min-width:1025px){
-  .grid{grid-template-columns:repeat(5,1fr)}
+ .grid{grid-template-columns:repeat(5,1fr)}
 }
 
 .card{
-  background:#111;border-radius:10px;
-  overflow:hidden;cursor:pointer
+ background:#111;border-radius:10px;
+ overflow:hidden;cursor:pointer
 }
 .card img{width:100%;display:block}
 .card .info{
-  padding:8px;font-size:13px
+ padding:8px;font-size:13px
 }
-.card .info span{font-size:12px;opacity:.75}
+.card .info span{font-size:12px;opacity:.7}
 
 /* PLAYER */
 .player-box{
-  position:fixed;inset:0;
-  background:#000;display:none;z-index:20
+ position:fixed;inset:0;
+ background:#000;display:none;z-index:20
 }
 .player-box.active{display:block}
 .video-js{width:100%;height:100%}
 
-/* BOTÃO SAIR */
 .exit-btn{
-  position:fixed;top:15px;left:15px;
-  z-index:30;
-  background:#e50914;
-  border:none;border-radius:8px;
-  color:#fff;padding:10px 14px;
-  font-size:14px;cursor:pointer;
-  display:none
+ position:fixed;top:15px;left:15px;
+ z-index:30;background:#e50914;
+ border:none;border-radius:8px;
+ color:#fff;padding:10px 14px;
+ display:none
 }
 .exit-btn.active{display:block}
 </style>
@@ -121,60 +146,65 @@ body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;overflow:h
 <body>
 <div class="app">
 
-<!-- MENU -->
 <aside class="left">
-  <div class="logo">
-    <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png">
-  </div>
-  <div class="datetime" id="datetime"></div>
-  <div class="menu">
-    <button onclick="tv()">📡 TV ao Vivo</button>
-    <button onclick="filmes()">🎬 Filmes</button>
-    <button onclick="series()">📺 Séries</button>
-    <button onclick="tvKids()">🧒 TV Kids</button>
-    <button onclick="filmesKids()">🎈 Filmes Kids</button>
-    <button onclick="seriesKids()">🧸 Séries Kids</button>
-  </div>
+ <div class="logo">
+  <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png">
+ </div>
+ <div class="datetime" id="datetime"></div>
+
+ <div class="search">
+  <input id="search" placeholder="Qual sua escolha de hoje?">
+ </div>
+
+ <div class="menu" id="menu">
+  <button onclick="tv()">📡 TV ao Vivo</button>
+  <button onclick="filmes()">🎬 Filmes</button>
+  <button onclick="series()">📺 Séries</button>
+  <button onclick="tvKids()">🧒 TV Kids</button>
+  <button onclick="filmesKids()">🎈 Filmes Kids</button>
+  <button onclick="seriesKids()">🧸 Séries Kids</button>
+ </div>
 </aside>
 
-<!-- CATEGORIAS -->
 <aside class="categories" id="cats"></aside>
-
-<!-- CONTEÚDO -->
 <main class="main" id="main"></main>
 
-<!-- PLAYER -->
 <button class="exit-btn" id="exitBtn" onclick="sair()">⬅ Voltar</button>
 <div class="player-box" id="playerBox">
-  <video id="player" class="video-js vjs-big-play-centered" controls playsinline></video>
+ <video id="player" class="video-js" controls></video>
 </div>
 
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-const main=document.getElementById("main");
-const cats=document.getElementById("cats");
 const player=videojs("player",{fluid:true});
 const box=document.getElementById("playerBox");
 const exitBtn=document.getElementById("exitBtn");
+const main=document.getElementById("main");
+const cats=document.getElementById("cats");
+
+let cache=[];
 
 /* DATA */
-function hora(){
+setInterval(()=>{
  const d=new Date();
- const dias=["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
  document.getElementById("datetime").textContent=
- `${dias[d.getDay()]} ${d.toLocaleDateString("pt-BR")} | ${d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}`;
-}
-hora();setInterval(hora,60000);
+ d.toLocaleDateString("pt-BR",{weekday:"long"})+
+ " | "+
+ d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+},1000);
 
-/* LIMPAR */
-function limpar(){
- cats.innerHTML="";
- main.innerHTML="";
+/* UTIL */
+function limpar(){cats.innerHTML="";main.innerHTML=""}
+
+/* BUSCA GLOBAL */
+document.getElementById("search").oninput=e=>{
+ const q=e.target.value.toLowerCase();
+ listar(cache.filter(i=>i.titulo?.toLowerCase().includes(q)||i.nome?.toLowerCase().includes(q)));
 }
 
-/* TV AO VIVO (M3U) */
+/* TV AO VIVO */
 async function tv(){
  limpar();
  const txt=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u").then(r=>r.text());
@@ -184,65 +214,58 @@ async function tv(){
 
  linhas.forEach(l=>{
   if(l.startsWith("#EXTINF")){
-    const nome=l.split(",")[1];
-    const grupo=(l.match(/group-title="([^"]+)"/)||[])[1]||"Outros";
-    atual={nome,grupo};
+   atual.nome=l.split(",")[1];
+   atual.grupo=(l.match(/group-title="([^"]+)"/)||[])[1]||"Outros";
   }else if(l.startsWith("http")){
-    if(!grupos[atual.grupo])grupos[atual.grupo]=[];
-    grupos[atual.grupo].push({nome:atual.nome,url:l});
+   if(!grupos[atual.grupo])grupos[atual.grupo]=[];
+   grupos[atual.grupo].push({nome:atual.nome,url:l});
   }
  });
 
- Object.keys(grupos).forEach(g=>{
-   const h=document.createElement("div");
-   h.className="cat-item";
-   h.textContent=g;
-   h.onclick=()=>listar(grupos[g],true);
-   cats.appendChild(h);
+ Object.keys(grupos).sort().forEach(g=>{
+  const c=document.createElement("div");
+  c.className="cat-item";
+  c.textContent=g;
+  c.onclick=()=>listar(grupos[g],true);
+  cats.appendChild(c);
  });
 }
 
-/* FILMES */
-async function filmes(){
- limpar();
- const j=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/filmes.json").then(r=>r.json());
- categorias(j);
-}
+/* FILMES / SÉRIES */
+async function filmes(){loadJSON("filmes.json",true)}
+async function series(){loadJSON("series.json",true,true)}
 
-/* SÉRIES */
-async function series(){
+async function loadJSON(file,categorias,isSerie){
  limpar();
- const j=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/series.json").then(r=>r.json());
- categorias(j,true);
+ const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
+ cache=j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
+
+ let catsSet=[...new Set(j.map(i=>i.genero))].sort();
+ if(catsSet.includes("Adulto")){
+  catsSet=catsSet.filter(c=>c!=="Adulto");
+  catsSet.push("Adulto");
+ }
+
+ catsSet.forEach(c=>{
+  const d=document.createElement("div");
+  d.className="cat-item";
+  d.textContent=c;
+  d.onclick=()=>listar(cache.filter(i=>i.genero===c),false,isSerie);
+  cats.appendChild(d);
+ });
 }
 
 /* KIDS */
-async function filmesKids(){
- limpar();
- const j=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_filmes.json").then(r=>r.json());
- listar(j);
-}
-async function seriesKids(){
- limpar();
- const j=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_series.json").then(r=>r.json());
- listar(j);
-}
-function tvKids(){ tv(); }
-
-/* CATEGORIAS */
-function categorias(lista,isSerie){
- const catsSet=[...new Set(lista.map(i=>i.genero))];
- catsSet.forEach(c=>{
-   const d=document.createElement("div");
-   d.className="cat-item";
-   d.textContent=c;
-   d.onclick=()=>listar(lista.filter(i=>i.genero===c),false,isSerie);
-   cats.appendChild(d);
- });
+async function filmesKids(){listar(await fetchJSON("kids_filmes.json"))}
+async function seriesKids(){listar(await fetchJSON("kids_series.json"),false,true)}
+async function tvKids(){tv()}
+async function fetchJSON(f){
+ const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${f}`).then(r=>r.json());
+ return j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
 }
 
 /* LISTAR */
-function listar(lista,isTv=false,isSerie=false){
+function listar(lista,isTv,isSerie){
  main.innerHTML="<div class='grid'></div>";
  const g=main.querySelector(".grid");
 
@@ -252,37 +275,31 @@ function listar(lista,isTv=false,isSerie=false){
   c.innerHTML=`
    <img src="${i.poster||''}">
    <div class="info">
-     <strong>${i.titulo||i.nome}</strong><br>
-     ${i.year?`${i.year} • ⭐ ${i.rating}`:""}
+    <strong>${i.titulo||i.nome}</strong><br>
+    <span>${i.year||""} ⭐ ${i.rating||""}</span>
    </div>`;
-  c.onclick=()=>play(i.url,isSerie);
+  c.onclick=()=>i.episodes?listar(i.episodes):play(i.url);
   g.appendChild(c);
  });
 }
 
 /* PLAYER */
-function play(url,isSerie){
- exitBtn.classList.add("active");
+function play(url){
  box.classList.add("active");
-
- player.src({
-  src:url,
-  type: url.includes(".m3u8") ? "application/x-mpegURL" : "video/mp4"
- });
+ exitBtn.classList.add("active");
+ player.src({src:url,type:url.includes("m3u8")?"application/x-mpegURL":"video/mp4"});
  player.play();
 }
-
 function sair(){
  player.pause();
  box.classList.remove("active");
  exitBtn.classList.remove("active");
 }
 
-/* CONTROLE REMOTO */
+/* CONTROLE */
 document.addEventListener("keydown",e=>{
  if(e.key==="ArrowLeft")player.currentTime(player.currentTime()-10);
  if(e.key==="ArrowRight")player.currentTime(player.currentTime()+10);
- if(e.key==="Enter" && document.activeElement)document.activeElement.click();
  if(["Escape","Backspace"].includes(e.key))sair();
 });
 </script>

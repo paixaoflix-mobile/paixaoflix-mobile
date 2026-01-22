@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.3</title>
+<title>PaixãoFlix TV — v1.7.4</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -86,6 +86,17 @@ body{
  outline:none;
  background:#1a1a1a;
  border-left:4px solid #e50914
+}
+
+/* 🔹 TV AO VIVO — NOME DO CANAL */
+.cat-item.tv-channel{
+ white-space:normal;
+ line-height:1.2
+}
+.cat-item.tv-channel span{
+ display:block;
+ max-width:12ch;
+ word-break:break-word
 }
 
 /* MAIN */
@@ -205,16 +216,15 @@ function sair(){
  exitBtn.classList.remove("active");
 }
 
-/* CONTROLES (TECLADO + TV) */
+/* CONTROLES */
 document.addEventListener("keydown",e=>{
  const focusables=document.querySelectorAll("button,.cat-item,.card");
  let idx=[...focusables].indexOf(document.activeElement);
-
- if(e.key==="ArrowDown"){focusables[idx+1]?.focus()}
- if(e.key==="ArrowUp"){focusables[idx-1]?.focus()}
- if(e.key==="ArrowRight"){focusables[idx+1]?.focus()}
- if(e.key==="ArrowLeft"){focusables[idx-1]?.focus()}
- if(e.key==="Enter"){document.activeElement.click()}
+ if(e.key==="ArrowDown")focusables[idx+1]?.focus();
+ if(e.key==="ArrowUp")focusables[idx-1]?.focus();
+ if(e.key==="ArrowRight")focusables[idx+1]?.focus();
+ if(e.key==="ArrowLeft")focusables[idx-1]?.focus();
+ if(e.key==="Enter")document.activeElement.click();
  if(["Escape","Backspace"].includes(e.key))sair();
 });
 
@@ -238,15 +248,15 @@ async function tv(){
 
  Object.keys(grupos).sort().forEach(g=>{
   const c=document.createElement("div");
-  c.className="cat-item";
+  c.className="cat-item tv-channel";
   c.tabIndex=0;
-  c.textContent=g;
+  c.innerHTML=`<span>${g}</span>`;
   c.onclick=()=>listar(grupos[g]);
   cats.appendChild(c);
  });
 }
 
-/* FILMES / SÉRIES COM CATEGORIAS FIXAS */
+/* FILMES / SÉRIES */
 const categorias=[
 "Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime",
 "Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional",
@@ -262,14 +272,8 @@ async function loadJSON(file,kids){
  limpar();
  const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
  j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
-
- if(kids){
-  listar(j);
-  return;
- }
-
+ if(kids){listar(j);return;}
  categorias.forEach(cat=>{
-  if(cat==="Adulto" && kids) return;
   const c=document.createElement("div");
   c.className="cat-item";
   c.tabIndex=0;
@@ -283,7 +287,6 @@ async function loadJSON(file,kids){
 function listar(lista){
  main.innerHTML="<div class='grid'></div>";
  const g=main.querySelector(".grid");
-
  lista.forEach(i=>{
   const c=document.createElement("div");
   c.className="card";

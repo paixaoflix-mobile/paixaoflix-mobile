@@ -2,11 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.5</title>
+<title>PaixãoFlix TV — v1.8.0</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
 <style>
+/* BLOQUEIO DE ORIENTAÇÃO */
 @media (orientation: portrait) {
  body::before{
   content:"🔄 Gire o dispositivo para modo paisagem";
@@ -27,7 +28,7 @@ body{
 
 .app{display:flex;height:100vh}
 
-/* MENU */
+/* MENU LATERAL */
 .left{
  width:230px;background:#0b0b0b;
  box-shadow:2px 0 6px rgba(0,0,0,.35);
@@ -38,93 +39,69 @@ body{
  width:clamp(100px,12vh,200px);
  margin:10px auto;display:block
 }
-.datetime{text-align:center;font-size:13px;opacity:.8}
+.datetime{text-align:center;font-size:13px;opacity:.8; margin-bottom: 10px;}
 
 /* BUSCA */
 .search{padding:10px}
 .search input{
- width:100%;padding:10px;
+ width:100%;padding:12px;
  border-radius:8px;border:none;
  background:#1a1a1a;color:#fff;
  outline: none;
-}
-.search input:focus {
-    outline: 3px solid #e50914;
+ font-size: 14px;
 }
 
 /* MENU BOTÕES */
-.menu{
- padding:10px;
- overflow-y:auto;
- flex:1
-}
+.menu{padding:10px; overflow-y:auto; flex:1}
 .menu button{
  width:100%;margin-bottom:8px;padding:12px;
  background:linear-gradient(180deg,#2a2a2a,#141414);
  border:none;border-radius:10px;color:#fff;
- cursor:pointer;
- transition: transform 0.2s;
+ cursor:pointer; text-align: left;
+ transition: all 0.2s;
 }
 
 /* CATEGORIAS */
 .categories{
- background:#111;
- padding:8px;
- min-width:max-content;
- max-width:260px;
- overflow-y:auto
+ background:#111; padding:8px;
+ min-width:max-content; max-width:260px;
+ overflow-y:auto; border-right: 1px solid #222;
 }
 .cat-item{
- padding:12px 15px;
- cursor:pointer;
- white-space:nowrap;
- border-radius: 5px;
- margin-bottom: 4px;
- outline: none;
+ padding:12px 15px; cursor:pointer;
+ white-space:nowrap; border-radius: 5px;
+ margin-bottom: 4px; outline: none;
 }
 
-/* MAIN */
+/* MAIN CONTENT */
 .main{
- flex:1;
- overflow-y:auto;
+ flex:1; overflow-y:auto;
  background:radial-gradient(circle,#111,#000);
  scroll-behavior: smooth;
 }
 
-/* GRID */
+/* GRID DE FILMES */
 .grid{
- display:grid;
- gap:16px;
- padding:16px
-}
-@media (max-width:1024px){
- .grid{grid-template-columns:repeat(3,1fr)}
-}
-@media (min-width:1025px){
- .grid{grid-template-columns:repeat(5,1fr)}
+ display:grid; gap:16px; padding:16px;
+ grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
 .card{
- background:#111;border-radius:10px;
- overflow:hidden;cursor:pointer;
- transition: transform 0.2s;
+ background:#111; border-radius:10px;
+ overflow:hidden; cursor:pointer;
+ transition: transform 0.2s, box-shadow 0.2s;
  outline: none;
 }
-.card img{width:100%;display:block}
-.card .info{
- padding:8px;font-size:13px
-}
+.card img{width:100%; aspect-ratio: 2/3; object-fit: cover; display:block}
+.card .info{padding:8px; font-size:13px}
+.card .info strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* FOCO GLOBAL - ESSENCIAL PARA TV */
+/* FOCO VISUAL (ESSENCIAL PARA SMART TV) */
 :focus {
     outline: 4px solid #e50914 !important;
-    transform: scale(1.05);
+    transform: scale(1.03);
     z-index: 5;
-}
-
-.cat-item:focus {
-    background: #e50914;
-    border-left: none;
+    background: #e50914 !important;
 }
 
 /* PLAYER */
@@ -139,8 +116,8 @@ body{
  position:fixed;top:15px;left:15px;
  z-index:30;background:#e50914;
  border:none;border-radius:8px;
- color:#fff;padding:10px 14px;
- display:none
+ color:#fff;padding:12px 18px;
+ display:none; font-weight: bold;
 }
 .exit-btn.active{display:block}
 </style>
@@ -155,10 +132,10 @@ body{
  <div class="logo">
   <img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png">
  </div>
- <div class="datetime" id="datetime"></div>
+ <div class="datetime" id="datetime">Carregando...</div>
 
  <div class="search">
-  <input id="search" placeholder="Qual sua escolha de hoje?" tabindex="0">
+  <input id="search" placeholder="Buscar..." tabindex="0">
  </div>
 
  <div class="menu">
@@ -174,71 +151,78 @@ body{
 <aside class="categories" id="cats"></aside>
 <main class="main" id="main"></main>
 
-<button class="exit-btn" id="exitBtn" onclick="sair()" tabindex="0">⬅ Voltar</button>
+<button class="exit-btn" id="exitBtn" onclick="sair()" tabindex="0">⬅ VOLTAR</button>
+
 <div class="player-box" id="playerBox">
- <video id="player" class="video-js" controls></video>
+ <video id="player" class="video-js vjs-default-skin" controls preload="auto"></video>
 </div>
 
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-const player=videojs("player",{fluid:true});
-const box=document.getElementById("playerBox");
-const exitBtn=document.getElementById("exitBtn");
-const main=document.getElementById("main");
-const cats=document.getElementById("cats");
+const player = videojs("player");
+const box = document.getElementById("playerBox");
+const exitBtn = document.getElementById("exitBtn");
+const main = document.getElementById("main");
+const cats = document.getElementById("cats");
 
-/* DATA */
-setInterval(()=>{
- const d=new Date();
- document.getElementById("datetime").textContent=
- d.toLocaleDateString("pt-BR",{weekday:"long"})+
- " | "+
- d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-},1000);
+/* ATUALIZA RELÓGIO */
+function updateTime() {
+    const d = new Date();
+    document.getElementById("datetime").textContent = d.toLocaleDateString("pt-BR", {weekday:"short"}).toUpperCase() + " | " + d.toLocaleTimeString("pt-BR", {hour:"2-digit", minute:"2-digit"});
+}
+setInterval(updateTime, 1000);
+updateTime();
 
-function limpar(){cats.innerHTML="";main.innerHTML=""}
+function limpar() { cats.innerHTML = ""; main.innerHTML = ""; }
 
-/* PLAYER */
-function play(url){
- box.classList.add("active");
- exitBtn.classList.add("active");
- player.src({src:url,type:url.includes("m3u8")?"application/x-mpegURL":"video/mp4"});
- player.play();
- exitBtn.focus(); // Joga o foco no botão voltar ao dar play
+/* PLAYER LOGIC */
+function play(url) {
+    box.classList.add("active");
+    exitBtn.classList.add("active");
+    player.src({ src: url, type: url.includes("m3u8") ? "application/x-mpegURL" : "video/mp4" });
+    player.play();
+    setTimeout(() => exitBtn.focus(), 500);
 }
 
-function sair(){
- player.pause();
- box.classList.remove("active");
- exitBtn.classList.remove("active");
- // Retorna o foco para o primeiro card se houver, ou menu
- const primeiroCard = document.querySelector('.card');
- if(primeiroCard) primeiroCard.focus();
+function sair() {
+    player.pause();
+    box.classList.remove("active");
+    exitBtn.classList.remove("active");
+    const lastFocused = document.querySelector('.card') || document.querySelector('button');
+    if(lastFocused) lastFocused.focus();
 }
 
-/* NAVEGAÇÃO ESPACIAL (SOLUÇÃO PARA TV BOX / CONTROLES) */
+/* NAVEGAÇÃO ESPACIAL (MOTOR GEOMÉTRICO) */
 document.addEventListener("keydown", e => {
-    const focusables = Array.from(document.querySelectorAll('button, .cat-item, .card, input, [tabindex="0"]')).filter(el => el.offsetParent !== null);
-    const current = document.activeElement;
-
-    if (e.key === "Enter") {
-        return; // Deixa o clique padrão do navegador agir
-    }
-
-    if (["Escape", "Backspace"].includes(e.key)) {
-        if(box.classList.contains('active')) {
-            sair();
-            e.preventDefault();
-        }
+    const directions = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+    
+    // Se estiver no player
+    if (box.classList.contains('active')) {
+        if (["Escape", "Backspace"].includes(e.key)) { sair(); e.preventDefault(); }
         return;
     }
 
-    const directions = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-    if (!directions.includes(e.key)) return;
+    if (e.key === "Enter") {
+        if(document.activeElement) document.activeElement.click();
+        return;
+    }
 
+    if (!directions.includes(e.key)) return;
+    
     e.preventDefault();
+
+    const focusables = Array.from(document.querySelectorAll('button, .cat-item, .card, input, [tabindex="0"]'))
+                            .filter(el => el.offsetParent !== null);
+    
+    let current = document.activeElement;
+
+    // Se o foco se perder, resgata para o primeiro botão
+    if (!current || current === document.body) {
+        if (focusables.length > 0) focusables[0].focus();
+        return;
+    }
 
     const currentRect = current.getBoundingClientRect();
     let next = null;
@@ -248,25 +232,19 @@ document.addEventListener("keydown", e => {
         if (target === current) return;
         const targetRect = target.getBoundingClientRect();
 
-        const centerX = targetRect.left + targetRect.width / 2;
-        const centerY = targetRect.top + targetRect.height / 2;
-        const curCenterX = currentRect.left + currentRect.width / 2;
-        const curCenterY = currentRect.top + currentRect.height / 2;
+        const curCenter = { x: currentRect.left + currentRect.width / 2, y: currentRect.top + currentRect.height / 2 };
+        const tarCenter = { x: targetRect.left + targetRect.width / 2, y: targetRect.top + targetRect.height / 2 };
 
         let isDirection = false;
 
-        // Filtro rigoroso de direção
+        // Margem de erro de 5px para alinhar elementos levemente desalinhados
         if (e.key === "ArrowUp" && targetRect.bottom <= (currentRect.top + 5)) isDirection = true;
         if (e.key === "ArrowDown" && targetRect.top >= (currentRect.bottom - 5)) isDirection = true;
         if (e.key === "ArrowLeft" && targetRect.right <= (currentRect.left + 5)) isDirection = true;
         if (e.key === "ArrowRight" && targetRect.left >= (currentRect.right - 5)) isDirection = true;
 
         if (isDirection) {
-            // Peso menor para distância no eixo principal para evitar saltos diagonais indesejados
-            const dx = centerX - curCenterX;
-            const dy = centerY - curCenterY;
-            const distance = Math.sqrt(dx*dx + dy*dy);
-            
+            const distance = Math.sqrt(Math.pow(tarCenter.x - curCenter.x, 2) + Math.pow(tarCenter.y - curCenter.y, 2));
             if (distance < minDistance) {
                 minDistance = distance;
                 next = target;
@@ -276,50 +254,41 @@ document.addEventListener("keydown", e => {
 
     if (next) {
         next.focus();
-        // Scroll inteligente: centraliza o item focado na tela
         next.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
     }
 });
 
 /* CARREGAMENTO DE DADOS */
-async function tv(){
- limpar();
- try {
-    const txt=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u").then(r=>r.text());
-    const linhas=txt.split("\n");
-    const grupos={};
-    let atual={};
+async function tv() {
+    limpar();
+    const res = await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u");
+    const txt = await res.text();
+    const linhas = txt.split("\n");
+    const grupos = {};
+    let atual = {};
 
-    linhas.forEach(l=>{
-     if(l.startsWith("#EXTINF")){
-      atual.nome=l.split(",")[1];
-      atual.grupo=(l.match(/group-title="([^"]+)"/)||[])[1]||"Outros";
-     }else if(l.startsWith("http")){
-      if(!grupos[atual.grupo])grupos[atual.grupo]=[];
-      grupos[atual.grupo].push({nome:atual.nome,url:l.trim()});
-     }
+    linhas.forEach(l => {
+        if (l.startsWith("#EXTINF")) {
+            atual.nome = l.split(",")[1];
+            atual.grupo = (l.match(/group-title="([^"]+)"/) || [])[1] || "Outros";
+        } else if (l.startsWith("http")) {
+            if (!grupos[atual.grupo]) grupos[atual.grupo] = [];
+            grupos[atual.grupo].push({ nome: atual.nome, url: l.trim() });
+        }
     });
 
-    Object.keys(grupos).sort().forEach(g=>{
-     const c=document.createElement("div");
-     c.className="cat-item";
-     c.tabIndex=0;
-     c.textContent=g;
-     c.onclick=()=>listar(grupos[g]);
-     cats.appendChild(c);
+    Object.keys(grupos).sort().forEach(g => {
+        const c = document.createElement("div");
+        c.className = "cat-item"; c.tabIndex = 0;
+        c.textContent = g;
+        c.onclick = () => listar(grupos[g]);
+        cats.appendChild(c);
     });
- } catch(e) { console.error(e) }
+    // Foca na primeira categoria automaticamente
+    setTimeout(() => cats.querySelector('.cat-item')?.focus(), 200);
 }
 
-const categorias=["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"];
+const categorias = ["Ação", "Anime", "Animação", "Aventura", "Clássicos", "Comédia", "Crime", "Documentários", "Dorama", "Drama", "Faroeste", "Ficção", "Musical", "Nacional", "Policial", "Religioso", "Romance", "Suspense", "Terror", "Adulto"];
 
-async function filmes(){loadJSON("filmes.json")}
-async function series(){loadJSON("series.json")}
-async function filmesKids(){loadJSON("kids_filmes.json",true)}
-async function seriesKids(){loadJSON("kids_series.json",true)}
-
-async function loadJSON(file,kids){
- limpar();
- try {
-    const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
-    j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
+async function filmes() { loadJSON("filmes.json") }
+async function series() { loadJSON("series.

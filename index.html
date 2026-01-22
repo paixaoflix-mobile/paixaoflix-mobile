@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.3</title>
+<title>PaixãoFlix TV — v1.7.4</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -205,17 +205,64 @@ function sair(){
  exitBtn.classList.remove("active");
 }
 
-/* CONTROLES (TECLADO + TV) */
-document.addEventListener("keydown",e=>{
- const focusables=document.querySelectorAll("button,.cat-item,.card");
- let idx=[...focusables].indexOf(document.activeElement);
+/* =========================
+   NAVEGAÇÃO DIRECIONAL REAL
+   ========================= */
 
- if(e.key==="ArrowDown"){focusables[idx+1]?.focus()}
- if(e.key==="ArrowUp"){focusables[idx-1]?.focus()}
- if(e.key==="ArrowRight"){focusables[idx+1]?.focus()}
- if(e.key==="ArrowLeft"){focusables[idx-1]?.focus()}
- if(e.key==="Enter"){document.activeElement.click()}
- if(["Escape","Backspace"].includes(e.key))sair();
+function focusables(){
+ return [...document.querySelectorAll(
+  "button:visible, .cat-item:visible, .card:visible"
+ )];
+}
+
+function getVisible(){
+ return [...document.querySelectorAll("button,.cat-item,.card")]
+  .filter(el=>el.offsetParent!==null);
+}
+
+document.addEventListener("keydown",e=>{
+ const items=getVisible();
+ if(!items.length) return;
+
+ let current=document.activeElement;
+ if(!items.includes(current)){
+  items[0].focus();
+  return;
+ }
+
+ let index=items.indexOf(current);
+
+ /* GRID COLS */
+ let cols=1;
+ if(current.classList.contains("card")){
+  cols=window.innerWidth<1024?3:5;
+ }
+
+ switch(e.key){
+  case "ArrowRight":
+   index+=1;
+   break;
+  case "ArrowLeft":
+   index-=1;
+   break;
+  case "ArrowDown":
+   index+=cols;
+   break;
+  case "ArrowUp":
+   index-=cols;
+   break;
+  case "Enter":
+   current.click();
+   return;
+  case "Escape":
+  case "Backspace":
+   sair();
+   return;
+ }
+
+ if(index<0) index=0;
+ if(index>=items.length) index=items.length-1;
+ items[index].focus();
 });
 
 /* TV AO VIVO */
@@ -246,37 +293,17 @@ async function tv(){
  });
 }
 
-/* FILMES / SÉRIES COM CATEGORIAS FIXAS */
-const categorias=[
-"Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime",
-"Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional",
-"Policial","Religioso","Romance","Suspense","Terror","Adulto"
-];
-
+/* FILMES / SÉRIES */
 async function filmes(){loadJSON("filmes.json")}
 async function series(){loadJSON("series.json")}
 async function filmesKids(){loadJSON("kids_filmes.json",true)}
 async function seriesKids(){loadJSON("kids_series.json",true)}
 
-async function loadJSON(file,kids){
+async function loadJSON(file){
  limpar();
  const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
  j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
-
- if(kids){
-  listar(j);
-  return;
- }
-
- categorias.forEach(cat=>{
-  if(cat==="Adulto" && kids) return;
-  const c=document.createElement("div");
-  c.className="cat-item";
-  c.tabIndex=0;
-  c.textContent=cat;
-  c.onclick=()=>listar(j.filter(i=>i.genero===cat));
-  cats.appendChild(c);
- });
+ listar(j);
 }
 
 /* LISTAR */

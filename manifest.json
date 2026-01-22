@@ -1,6 +1,7 @@
 {
   "name": "PaixãoFlix TV",
   "short_name": "PaixãoFlix",
+  "description": "Tornando momentos de lazer em lembranças felizes!",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
@@ -8,8 +9,14 @@
   "orientation": "landscape",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png",
+      "src": "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-192x192.png",
+      "sizes": "192x192",
       "type": "image/png"
     }
   ]

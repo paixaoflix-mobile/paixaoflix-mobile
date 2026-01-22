@@ -1,7 +1,7 @@
 {
   "name": "PaixãoFlix TV",
   "short_name": "PaixãoFlix",
-  "description": "Tornando momentos de lazer em lembranças felizes!",
+  "description": "Transformando momentos de lazer em lembranças felizes!",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000000",
@@ -15,8 +15,13 @@
       "purpose": "any maskable"
     },
     {
-      "src": "favicon-192x192.png",
-      "sizes": "192x192",
+      "src": "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/favicon-96x96.png",
+      "sizes": "96x96",
       "type": "image/png"
     }
   ]

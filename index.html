@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v2.0.0 (PWA)</title>
+    <title>PaixãoFlix TV — v2.0.1</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#e50914">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="PaixãoFlix">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png">
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon.ico">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -82,7 +86,7 @@
 
 <div class="app-container" id="app-ui">
     <aside class="sidebar" id="sidebar">
-        <div class="logo"><img src="https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/logoof512.png"></div>
+        <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
         <div class="clock" id="clock">--:--</div>
         <div class="search-box"><input type="text" id="search" placeholder="Pesquisar..." tabindex="0"></div>
         <nav class="nav-menu" id="main-nav">
@@ -122,7 +126,6 @@
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
 <script>
-    // Registro do Service Worker (PWA)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then(reg => {
@@ -130,7 +133,7 @@
                     const installingWorker = reg.installing;
                     installingWorker.onstatechange = () => {
                         if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            window.location.reload(); // Atualização Automática
+                            window.location.reload(); 
                         }
                     };
                 };

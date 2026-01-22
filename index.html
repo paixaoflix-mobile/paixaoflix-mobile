@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.5</title>
+<title>PaixãoFlix TV — v1.7.6</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -168,16 +168,24 @@ body{
 
 <button class="exit-btn" id="exitBtn" onclick="sair()">⬅ Voltar</button>
 <div class="player-box" id="playerBox">
- <video id="player" class="video-js" controls></video>
+ <video id="player" class="video-js" controls tabindex="-1"></video>
 </div>
 
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-const player=videojs("player",{fluid:true});
-const box=document.getElementById("playerBox");
-const exitBtn=document.getElementById("exitBtn");
+/* VIDEO.JS — CORREÇÃO DEFINITIVA DE TECLADO */
+const player = videojs("player", {
+ fluid:true,
+ userActions:{ hotkeys:false }
+});
+
+player.ready(()=>{
+ const el=player.el();
+ el.setAttribute("tabindex","-1");
+ el.addEventListener("keydown",e=>e.stopPropagation());
+});
 
 /* DATA */
 setInterval(()=>{
@@ -188,70 +196,26 @@ setInterval(()=>{
  d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 },1000);
 
+const box=document.getElementById("playerBox");
+const exitBtn=document.getElementById("exitBtn");
+const main=document.getElementById("main");
+const cats=document.getElementById("cats");
+
+function limpar(){cats.innerHTML="";main.innerHTML=""}
+
 /* PLAYER */
 function play(url){
  box.classList.add("active");
  exitBtn.classList.add("active");
+ player.pause();
  player.src({src:url,type:url.includes("m3u8")?"application/x-mpegURL":"video/mp4"});
- player.play();
+ setTimeout(()=>player.play(),100);
 }
 function sair(){
  player.pause();
  box.classList.remove("active");
  exitBtn.classList.remove("active");
 }
-
-/* ===============================
-   NAVEGAÇÃO DIRECIONAL ABSOLUTA
-   =============================== */
-
-function getFocusable(){
- return [...document.querySelectorAll("button,.cat-item,.card")]
-  .filter(el=>el.offsetParent!==null);
-}
-
-function rect(el){
- const r=el.getBoundingClientRect();
- return {
-  x:r.left+r.width/2,
-  y:r.top+r.height/2
- };
-}
-
-document.addEventListener("keydown",e=>{
- const items=getFocusable();
- if(!items.length) return;
-
- let current=document.activeElement;
- if(!items.includes(current)){
-  items[0].focus();
-  return;
- }
-
- const c=rect(current);
- let best=null,dist=Infinity;
-
- items.forEach(el=>{
-  if(el===current) return;
-  const r=rect(el);
-
-  let valid=false;
-  if(e.key==="ArrowUp" && r.y<c.y) valid=true;
-  if(e.key==="ArrowDown" && r.y>c.y) valid=true;
-  if(e.key==="ArrowLeft" && r.x<c.x) valid=true;
-  if(e.key==="ArrowRight" && r.x>c.x) valid=true;
-
-  if(!valid) return;
-
-  const d=Math.hypot(r.x-c.x,r.y-c.y);
-  if(d<dist){dist=d;best=el}
- });
-
- if(best){best.focus();e.preventDefault()}
-
- if(e.key==="Enter") current.click();
- if(["Escape","Backspace"].includes(e.key)) sair();
-});
 </script>
 </body>
 </html>

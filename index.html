@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v1.9.3</title>
+    <title>PaixãoFlix TV — v1.9.4</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -17,7 +17,6 @@
             --text: #ffffff;
         }
 
-        /* Poppins em todo o sistema */
         * { 
             box-sizing: border-box; 
             outline: none; 
@@ -40,7 +39,6 @@
         .app-container { display: flex; height: 100vh; width: 100vw; transition: opacity 0.3s; }
         .app-container.hidden { opacity: 0; pointer-events: none; }
 
-        /* Barras mais justas ao conteúdo (200px) */
         .sidebar {
             width: 200px; background: var(--bg-side);
             display: flex; flex-direction: column; padding: 15px;
@@ -63,7 +61,7 @@
 
         .nav-menu { flex: 1; overflow-y: auto; }
         .nav-menu button {
-            width: 100%; padding: 10px; margin-bottom: 8px;
+            width: 100%; padding: 12px; margin-bottom: 8px;
             border: none; border-radius: 8px; background: #222;
             color: #fff; cursor: pointer; text-align: left;
             transition: 0.2s; font-size: 13px;
@@ -98,7 +96,6 @@
         .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; background: #000; padding: 10px; }
         
         .card-info { padding: 10px; font-size: 12px; }
-        /* Títulos com quebra de linha após 18 caracteres aproximados via CSS */
         .card-info strong { 
             display: block; 
             overflow-wrap: break-word; 
@@ -107,6 +104,9 @@
             line-height: 1.3;
             max-width: 100%;
         }
+
+        /* Centralização para canais */
+        .tv-card .card-info { text-align: center; }
 
         :focus {
             background: transparent !important; 
@@ -180,13 +180,10 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // Navegação e Teclas
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             const focused = document.activeElement;
-            if (focused && (focused.classList.contains('card') || focused.id === 'btn-back' || focused.tagName === 'BUTTON' || focused.classList.contains('cat-item'))) {
-                focused.click();
-            }
+            if (focused) focused.click();
             return;
         }
         
@@ -201,11 +198,6 @@
         const current = document.activeElement;
         const focusables = Array.from(document.querySelectorAll('button, input, .cat-item, .card, [tabindex="0"]'))
                                 .filter(el => el.offsetParent !== null);
-
-        if (!focusables.includes(current)) {
-            focusables[0]?.focus();
-            return;
-        }
 
         const curRect = current.getBoundingClientRect();
         let bestMatch = null;
@@ -232,26 +224,39 @@
             }
         });
 
+        // Loop Infinito no Grid
+        if (!bestMatch && current.classList.contains('card')) {
+            const allCards = Array.from(document.querySelectorAll('.card'));
+            if (e.key === 'ArrowDown') bestMatch = allCards[0];
+            if (e.key === 'ArrowUp') bestMatch = allCards[allCards.length - 1];
+        }
+
         if (bestMatch) {
             bestMatch.focus();
             bestMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
     });
 
+    // Fechar categorias ao interagir com menus laterais
+    document.querySelectorAll('.sidebar button, .sidebar input').forEach(el => {
+        el.addEventListener('focus', () => showCats(false));
+        el.addEventListener('click', () => showCats(false));
+    });
+
     document.getElementById('main-nav').addEventListener('click', (e) => {
         const type = e.target.getAttribute('data-type');
         if (!type) return;
-        if (type === 'tv') loadLiveTV();
+        if (type === 'tv') loadLiveTV("canais.m3u");
+        else if (type === 'tvkids') loadLiveTV("canais_kids.m3u");
         else if (type === 'filmes') loadJSON('filmes.json');
         else if (type === 'series') loadJSON('series.json');
-        else if (type === 'tvkids') loadLiveTV(); 
         else if (type === 'filmeskids') loadJSON('kids_filmes.json', true);
         else if (type === 'serieskids') loadJSON('kids_series.json', true);
     });
 
-    async function loadLiveTV() {
+    async function loadLiveTV(file) {
         showCats(false);
-        const res = await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u");
+        const res = await fetch(CONFIG.base_url + file);
         const data = await res.text();
         const channels = [];
         const lines = data.split('\n');
@@ -311,16 +316,15 @@
     }
 
     function showCats(visible) {
-        document.getElementById('category-bar').classList.toggle('active', visible);
+        const bar = document.getElementById('category-bar');
+        bar.classList.toggle('active', visible);
     }
 
     function openPlayer(url) {
         const overlay = document.getElementById('player-overlay');
         const appUi = document.getElementById('app-ui');
-        
-        appUi.classList.add('hidden'); // Limpa a tela (esconde UI)
+        appUi.classList.add('hidden');
         overlay.classList.add('active');
-        
         currentPlayer.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
         currentPlayer.play();
         document.getElementById('btn-back').focus();
@@ -330,7 +334,7 @@
         const appUi = document.getElementById('app-ui');
         currentPlayer.pause();
         document.getElementById('player-overlay').classList.remove('active');
-        appUi.classList.remove('hidden'); // Restaura a tela
+        appUi.classList.remove('hidden');
         document.querySelector('.card')?.focus();
     }
 

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.4</title>
+<title>PaixãoFlix TV — v1.7.5</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -205,23 +205,22 @@ function sair(){
  exitBtn.classList.remove("active");
 }
 
-/* =========================
-   NAVEGAÇÃO DIRECIONAL REAL
-   ========================= */
+/* ===============================
+   NAVEGAÇÃO UNIVERSAL DEFINITIVA
+   =============================== */
 
-function focusables(){
+function getItems(){
  return [...document.querySelectorAll(
-  "button:visible, .cat-item:visible, .card:visible"
- )];
+  "button, .cat-item, .card"
+ )].filter(el=>el.offsetParent!==null);
 }
 
-function getVisible(){
- return [...document.querySelectorAll("button,.cat-item,.card")]
-  .filter(el=>el.offsetParent!==null);
+function getGridCols(){
+ return window.innerWidth < 1024 ? 3 : 5;
 }
 
 document.addEventListener("keydown",e=>{
- const items=getVisible();
+ const items=getItems();
  if(!items.length) return;
 
  let current=document.activeElement;
@@ -231,33 +230,16 @@ document.addEventListener("keydown",e=>{
  }
 
  let index=items.indexOf(current);
-
- /* GRID COLS */
- let cols=1;
- if(current.classList.contains("card")){
-  cols=window.innerWidth<1024?3:5;
- }
+ let cols=current.classList.contains("card") ? getGridCols() : 1;
 
  switch(e.key){
-  case "ArrowRight":
-   index+=1;
-   break;
-  case "ArrowLeft":
-   index-=1;
-   break;
-  case "ArrowDown":
-   index+=cols;
-   break;
-  case "ArrowUp":
-   index-=cols;
-   break;
-  case "Enter":
-   current.click();
-   return;
+  case "ArrowRight": index+=1; break;
+  case "ArrowLeft": index-=1; break;
+  case "ArrowDown": index+=cols; break;
+  case "ArrowUp": index-=cols; break;
+  case "Enter": current.click(); return;
   case "Escape":
-  case "Backspace":
-   sair();
-   return;
+  case "Backspace": sair(); return;
  }
 
  if(index<0) index=0;
@@ -265,7 +247,7 @@ document.addEventListener("keydown",e=>{
  items[index].focus();
 });
 
-/* TV AO VIVO */
+/* FUNÇÕES DE CONTEÚDO (INTACTAS) */
 async function tv(){
  limpar();
  const txt=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u").then(r=>r.text());
@@ -276,7 +258,7 @@ async function tv(){
  linhas.forEach(l=>{
   if(l.startsWith("#EXTINF")){
    atual.nome=l.split(",")[1];
-   atual.grupo=(l.match(/group-title="([^"]+)"/)||[])[1]||"Outros";
+   atual.grupo=(l.match(/group-title=\"([^\"]+)\"/)||[])[1]||"Outros";
   }else if(l.startsWith("http")){
    if(!grupos[atual.grupo])grupos[atual.grupo]=[];
    grupos[atual.grupo].push({nome:atual.nome,url:l});
@@ -293,11 +275,10 @@ async function tv(){
  });
 }
 
-/* FILMES / SÉRIES */
 async function filmes(){loadJSON("filmes.json")}
 async function series(){loadJSON("series.json")}
-async function filmesKids(){loadJSON("kids_filmes.json",true)}
-async function seriesKids(){loadJSON("kids_series.json",true)}
+async function filmesKids(){loadJSON("kids_filmes.json")}
+async function seriesKids(){loadJSON("kids_series.json")}
 
 async function loadJSON(file){
  limpar();
@@ -306,7 +287,6 @@ async function loadJSON(file){
  listar(j);
 }
 
-/* LISTAR */
 function listar(lista){
  main.innerHTML="<div class='grid'></div>";
  const g=main.querySelector(".grid");

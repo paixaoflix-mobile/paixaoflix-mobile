@@ -178,8 +178,6 @@ body{
 const player=videojs("player",{fluid:true});
 const box=document.getElementById("playerBox");
 const exitBtn=document.getElementById("exitBtn");
-const main=document.getElementById("main");
-const cats=document.getElementById("cats");
 
 /* DATA */
 setInterval(()=>{
@@ -189,8 +187,6 @@ setInterval(()=>{
  " | "+
  d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 },1000);
-
-function limpar(){cats.innerHTML="";main.innerHTML=""}
 
 /* PLAYER */
 function play(url){
@@ -206,21 +202,24 @@ function sair(){
 }
 
 /* ===============================
-   NAVEGAÇÃO UNIVERSAL DEFINITIVA
+   NAVEGAÇÃO DIRECIONAL ABSOLUTA
    =============================== */
 
-function getItems(){
- return [...document.querySelectorAll(
-  "button, .cat-item, .card"
- )].filter(el=>el.offsetParent!==null);
+function getFocusable(){
+ return [...document.querySelectorAll("button,.cat-item,.card")]
+  .filter(el=>el.offsetParent!==null);
 }
 
-function getGridCols(){
- return window.innerWidth < 1024 ? 3 : 5;
+function rect(el){
+ const r=el.getBoundingClientRect();
+ return {
+  x:r.left+r.width/2,
+  y:r.top+r.height/2
+ };
 }
 
 document.addEventListener("keydown",e=>{
- const items=getItems();
+ const items=getFocusable();
  if(!items.length) return;
 
  let current=document.activeElement;
@@ -229,82 +228,30 @@ document.addEventListener("keydown",e=>{
   return;
  }
 
- let index=items.indexOf(current);
- let cols=current.classList.contains("card") ? getGridCols() : 1;
+ const c=rect(current);
+ let best=null,dist=Infinity;
 
- switch(e.key){
-  case "ArrowRight": index+=1; break;
-  case "ArrowLeft": index-=1; break;
-  case "ArrowDown": index+=cols; break;
-  case "ArrowUp": index-=cols; break;
-  case "Enter": current.click(); return;
-  case "Escape":
-  case "Backspace": sair(); return;
- }
+ items.forEach(el=>{
+  if(el===current) return;
+  const r=rect(el);
 
- if(index<0) index=0;
- if(index>=items.length) index=items.length-1;
- items[index].focus();
+  let valid=false;
+  if(e.key==="ArrowUp" && r.y<c.y) valid=true;
+  if(e.key==="ArrowDown" && r.y>c.y) valid=true;
+  if(e.key==="ArrowLeft" && r.x<c.x) valid=true;
+  if(e.key==="ArrowRight" && r.x>c.x) valid=true;
+
+  if(!valid) return;
+
+  const d=Math.hypot(r.x-c.x,r.y-c.y);
+  if(d<dist){dist=d;best=el}
+ });
+
+ if(best){best.focus();e.preventDefault()}
+
+ if(e.key==="Enter") current.click();
+ if(["Escape","Backspace"].includes(e.key)) sair();
 });
-
-/* FUNÇÕES DE CONTEÚDO (INTACTAS) */
-async function tv(){
- limpar();
- const txt=await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u").then(r=>r.text());
- const linhas=txt.split("\n");
- const grupos={};
- let atual={};
-
- linhas.forEach(l=>{
-  if(l.startsWith("#EXTINF")){
-   atual.nome=l.split(",")[1];
-   atual.grupo=(l.match(/group-title=\"([^\"]+)\"/)||[])[1]||"Outros";
-  }else if(l.startsWith("http")){
-   if(!grupos[atual.grupo])grupos[atual.grupo]=[];
-   grupos[atual.grupo].push({nome:atual.nome,url:l});
-  }
- });
-
- Object.keys(grupos).sort().forEach(g=>{
-  const c=document.createElement("div");
-  c.className="cat-item";
-  c.tabIndex=0;
-  c.textContent=g;
-  c.onclick=()=>listar(grupos[g]);
-  cats.appendChild(c);
- });
-}
-
-async function filmes(){loadJSON("filmes.json")}
-async function series(){loadJSON("series.json")}
-async function filmesKids(){loadJSON("kids_filmes.json")}
-async function seriesKids(){loadJSON("kids_series.json")}
-
-async function loadJSON(file){
- limpar();
- const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
- j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
- listar(j);
-}
-
-function listar(lista){
- main.innerHTML="<div class='grid'></div>";
- const g=main.querySelector(".grid");
-
- lista.forEach(i=>{
-  const c=document.createElement("div");
-  c.className="card";
-  c.tabIndex=0;
-  c.innerHTML=`
-   <img src="${i.poster||''}">
-   <div class="info">
-    <strong>${i.titulo||i.nome}</strong><br>
-    <span>${i.year||""} ⭐ ${i.rating||""}</span>
-   </div>`;
-  c.onclick=()=>play(i.url);
-  g.appendChild(c);
- });
-}
 </script>
 </body>
 </html>

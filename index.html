@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.2</title>
+<title>PaixãoFlix TV — v1.7.3</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -29,7 +29,6 @@ body{
  font-family:'Poppins',sans-serif;
  overflow:hidden
 }
-
 ::-webkit-scrollbar{display:none}
 
 .app{display:flex;height:100vh}
@@ -40,24 +39,21 @@ body{
  box-shadow:2px 0 6px rgba(0,0,0,.35);
  display:flex;flex-direction:column
 }
-
 .logo img{
  width:clamp(100px,12vh,200px);
  margin:10px auto;display:block
 }
-
 .datetime{text-align:center;font-size:13px;opacity:.8}
 
 /* BUSCA */
-.search{
- padding:10px
-}
+.search{padding:10px}
 .search input{
  width:100%;padding:10px;
  border-radius:8px;border:none;
  background:#1a1a1a;color:#fff
 }
 
+/* MENU BOTÕES */
 .menu{
  padding:10px;
  overflow-y:auto;
@@ -69,10 +65,8 @@ body{
  border:none;border-radius:10px;color:#fff;
  cursor:pointer
 }
-.menu button:focus,
-.menu button.active{
- outline:none;
- background:#e50914
+.menu button:focus{
+ outline:3px solid #e50914
 }
 
 /* CATEGORIAS */
@@ -88,7 +82,8 @@ body{
  cursor:pointer;
  white-space:nowrap
 }
-.cat-item.active{
+.cat-item:focus{
+ outline:none;
  background:#1a1a1a;
  border-left:4px solid #e50914
 }
@@ -116,6 +111,9 @@ body{
 .card{
  background:#111;border-radius:10px;
  overflow:hidden;cursor:pointer
+}
+.card:focus{
+ outline:4px solid #e50914
 }
 .card img{width:100%;display:block}
 .card .info{
@@ -155,13 +153,13 @@ body{
   <input id="search" placeholder="Qual sua escolha de hoje?">
  </div>
 
- <div class="menu" id="menu">
-  <button onclick="tv()">📡 TV ao Vivo</button>
-  <button onclick="filmes()">🎬 Filmes</button>
-  <button onclick="series()">📺 Séries</button>
-  <button onclick="tvKids()">🧒 TV Kids</button>
-  <button onclick="filmesKids()">🎈 Filmes Kids</button>
-  <button onclick="seriesKids()">🧸 Séries Kids</button>
+ <div class="menu">
+  <button tabindex="0" onclick="tv()">📡 TV ao Vivo</button>
+  <button tabindex="0" onclick="filmes()">🎬 Filmes</button>
+  <button tabindex="0" onclick="series()">📺 Séries</button>
+  <button tabindex="0" onclick="tvKids()">🧒 TV Kids</button>
+  <button tabindex="0" onclick="filmesKids()">🎈 Filmes Kids</button>
+  <button tabindex="0" onclick="seriesKids()">🧸 Séries Kids</button>
  </div>
 </aside>
 
@@ -207,10 +205,16 @@ function sair(){
  exitBtn.classList.remove("active");
 }
 
-/* CONTROLE */
+/* CONTROLES (TECLADO + TV) */
 document.addEventListener("keydown",e=>{
- if(e.key==="ArrowLeft")player.currentTime(player.currentTime()-10);
- if(e.key==="ArrowRight")player.currentTime(player.currentTime()+10);
+ const focusables=document.querySelectorAll("button,.cat-item,.card");
+ let idx=[...focusables].indexOf(document.activeElement);
+
+ if(e.key==="ArrowDown"){focusables[idx+1]?.focus()}
+ if(e.key==="ArrowUp"){focusables[idx-1]?.focus()}
+ if(e.key==="ArrowRight"){focusables[idx+1]?.focus()}
+ if(e.key==="ArrowLeft"){focusables[idx-1]?.focus()}
+ if(e.key==="Enter"){document.activeElement.click()}
  if(["Escape","Backspace"].includes(e.key))sair();
 });
 
@@ -235,22 +239,44 @@ async function tv(){
  Object.keys(grupos).sort().forEach(g=>{
   const c=document.createElement("div");
   c.className="cat-item";
+  c.tabIndex=0;
   c.textContent=g;
-  c.onclick=()=>listar(grupos[g],true);
+  c.onclick=()=>listar(grupos[g]);
   cats.appendChild(c);
  });
 }
 
-/* FILMES / SÉRIES */
+/* FILMES / SÉRIES COM CATEGORIAS FIXAS */
+const categorias=[
+"Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime",
+"Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional",
+"Policial","Religioso","Romance","Suspense","Terror","Adulto"
+];
+
 async function filmes(){loadJSON("filmes.json")}
-async function series(){loadJSON("series.json",true)}
-async function filmesKids(){loadJSON("kids_filmes.json")}
+async function series(){loadJSON("series.json")}
+async function filmesKids(){loadJSON("kids_filmes.json",true)}
 async function seriesKids(){loadJSON("kids_series.json",true)}
 
-async function loadJSON(file,isSerie){
+async function loadJSON(file,kids){
  limpar();
  const j=await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`).then(r=>r.json());
- listar(j);
+ j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
+
+ if(kids){
+  listar(j);
+  return;
+ }
+
+ categorias.forEach(cat=>{
+  if(cat==="Adulto" && kids) return;
+  const c=document.createElement("div");
+  c.className="cat-item";
+  c.tabIndex=0;
+  c.textContent=cat;
+  c.onclick=()=>listar(j.filter(i=>i.genero===cat));
+  cats.appendChild(c);
+ });
 }
 
 /* LISTAR */
@@ -261,6 +287,7 @@ function listar(lista){
  lista.forEach(i=>{
   const c=document.createElement("div");
   c.className="card";
+  c.tabIndex=0;
   c.innerHTML=`
    <img src="${i.poster||''}">
    <div class="info">

@@ -2,11 +2,10 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>PaixãoFlix TV — v1.7.10</title>
+<title>PaixãoFlix TV — v1.7.9</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-<!-- FORÇAR PAISAGEM -->
 <style>
 @media (orientation: portrait) {
  body::before{
@@ -20,6 +19,7 @@
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
 
 <style>
 *{box-sizing:border-box}
@@ -126,7 +126,7 @@ body{
  background:#000;display:none;z-index:20
 }
 .player-box.active{display:block}
-video{width:100%;height:100%;background:#000}
+.video-js{width:100%;height:100%}
 
 .exit-btn{
  position:fixed;top:15px;left:15px;
@@ -153,27 +153,34 @@ video{width:100%;height:100%;background:#000}
  </div>
 
  <div class="menu">
-  <button>📡 TV ao Vivo</button>
-  <button>🎬 Filmes</button>
-  <button>📺 Séries</button>
-  <button>🧒 TV Kids</button>
-  <button>🎈 Filmes Kids</button>
-  <button>🧸 Séries Kids</button>
+  <button tabindex="0" onclick="tv()">📡 TV ao Vivo</button>
+  <button tabindex="0" onclick="filmes()">🎬 Filmes</button>
+  <button tabindex="0" onclick="series()">📺 Séries</button>
+  <button tabindex="0" onclick="tvKids()">🧒 TV Kids</button>
+  <button tabindex="0" onclick="filmesKids()">🎈 Filmes Kids</button>
+  <button tabindex="0" onclick="seriesKids()">🧸 Séries Kids</button>
  </div>
 </aside>
 
 <aside class="categories" id="cats"></aside>
 <main class="main" id="main"></main>
 
-<button class="exit-btn" id="exitBtn">⬅ Voltar</button>
-
+<button class="exit-btn" id="exitBtn" onclick="sair()">⬅ Voltar</button>
 <div class="player-box" id="playerBox">
- <video id="player" controls></video>
+ <video id="player" class="video-js" controls></video>
 </div>
 
 </div>
+
+<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 
 <script>
+const player=videojs("player",{fluid:true});
+const box=document.getElementById("playerBox");
+const exitBtn=document.getElementById("exitBtn");
+const main=document.getElementById("main");
+const cats=document.getElementById("cats");
+
 /* DATA */
 setInterval(()=>{
  const d=new Date();
@@ -183,117 +190,75 @@ setInterval(()=>{
  d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
 },1000);
 
-/* BASE */
-const main=document.getElementById("main");
-const cats=document.getElementById("cats");
-const video=document.getElementById("player");
-const box=document.getElementById("playerBox");
-const exitBtn=document.getElementById("exitBtn");
-
 function limpar(){cats.innerHTML="";main.innerHTML=""}
 
 /* PLAYER */
 function play(url){
  box.classList.add("active");
  exitBtn.classList.add("active");
- video.src=url;
- video.play();
- video.focus();
+ player.src({src:url,type:url.includes("m3u8")?"application/x-mpegURL":"video/mp4"});
+ player.play();
 }
-exitBtn.onclick=()=>{
- video.pause();
+function sair(){
+ player.pause();
  box.classList.remove("active");
  exitBtn.classList.remove("active");
-};
+}
 
-/* 🔥 NAVEGAÇÃO CORRIGIDA (ÚNICA ALTERAÇÃO REAL) */
-document.addEventListener("keydown", e=>{
- const items=[...document.querySelectorAll("button,.cat-item,.card")];
- const current=document.activeElement;
- const index=items.indexOf(current);
- if(index===-1) return;
-
- const grid=current.closest(".grid");
- const cols=grid
-  ? getComputedStyle(grid).gridTemplateColumns.split(" ").length
-  : 1;
-
- switch(e.key){
-  case "ArrowRight": items[index+1]?.focus(); break;
-  case "ArrowLeft":  items[index-1]?.focus(); break;
-  case "ArrowDown":  items[index+cols]?.focus(); break;
-  case "ArrowUp":    items[index-cols]?.focus(); break;
-  case "Enter":      current.click(); break;
-  case "Backspace":
-  case "Escape":     exitBtn.click(); break;
+/* ===============================
+   NAVEGAÇÃO POR SETAS (FINAL)
+   =============================== */
+(function(){
+ function focusables(){
+  return [...document.querySelectorAll(
+   'button,[tabindex="0"],.card,.cat-item,input'
+  )].filter(e=>e.offsetParent!==null)
  }
-});
 
-/* FOCO INICIAL */
-window.onload=()=>document.querySelector(".menu button")?.focus();
+ function move(dir){
+  const els=focusables()
+  const cur=document.activeElement
+  if(!cur||!els.includes(cur)){els[0]?.focus();return}
 
-/* TV AO VIVO */
-async function tv(m3u){
- limpar();
- const txt=await fetch(m3u).then(r=>r.text());
- const grupos={}; let cur={};
- txt.split("\n").forEach(l=>{
-  if(l.startsWith("#EXTINF")){
-   cur.nome=l.split(",")[1];
-   cur.grupo=(l.match(/group-title="([^"]+)"/)||[])[1]||"Outros";
-  }else if(l.startsWith("http")){
-   if(!grupos[cur.grupo])grupos[cur.grupo]=[];
-   grupos[cur.grupo].push({nome:cur.nome,url:l});
+  const r=cur.getBoundingClientRect()
+  let best=null,dist=1e9
+
+  els.forEach(e=>{
+   if(e===cur) return
+   const b=e.getBoundingClientRect()
+   const dx=b.left-r.left
+   const dy=b.top-r.top
+
+   if(dir==="left" && dx>=0) return
+   if(dir==="right" && dx<=0) return
+   if(dir==="up" && dy>=0) return
+   if(dir==="down" && dy<=0) return
+
+   const d=Math.hypot(dx,dy)
+   if(d<dist){dist=d;best=e}
+  })
+  best?.focus()
+ }
+
+ document.addEventListener("keydown",e=>{
+  if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)){
+   e.preventDefault()
+   move(e.key.replace("Arrow","").toLowerCase())
   }
- });
- Object.keys(grupos).sort().forEach(g=>{
-  const c=document.createElement("div");
-  c.className="cat-item";c.tabIndex=0;c.textContent=g;
-  c.onclick=()=>listar(grupos[g],true);
-  cats.appendChild(c);
- });
-}
+  if(e.key==="Enter"){
+   e.preventDefault()
+   document.activeElement?.click()
+  }
+  if(["Escape","Backspace"].includes(e.key)){
+   sair()
+  }
+ })
 
-/* JSON */
-async function json(file){
- limpar();
- const j=await fetch(file).then(r=>r.json());
- j.sort((a,b)=>a.titulo.localeCompare(b.titulo));
- const categorias=[...new Set(j.map(i=>i.genero))].sort();
- categorias.forEach(cat=>{
-  const c=document.createElement("div");
-  c.className="cat-item";c.tabIndex=0;c.textContent=cat;
-  c.onclick=()=>listar(j.filter(i=>i.genero===cat));
-  cats.appendChild(c);
- });
-}
-
-/* LISTAR */
-function listar(lista,isTv){
- main.innerHTML="<div class='grid'></div>";
- const g=main.querySelector(".grid");
- lista.forEach(i=>{
-  const c=document.createElement("div");
-  c.className="card";c.tabIndex=0;
-  c.innerHTML=`
-   <img src="${i.poster||''}">
-   <div class="info">
-    <strong>${i.titulo||i.nome}</strong><br>
-    <span>${i.year||""} ⭐ ${i.rating||""}</span>
-   </div>`;
-  c.onclick=()=>play(i.url);
-  g.appendChild(c);
- });
-}
-
-/* BIND MENU */
-const btn=document.querySelectorAll(".menu button");
-btn[0].onclick=()=>tv("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/canais.m3u");
-btn[1].onclick=()=>json("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/filmes.json");
-btn[2].onclick=()=>json("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/series.json");
-btn[3].onclick=()=>tv("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_canais.m3u");
-btn[4].onclick=()=>json("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_filmes.json");
-btn[5].onclick=()=>json("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/kids_series.json");
+ window.addEventListener("load",()=>{
+  focusables()[0]?.focus()
+ })
+})()
 </script>
+
 </body>
 </html>

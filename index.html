@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v4.1 Estável</title>
+    <title>PaixãoFlix TV — v5.0 Estável</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -15,24 +15,34 @@
         ::-webkit-scrollbar { display: none; }
 
         .app-container { display: flex; height: 100vh; width: 100vw; }
-        .sidebar { width: 240px; background: var(--bg-side); display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; }
-        .logo img { width: 140px; display: block; margin: 0 auto 10px; }
         
-        .stats-counter { font-size: 11px; text-align: center; color: var(--primary); font-weight: 600; margin-bottom: 5px; }
-        .date-display { font-size: 12px; text-align: center; color: #888; margin-bottom: 20px; }
+        /* SIDEBAR */
+        .sidebar { width: 240px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; }
+        .logo img { width: 130px; display: block; margin: 0 auto 10px; }
         
-        .search-box input { width: 100%; padding: 12px; border: 1px solid #333; border-radius: 8px; background: #151515; color: #fff; margin-bottom: 20px; }
+        /* COR DA CONTAGEM ALTERADA PARA BRANCO */
+        .stats-counter { font-size: 11px; text-align: center; color: #ffffff; font-weight: 600; margin-bottom: 5px; }
+        .date-display { font-size: 11px; text-align: center; color: #888; margin-bottom: 15px; text-transform: capitalize; }
+        
+        .search-box input { width: 100%; padding: 10px; border: 1px solid #333; border-radius: 8px; background: #111; color: #fff; margin-bottom: 15px; }
 
         .nav-menu { flex: 1; overflow-y: auto; }
-        .nav-menu button { width: 100%; padding: 14px; margin-bottom: 10px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; cursor: pointer; text-align: left; font-size: 13px; font-weight: 600; border-left: 4px solid transparent; }
-        .nav-menu button:focus { background: #333; border-left-color: var(--primary); transform: scale(1.02); }
+        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 6px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; cursor: pointer; text-align: left; font-size: 12px; font-weight: 600; }
+        .nav-menu button:focus { background: var(--primary); }
 
+        /* DROPDOWNS DE CATEGORIAS */
+        .dropdown-container { display: none; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 5px; background: #000; border-radius: 8px; margin-bottom: 10px; }
+        .dropdown-container.active { display: grid; }
+        .drop-item { padding: 8px 2px; font-size: 10px; background: #1a1a1a; color: #fff; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; }
+        .drop-item:focus { background: var(--primary); border-color: #fff; }
+
+        /* GRID E CONTEÚDO */
         .content-area { flex: 1; overflow-y: auto; background: #000; scroll-behavior: smooth; }
         .grid { display: grid; padding: 20px; gap: 15px; grid-template-columns: repeat(5, 1fr); }
         
         @media (max-width: 768px) {
             .grid { grid-template-columns: repeat(3, 1fr) !important; padding: 10px; gap: 8px; }
-            .sidebar { width: 170px; padding: 10px; }
+            .sidebar { width: 170px; }
         }
 
         .card { background: #111; border-radius: 8px; overflow: hidden; border: 3px solid transparent; cursor: pointer; transition: 0.2s; }
@@ -40,14 +50,11 @@
         .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
         .card:focus { border-color: var(--primary); transform: scale(1.05); }
 
-        /* PLAYER SEM FAIXAS PRETAS */
+        /* PLAYER */
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; }
         .video-js { width: 100% !important; height: 100% !important; }
-        .vjs-tech { object-fit: fill !important; } 
-        
-        .player-controls { position: absolute; top: 30px; left: 30px; z-index: 10000; opacity: 0; transition: 0.5s; }
-        #player-overlay.user-active .player-controls { opacity: 1; }
-        .btn-back { padding: 12px 25px; background: var(--primary); color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .vjs-tech { object-fit: fill !important; } /* Preenchimento total */
+        .btn-back { position: absolute; top: 20px; left: 20px; z-index: 10001; padding: 10px 20px; background: var(--primary); color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -55,41 +62,48 @@
 <div class="app-container">
     <aside class="sidebar">
         <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
-        <div class="stats-counter" id="stats-counter">CARREGANDO...</div>
+        <div class="stats-counter" id="stats-counter">0 CONTEÚDOS</div>
         <div id="date-now" class="date-display"></div>
-        
         <div class="search-box"><input type="text" id="search-input" placeholder="Busca Global..."></div>
 
         <nav class="nav-menu">
             <button onclick="smartLoad('canais.m3u')">📡 TV AO VIVO</button>
             <button onclick="smartLoad('kids_tv.json')">🧒 TV KIDS</button>
-            <button onclick="smartLoad('filmes.json')">🎬 FILMES</button>
-            <button onclick="smartLoad('series.json')">📺 SÉRIES</button>
+            
+            <button onclick="toggleDrop('drop-filmes')">🎬 FILMES ▾</button>
+            <div id="drop-filmes" class="dropdown-container"></div>
+            
+            <button onclick="toggleDrop('drop-series')">📺 SÉRIES ▾</button>
+            <div id="drop-series" class="dropdown-container"></div>
+            
             <button onclick="smartLoad('kids_filmes.json')">🎈 FILMES KIDS</button>
             <button onclick="smartLoad('kids_series.json')">🧸 SÉRIES KIDS</button>
         </nav>
     </aside>
 
-    <main class="content-area" id="main-scroller">
-        <div class="grid" id="main-grid"></div>
-    </main>
+    <main class="content-area" id="scroller"><div class="grid" id="main-grid"></div></main>
 </div>
 
 <div id="player-overlay">
-    <div class="player-controls"><button class="btn-back" onclick="closePlayer()">⬅ VOLTAR</button></div>
+    <button class="btn-back" onclick="closePlayer()">⬅ VOLTAR</button>
     <video id="main-player" class="video-js vjs-big-play-centered" playsinline></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
     const API_BASE = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
-    let globalCache = [];
+    const CATEGORIES = ["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"];
+    
+    let globalData = { filmes: [], series: [] };
+    let fullCache = [];
     let player = videojs('main-player', { controls: true, fluid: false });
 
-    window.onload = () => {
+    window.onload = async () => {
         updateClock();
-        syncGlobal();
+        setupDropdowns();
+        await preloadAll();
         setupRemote();
+        smartLoad('filmes.json'); // Inicial
         setInterval(updateClock, 60000);
     };
 
@@ -98,105 +112,109 @@
         document.getElementById('date-now').textContent = n.toLocaleDateString('pt-BR', {weekday:'long', day:'numeric', month:'short'});
     }
 
-    // SINCRONIZA TUDO PARA A BUSCA NÃO FICAR VAZIA
-    async function syncGlobal() {
+    async function preloadAll() {
         const files = ['filmes.json', 'series.json', 'kids_filmes.json', 'kids_series.json', 'kids_tv.json'];
         for(let f of files) {
             try {
                 const r = await fetch(API_BASE + f);
-                if(r.ok) {
-                    const data = await r.json();
-                    globalCache = [...globalCache, ...data];
-                }
+                const d = await r.json();
+                if(f === 'filmes.json') globalData.filmes = d;
+                if(f === 'series.json') globalData.series = d;
+                fullCache = [...fullCache, ...d];
             } catch(e) {}
         }
-        document.getElementById('stats-counter').textContent = `${globalCache.length} TÍTULOS DISPONÍVEIS`;
-        smartLoad('filmes.json'); // Abre com algo na tela
+        document.getElementById('stats-counter').textContent = `${fullCache.length} CONTEÚDOS ONLINE`;
     }
 
-    // FUNÇÃO INTELIGENTE: IDENTIFICA O TIPO DE ARQUIVO E CARREGA
-    async function smartLoad(fileName) {
+    function setupDropdowns() {
+        ['drop-filmes', 'drop-series'].forEach(id => {
+            const container = document.getElementById(id);
+            const type = id.includes('filmes') ? 'filmes' : 'series';
+            CATEGORIES.forEach(cat => {
+                const div = document.createElement('div');
+                div.className = 'drop-item';
+                div.textContent = cat;
+                div.tabIndex = 0;
+                div.onclick = () => renderGrid(globalData[type].filter(i => i.genero === cat), 'vod');
+                container.appendChild(div);
+            });
+        });
+    }
+
+    function toggleDrop(id) {
+        const el = document.getElementById(id);
+        const active = el.classList.contains('active');
+        document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('active'));
+        if(!active) el.classList.add('active');
+    }
+
+    async function smartLoad(file) {
         try {
-            const response = await fetch(API_BASE + fileName);
-            const content = await response.text();
-            
-            if (fileName.endsWith('.m3u')) {
-                parseM3U(content);
+            const r = await fetch(API_BASE + file);
+            if(file.endsWith('.m3u')) {
+                const text = await r.text();
+                parseM3U(text);
             } else {
-                const data = JSON.parse(content);
-                renderGrid(data, 'vod');
+                const data = await r.json();
+                renderGrid(data, file.includes('tv') ? 'tv' : 'vod');
             }
-        } catch (error) {
-            console.error("Erro ao carregar " + fileName);
-        }
+        } catch(e) { console.error("Erro ao carregar " + file); }
     }
 
     function parseM3U(text) {
         const channels = [];
         const lines = text.split('\n');
-        for (let i = 0; i < lines.length; i++) {
-            if (lines[i].includes('#EXTINF')) {
-                const nome = lines[i].split(',')[1]?.trim();
-                const logo = lines[i].match(/tvg-logo="([^"]+)"/)?.[1];
+        lines.forEach((line, i) => {
+            if(line.includes('#EXTINF')) {
+                const nome = line.split(',')[1]?.trim();
+                const logo = line.match(/tvg-logo="([^"]+)"/)?.[1];
                 const url = lines[i+1]?.trim();
-                if (url) channels.push({ titulo: nome, poster: logo, url: url });
+                if(url) channels.push({ titulo: nome, poster: logo, url: url });
             }
-        }
+        });
         renderGrid(channels, 'tv');
     }
 
     function renderGrid(data, type) {
         const grid = document.getElementById('main-grid');
         grid.innerHTML = '';
-        data.sort((a,b) => (a.titulo || a.nome || "").localeCompare(b.titulo || b.nome || ""));
-
-        data.forEach(item => {
+        const list = data.sort((a,b) => (a.titulo || a.nome || "").localeCompare(b.titulo || b.nome || ""));
+        
+        list.forEach(item => {
             const div = document.createElement('div');
             div.className = `card ${type === 'tv' ? 'tv-card' : ''}`;
             div.tabIndex = 0;
             div.innerHTML = `
-                <img src="${item.poster || item.logo || item.image}" onerror="this.src='https://via.placeholder.com/200x300?text=Sem+Capa'">
-                <div style="padding:8px; font-size:11px; text-align:center;">${item.titulo || item.nome}</div>
+                <img src="${item.poster || item.logo || item.image}" onerror="this.src='https://via.placeholder.com/200x300?text=Sem+Imagem'">
+                <div style="padding:8px; font-size:10px; text-align:center;">${item.titulo || item.nome}</div>
             `;
             div.onclick = () => openPlayer(item.url, item.titulo || item.nome);
             grid.appendChild(div);
         });
-        document.getElementById('main-scroller').scrollTop = 0;
+        document.getElementById('scroller').scrollTop = 0;
     }
 
     function openPlayer(url, title) {
         if(!url) return;
-        const overlay = document.getElementById('player-overlay');
-        overlay.style.display = 'block';
-        overlay.classList.add('user-active');
+        document.getElementById('player-overlay').style.display = 'block';
         player.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
         player.play();
-        
-        // Timer para esconder o botão de voltar
-        setTimeout(() => overlay.classList.remove('user-active'), 5000);
     }
 
     function closePlayer() { player.pause(); document.getElementById('player-overlay').style.display = 'none'; }
 
     function setupRemote() {
         document.addEventListener('keydown', (e) => {
-            const isP = document.getElementById('player-overlay').style.display === 'block';
             if(e.key === 'Enter') document.activeElement.click();
-            if(e.key === 'Backspace' && isP) closePlayer();
-            if(e.key === 'PageUp') document.getElementById('main-scroller').scrollBy(0, -600);
-            if(e.key === 'PageDown') document.getElementById('main-scroller').scrollBy(0, 600);
-            
-            if(isP) {
-                document.getElementById('player-overlay').classList.add('user-active');
-                if(e.key === 'ArrowRight') player.currentTime(player.currentTime() + 10);
-                if(e.key === 'ArrowLeft') player.currentTime(player.currentTime() - 10);
-            }
+            if(e.key === 'Backspace') closePlayer();
+            if(e.key === 'PageUp') document.getElementById('scroller').scrollBy(0, -500);
+            if(e.key === 'PageDown') document.getElementById('scroller').scrollBy(0, 500);
         });
     }
 
     document.getElementById('search-input').oninput = (e) => {
         const val = e.target.value.toLowerCase();
-        const res = globalCache.filter(i => (i.titulo || i.nome || "").toLowerCase().includes(val));
+        const res = fullCache.filter(i => (i.titulo || i.nome || "").toLowerCase().includes(val));
         renderGrid(res, 'vod');
     };
 </script>

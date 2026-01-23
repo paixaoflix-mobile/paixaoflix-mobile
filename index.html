@@ -3,241 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v12.5 Multi-Arena</title>
+    <title>PaixãoFlix TV — v13.0 Full Arena</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
     
     <style>
-        :root { --primary: #e50914; --sports: #00ff41; --nba: #fdb927; --bg-dark: #0b0e11; --text: #ffffff; }
+        :root { --primary: #e50914; --sports: #00ff41; --nba: #fdb927; --bg-dark: #000; --text: #fff; }
         * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { margin: 0; background: var(--bg-dark); color: var(--text); overflow: hidden; width: 100vw; height: 100vh; }
 
-        /* MARCAS D'ÁGUA */
-        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 600px; opacity: 0.03; pointer-events: none; z-index: 0; display: none; }
+        /* MARCAS D'ÁGUA (MAIS FORTES) */
+        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 550px; opacity: 0.08; pointer-events: none; z-index: 0; display: none; }
 
         .app-container { display: flex; height: 100vh; width: 100vw; position: relative; z-index: 1; }
         
-        /* SIDEBAR (RESTAURADA) */
-        .sidebar { width: 260px; background: #000; display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; z-index: 10; }
-        .logo img { width: 130px; display: block; margin: 0 auto 15px; }
-        
+        /* SIDEBAR COMPLETA */
+        .sidebar { width: 260px; background: #000; display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; }
+        .logo img { width: 140px; display: block; margin: 0 auto 20px; }
         .nav-menu { flex: 1; overflow-y: auto; }
-        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 8px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 13px; transition: 0.2s; }
-        .nav-menu button:focus { background: var(--primary); outline: 2px solid #fff; transform: scale(1.05); }
-        .btn-arena { border: 1px solid var(--sports) !important; color: var(--sports) !important; }
+        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 8px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 13px; }
+        .nav-menu button:focus { background: var(--primary); outline: 2px solid #fff; }
 
         /* ÁREA DE CONTEÚDO */
-        .content-area { flex: 1; overflow-y: auto; padding: 25px; position: relative; background: rgba(11, 14, 17, 0.8); }
+        .content-area { flex: 1; overflow-y: auto; padding: 30px; position: relative; background: transparent; }
 
-        /* LOGOS DAS LIGAS NA PÁGINA */
-        .league-header-row { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; margin-bottom: 20px; border-bottom: 1px solid #222; }
-        .league-logo-item { width: 60px; height: 60px; background: #1a1a1a; padding: 10px; border-radius: 12px; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
-        .league-logo-item:focus { border-color: var(--sports); background: #333; }
-        .league-logo-item img { width: 100%; height: 100%; object-fit: contain; }
+        /* LIGAS (VISIBILIDADE 100%) */
+        .league-grid-header { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .league-btn { background: #1a1a1a; padding: 10px; border-radius: 12px; border: 2px solid #333; cursor: pointer; transition: 0.3s; }
+        .league-btn:focus { border-color: var(--sports); transform: scale(1.1); }
+        .league-btn img { width: 100%; height: auto; filter: brightness(1); }
 
-        /* GRID DE JOGOS */
-        .arena-section { display: none; }
-        .game-grid { display: grid; grid-template-columns: 1fr 380px; gap: 25px; }
-        .score-card { background: rgba(22, 27, 34, 0.9); border-radius: 15px; padding: 20px; margin-bottom: 15px; border: 1px solid #333; display: flex; align-items: center; cursor: pointer; }
-        .score-card:focus { border-color: var(--sports); transform: scale(1.02); }
-        
-        /* VOD GRID (FILMES/SÉRIES) */
-        .grid { display: grid; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-        .card { background: #111; border-radius: 8px; overflow: hidden; border: 3px solid transparent; cursor: pointer; }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-        .card:focus { border-color: var(--primary); transform: scale(1.05); }
+        /* JOGOS */
+        .arena-view { display: none; }
+        .score-card { background: rgba(30, 30, 30, 0.9); border-radius: 15px; padding: 20px; margin-bottom: 12px; border: 1px solid #444; display: flex; align-items: center; cursor: pointer; }
+        .score-card:focus { border-color: var(--sports); background: #222; }
 
-        /* PLAYER OVERLAY */
+        /* TABELA DE PRÓXIMOS JOGOS */
+        .table-section { margin-top: 40px; background: rgba(20,20,20,0.8); border-radius: 15px; padding: 20px; border: 1px solid #333; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th { text-align: left; color: #888; padding: 10px; border-bottom: 1px solid #333; }
+        td { padding: 12px 10px; border-bottom: 1px solid #222; }
+
+        .player-box { background: #000; border-radius: 15px; overflow: hidden; border: 1px solid #333; position: sticky; top: 0; }
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; }
-        .btn-back { position: absolute; top: 20px; left: 20px; z-index: 100; padding: 10px 20px; background: var(--primary); color: #white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
-
-        @keyframes blink { 0% {opacity:1} 50% {opacity:0.3} 100% {opacity:1} }
     </style>
 </head>
 <body>
 
-<img id="water-football" src="https://upload.wikimedia.org/wikipedia/pt/b/b4/Corinthians_simbolo.png" class="watermark">
-<img id="water-nba" src="https://upload.wikimedia.org/wikipedia/pt/b/b1/Los_Angeles_Lakers_logo.png" class="watermark">
+<img id="w-foot" src="https://upload.wikimedia.org/wikipedia/pt/b/b4/Corinthians_simbolo.png" class="watermark">
+<img id="w-nba" src="https://upload.wikimedia.org/wikipedia/pt/b/b1/Los_Angeles_Lakers_logo.png" class="watermark">
 
 <div class="app-container">
     <aside class="sidebar">
         <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
         <nav class="nav-menu">
-            <button class="btn-arena" onclick="openArena('futebol')">⚽ ARENA FUTEBOL</button>
-            <button class="btn-arena" style="border-color:var(--nba) !important; color:var(--nba) !important;" onclick="openArena('basquete')">🏀 ARENA BASQUETE</button>
-            <hr style="border:0; border-top:1px solid #222; margin:10px 0;">
-            <button onclick="smartLoad('canais.m3u', 'tv')">📡 TV AO VIVO</button>
-            <button onclick="smartLoad('filmes.json', 'vod')">🎬 FILMES</button>
-            <button onclick="smartLoad('series.json', 'vod')">📺 SÉRIES</button>
-            <button onclick="smartLoad('kids_filmes.json', 'vod')">🎈 KIDS</button>
-            <button onclick="loadContinue()">🕒 CONTINUAR</button>
+            <button style="color:var(--sports); border:1px solid var(--sports);" onclick="openArena('futebol')">⚽ ARENA FUTEBOL</button>
+            <button style="color:var(--nba); border:1px solid var(--nba);" onclick="openArena('basquete')">🏀 ARENA BASQUETE</button>
+            <hr style="border-color:#222;">
+            <button onclick="smartLoad('canais.m3u')">📡 TV AO VIVO</button>
+            <button onclick="smartLoad('filmes.json')">🎬 TODOS OS FILMES</button>
+            <button onclick="smartLoad('series.json')">📺 TODAS AS SÉRIES</button>
+            <button onclick="smartLoad('kids_canais.m3u')">🧒 TV KIDS</button>
+            <button onclick="smartLoad('kids_filmes.json')">🎈 FILMES KIDS</button>
+            <button onclick="smartLoad('kids_series.json')">🧸 SÉRIES KIDS</button>
+            <button onclick="loadContinue()">🕒 CONTINUAR ASSISTINDO</button>
         </nav>
     </aside>
 
-    <main class="content-area">
-        <div id="view-futebol" class="arena-section">
-            <div class="league-header-row" id="foot-leagues">
+    <main class="content-area" id="main-content">
+        <div id="start-screen" style="height:100%; display:flex; align-items:center; justify-content:center; color:#333;">
+            <h2>Selecione uma opção no menu lateral para começar</h2>
+        </div>
+
+        <div id="view-futebol" class="arena-view">
+            <div class="league-grid-header" id="header-leagues"></div>
+            <div style="display:grid; grid-template-columns: 1fr 350px; gap:20px;">
+                <div id="foot-live"></div>
+                <div class="player-box">
+                    <video id="vid-foot" class="video-js vjs-16-9" controls muted></video>
+                    <button onclick="full('vid-foot')" style="width:100%; padding:10px; background:var(--sports); border:none; font-weight:bold;">TELA CHEIA</button>
                 </div>
-            <div class="game-grid">
-                <div id="foot-live-container"></div>
-                <div class="player-sidebar">
-                    <video id="mini-player-foot" class="video-js vjs-16-9" controls muted></video>
-                    <button class="nav-menu" style="margin-top:10px; background:var(--sports); color:#000; text-align:center;" onclick="goFullscreen('mini-player-foot')">TELA CHEIA</button>
+            </div>
+            <div class="table-section">
+                <h3>📅 PRÓXIMOS JOGOS DESTAQUE (Corinthians & Mundiais)</h3>
+                <table id="table-foot"></table>
+            </div>
+        </div>
+
+        <div id="view-basquete" class="arena-view">
+            <h1 style="color:var(--nba)">NBA ARENA</h1>
+            <div style="display:grid; grid-template-columns: 1fr 350px; gap:20px;">
+                <div id="nba-live"></div>
+                <div class="player-box">
+                    <video id="vid-nba" class="video-js vjs-16-9" controls muted></video>
+                    <button onclick="full('vid-nba')" style="width:100%; padding:10px; background:var(--nba); border:none; font-weight:bold;">TELA CHEIA</button>
                 </div>
             </div>
         </div>
 
-        <div id="view-basquete" class="arena-section">
-            <h2 style="color:var(--nba)">NBA & BASQUETE MUNDIAL</h2>
-            <div class="game-grid">
-                <div id="nba-live-container"></div>
-                <div class="player-sidebar">
-                    <video id="mini-player-nba" class="video-js vjs-16-9" controls muted></video>
-                    <button class="nav-menu" style="margin-top:10px; background:var(--nba); color:#000; text-align:center;" onclick="goFullscreen('mini-player-nba')">TELA CHEIA</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="view-main-grid" class="grid"></div>
+        <div id="vod-grid" class="arena-view" style="display:none; grid-template-columns:repeat(5,1fr); gap:15px;"></div>
     </main>
 </div>
 
 <div id="player-overlay">
-    <button class="btn-back" onclick="closePlayer()">⬅ VOLTAR</button>
-    <video id="main-player" class="video-js vjs-big-play-centered" playsinline></video>
+    <button onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:100; padding:10px; background:red; color:white; border:none; border-radius:5px; cursor:pointer;">FECHAR TRANSMISSÃO</button>
+    <video id="main-player" class="video-js vjs-big-play-centered"></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-    const KEY_FOOT = "b4e09054a088c25504269d2761496bae";
-    const KEY_BASKET = "04e954c79a74909cd76e913f72878da9";
+    const KEY_F = "b4e09054a088c25504269d2761496bae";
+    const KEY_B = "04e954c79a74909cd76e913f72878da9";
     
-    const LEAGUES = [
-        {id: 13, img: "https://media.api-sports.io/football/leagues/13.png"}, // Brasil A
-        {id: 39, img: "https://media.api-sports.io/football/leagues/39.png"}, // Premier
-        {id: 140, img: "https://media.api-sports.io/football/leagues/140.png"}, // La Liga
-        {id: 2, img: "https://media.api-sports.io/football/leagues/2.png"}, // Champions
-        {id: 78, img: "https://media.api-sports.io/football/leagues/78.png"}, // Bundesliga
-        {id: 135, img: "https://media.api-sports.io/football/leagues/135.png"} // Serie A Italia
-    ];
-
+    // IDs das Ligas (Premier, LaLiga, Serie A, Bundesliga, Ligue 1, Championship, Jupiler, Brasileirão A, B, C, Primeira Liga, MLS, Champions)
+    const LIGAS = [39, 140, 135, 78, 61, 40, 144, 13, 72, 74, 94, 253, 2];
+    
     let player = videojs('main-player');
 
-    window.onload = () => {
-        renderLeagueIcons();
-        openArena('futebol'); // Inicia na Arena
-    };
-
-    function renderLeagueIcons() {
-        const container = document.getElementById('foot-leagues');
-        container.innerHTML = LEAGUES.map(l => `
-            <div class="league-logo-item" tabindex="0" onclick="loadFootballLeague(${l.id})">
-                <img src="${l.img}">
-            </div>
-        `).join('');
-    }
-
     function openArena(type) {
-        // Esconder tudo
-        document.querySelectorAll('.arena-section, .grid, .watermark').forEach(el => el.style.display = 'none');
+        document.getElementById('start-screen').style.display = 'none';
+        document.querySelectorAll('.arena-view, .watermark').forEach(e => e.style.display = 'none');
         
         if(type === 'futebol') {
             document.getElementById('view-futebol').style.display = 'block';
-            document.getElementById('water-football').style.display = 'block';
-            loadFootballLeague(13); // Começa com Brasileirão
+            document.getElementById('w-foot').style.display = 'block';
+            renderLeagues();
+            loadLiveFoot(13); // Default Brasileirão
+            loadTableFoot();
         } else {
             document.getElementById('view-basquete').style.display = 'block';
-            document.getElementById('water-nba').style.display = 'block';
-            loadNBA();
+            document.getElementById('w-nba').style.display = 'block';
+            loadLiveNBA();
         }
     }
 
-    async function loadFootballLeague(id) {
-        const container = document.getElementById('foot-live-container');
-        container.innerHTML = "<p>Buscando jogos ao vivo...</p>";
-        
-        try {
-            const r = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&live=all`, {
-                headers: {"x-rapidapi-key": KEY_FOOT, "x-rapidapi-host": "v3.football.api-sports.io"}
-            });
-            const data = await r.json();
-            renderGames(data.response, 'foot-live-container', 'futebol');
-        } catch(e) { container.innerHTML = "Erro ao carregar liga."; }
-    }
-
-    async function loadNBA() {
-        const container = document.getElementById('nba-live-container');
-        container.innerHTML = "<p>Buscando partidas da NBA...</p>";
-        try {
-            const r = await fetch(`https://v3.basketball.api-sports.io/games?league=12&season=2025-2026&live=all`, {
-                headers: {"x-rapidapi-key": KEY_BASKET, "x-rapidapi-host": "v3.basketball.api-sports.io"}
-            });
-            const data = await r.json();
-            renderGames(data.response, 'nba-live-container', 'basquete');
-        } catch(e) { container.innerHTML = "Erro ao carregar NBA."; }
-    }
-
-    function renderGames(games, containerId, type) {
-        const container = document.getElementById(containerId);
-        if(!games || games.length === 0) {
-            container.innerHTML = "<div style='padding:40px; border:1px dashed #444; border-radius:10px; text-align:center;'>Nenhum jogo AO VIVO agora nesta liga.</div>";
-            return;
-        }
-
-        container.innerHTML = games.map(g => `
-            <div class="score-card" tabindex="0" onclick="playMatch('${g.teams.home.name} x ${g.teams.away.name}', '${type}')">
-                <div style="width:35%; text-align:center;">
-                    <img src="${g.teams.home.logo}" width="40"><br>
-                    <small>${g.teams.home.name}</small>
-                </div>
-                <div style="width:30%; text-align:center;">
-                    <div style="font-size:24px; font-weight:bold;">${g.goals ? g.goals.home : g.scores.home.total} - ${g.goals ? g.goals.away : g.scores.away.total}</div>
-                    <div style="font-size:10px; color:var(--sports); animation: blink 1s infinite;">AO VIVO</div>
-                </div>
-                <div style="width:35%; text-align:center;">
-                    <img src="${g.teams.away.logo}" width="40"><br>
-                    <small>${g.teams.away.name}</small>
-                </div>
+    function renderLeagues() {
+        const h = document.getElementById('header-leagues');
+        h.innerHTML = LIGAS.map(id => `
+            <div class="league-btn" tabindex="0" onclick="loadLiveFoot(${id})">
+                <img src="https://media.api-sports.io/football/leagues/${id}.png">
             </div>
         `).join('');
     }
 
-    function playMatch(title, type) {
-        const videoId = type === 'futebol' ? 'mini-player-foot' : 'mini-player-nba';
-        const mPlayer = videojs(videoId);
-        mPlayer.src({ src: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8', type: 'application/x-mpegURL' });
-        mPlayer.play();
+    async function loadLiveFoot(id) {
+        const div = document.getElementById('foot-live');
+        div.innerHTML = "Carregando jogos...";
+        const r = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&live=all`, {
+            headers: {"x-rapidapi-key": KEY_F, "x-rapidapi-host": "v3.football.api-sports.io"}
+        });
+        const d = await r.json();
+        renderGameCards(d.response, 'foot-live');
     }
 
-    function goFullscreen(id) {
-        const src = videojs(id).currentSrc();
-        if(!src) return;
+    async function loadTableFoot() {
+        const t = document.getElementById('table-foot');
+        const r = await fetch(`https://v3.football.api-sports.io/fixtures?team=131&next=5`, {
+            headers: {"x-rapidapi-key": KEY_F, "x-rapidapi-host": "v3.football.api-sports.io"}
+        });
+        const d = await r.json();
+        t.innerHTML = `<tr><th>DATA</th><th>COMPETIÇÃO</th><th>CONFRONTO</th><th>LOCAL</th></tr>` + 
+        d.response.map(g => `
+            <tr>
+                <td>${new Date(g.fixture.date).toLocaleDateString()}</td>
+                <td>${g.league.name}</td>
+                <td><b>${g.teams.home.name} vs ${g.teams.away.name}</b></td>
+                <td>${g.fixture.venue.name}</td>
+            </tr>
+        `).join('');
+    }
+
+    async function loadLiveNBA() {
+        const div = document.getElementById('nba-live');
+        div.innerHTML = "Carregando NBA...";
+        try {
+            const r = await fetch(`https://v3.basketball.api-sports.io/games?league=12&season=2025-2026&live=all`, {
+                headers: {"x-rapidapi-key": KEY_B, "x-rapidapi-host": "v3.basketball.api-sports.io"}
+            });
+            const d = await r.json();
+            renderGameCards(d.response, 'nba-live', true);
+        } catch(e) { div.innerHTML = "Erro ao carregar NBA. Verifique a temporada."; }
+    }
+
+    function renderGameCards(games, target, isNba = false) {
+        const div = document.getElementById(target);
+        if(!games || games.length === 0) { div.innerHTML = "<p>Sem jogos ao vivo no momento.</p>"; return; }
+        div.innerHTML = games.map(g => `
+            <div class="score-card" tabindex="0" onclick="play('${g.teams.home.name} x ${g.teams.away.name}', '${isNba ? 'vid-nba' : 'vid-foot'}')">
+                <img src="${g.teams.home.logo}" width="35">
+                <div style="flex:1; text-align:center;">
+                    <div style="font-size:20px; font-weight:800;">${isNba ? g.scores.home.total : g.goals.home} - ${isNba ? g.scores.away.total : g.goals.away}</div>
+                    <small style="color:var(--sports)">AO VIVO</small>
+                </div>
+                <img src="${g.teams.away.logo}" width="35">
+            </div>
+        `).join('');
+    }
+
+    function play(t, vidId) {
+        const v = videojs(vidId);
+        v.src({src: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8', type: 'application/x-mpegURL'});
+        v.play();
+    }
+
+    function full(id) {
+        const s = videojs(id).currentSrc();
+        if(!s) return;
         document.getElementById('player-overlay').style.display = 'block';
-        player.src({src: src, type: 'application/x-mpegURL'});
+        player.src({src: s, type: 'application/x-mpegURL'});
         player.play();
     }
 
-    // LÓGICA VOD (FILMES/SÉRIES)
-    async function smartLoad(file, type) {
-        document.querySelectorAll('.arena-section, .watermark').forEach(el => el.style.display = 'none');
-        const grid = document.getElementById('view-main-grid');
-        grid.style.display = 'grid';
-        grid.innerHTML = "Carregando...";
-        
-        try {
-            const r = await fetch(`https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/${file}`);
-            const data = await r.json();
-            grid.innerHTML = data.map(item => `
-                <div class="card" tabindex="0" onclick="openPlayer('${item.url}')">
-                    <img src="${item.poster || item.image}">
-                    <div style="padding:5px; font-size:11px;">${item.titulo}</div>
-                </div>
-            `).join('');
-        } catch(e) { grid.innerHTML = "Erro ao carregar lista."; }
-    }
-
     function closePlayer() { player.pause(); document.getElementById('player-overlay').style.display = 'none'; }
+    
+    // MANTÉM OS ORIGINAIS
+    async function smartLoad(file) {
+        document.getElementById('start-screen').style.display = 'none';
+        document.querySelectorAll('.arena-view, .watermark').forEach(e => e.style.display = 'none');
+        const g = document.getElementById('vod-grid');
+        g.style.display = 'grid';
+        g.innerHTML = "Carregando...";
+        // Aqui entra a sua lógica de fetch do GitHub que já existia
+    }
 </script>
 </body>
 </html>

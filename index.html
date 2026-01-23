@@ -3,58 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v3.2.0</title>
+    <title>PaixãoFlix TV — v4.0 Final</title>
     
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#e50914">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
     
     <style>
-        :root { --primary: #e50914; --bg-dark: #000000; --bg-side: #0b0b0b; --bg-card: #141414; --text: #ffffff; }
+        :root { --primary: #e50914; --bg-dark: #000000; --bg-side: #0b0b0b; --text: #ffffff; }
+        
+        /* ESTILO GLOBAL - FONTE POPPINS */
         * { box-sizing: border-box; outline: none; font-family: 'Poppins', sans-serif !important; }
-        ::-webkit-scrollbar { display: none; }
         body { margin: 0; background: var(--bg-dark); color: var(--text); overflow: hidden; width: 100vw; height: 100vh; }
+        ::-webkit-scrollbar { display: none; }
 
         .app-container { display: flex; height: 100vh; width: 100vw; }
-        .sidebar { width: 230px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; }
-        .logo img { width: 130px; display: block; margin: 0 auto 10px; }
         
-        /* CONTADOR E DATA OBRIGATÓRIOS */
-        .stats-counter { font-size: 10px; text-align: center; color: var(--primary); font-weight: 600; margin-bottom: 5px; }
-        .date-display { font-size: 11px; text-align: center; color: #aaa; margin-bottom: 15px; text-transform: capitalize; }
+        /* SIDEBAR CONGELADA */
+        .sidebar { width: 240px; background: var(--bg-side); display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; z-index: 100; }
+        .logo img { width: 140px; display: block; margin: 0 auto 10px; }
         
-        .search-box input { width: 100%; padding: 12px; border: 1px solid #333; border-radius: 8px; background: #1a1a1a; color: #fff; margin-bottom: 15px; }
+        .stats-counter { font-size: 11px; text-align: center; color: var(--primary); font-weight: 600; margin-bottom: 5px; letter-spacing: 1px; }
+        .date-display { font-size: 12px; text-align: center; color: #888; margin-bottom: 20px; text-transform: capitalize; }
+        
+        .search-box input { width: 100%; padding: 12px; border: 1px solid #333; border-radius: 8px; background: #151515; color: #fff; font-size: 14px; margin-bottom: 20px; }
 
         .nav-menu { flex: 1; overflow-y: auto; }
-        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 8px; border: none; border-radius: 8px; background: #222; color: #fff; cursor: pointer; text-align: left; font-size: 12px; font-weight: 600; }
-        
-        .dropdown-container { display: none; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 5px; background: #000; border-radius: 8px; margin-bottom: 10px; }
-        .dropdown-container.active { display: grid; }
-        .drop-item { padding: 8px 2px; font-size: 10px; background: #1a1a1a; color: #fff; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; }
+        .nav-menu button { width: 100%; padding: 14px; margin-bottom: 10px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; cursor: pointer; text-align: left; font-size: 13px; font-weight: 600; transition: 0.2s; border-left: 4px solid transparent; }
+        .nav-menu button:focus { background: #333; border-left-color: var(--primary); transform: scale(1.02); }
 
-        .content-area { flex: 1; overflow-y: auto; background: #000; scroll-behavior: smooth; }
-        
-        /* GRID MOBILE: 3 POR LINHA FIXO */
+        /* GRID OBRIGATÓRIO: 3 COLUNAS MOBILE / 5 DESKTOP */
+        .content-area { flex: 1; overflow-y: auto; background: #000; scroll-behavior: smooth; position: relative; }
         .grid { display: grid; padding: 20px; gap: 15px; grid-template-columns: repeat(5, 1fr); }
+        
         @media (max-width: 768px) {
             .grid { grid-template-columns: repeat(3, 1fr) !important; padding: 10px; gap: 8px; }
-            .sidebar { width: 160px; }
+            .sidebar { width: 180px; padding: 10px; }
+            .logo img { width: 100px; }
         }
 
-        .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 3px solid transparent; transition: 0.2s; cursor: pointer; }
+        .card { background: #111; border-radius: 8px; overflow: hidden; border: 3px solid transparent; cursor: pointer; transition: 0.2s; position: relative; }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
-        .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
-        .card:focus, button:focus, .drop-item:focus { border-color: var(--primary) !important; transform: scale(1.05); background: #333 !important; }
+        .card:focus { border-color: var(--primary); transform: scale(1.05); z-index: 10; }
+        .card-title { padding: 8px; font-size: 11px; text-align: center; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* PLAYER YOUTUBE STYLE - TELA TODA */
-        #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
+        /* PLAYER SEM FAIXAS PRETAS (ORDEM DIRETA) */
+        #player-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; }
         .video-js { width: 100% !important; height: 100% !important; }
-        .vjs-tech { object-fit: fill !important; } 
+        .vjs-tech { object-fit: fill !important; } /* Preenchimento Total */
         
-        #player-back { position: absolute; top: 30px; left: 30px; z-index: 3100; opacity: 0; transition: 0.4s; }
-        #player-back.show { opacity: 1; }
-        .back-button { padding: 12px 24px; background: var(--primary); color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .player-controls { position: absolute; top: 30px; left: 30px; z-index: 10000; opacity: 0; transition: 0.5s; }
+        #player-overlay:hover .player-controls, .player-controls.show { opacity: 1; }
+        .btn-back { padding: 12px 25px; background: var(--primary); color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
@@ -62,130 +61,112 @@
 <div class="app-container">
     <aside class="sidebar">
         <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
-        <div class="stats-counter" id="stats-counter">0 CONTEÚDOS</div>
+        <div class="stats-counter" id="stats-counter">SINCRONIZANDO...</div>
         <div id="date-now" class="date-display"></div>
         
         <div class="search-box">
-            <input type="text" id="search" placeholder="Busca Global...">
+            <input type="text" id="search-input" placeholder="Busca Global em tudo...">
         </div>
 
         <nav class="nav-menu">
             <button onclick="loadLiveTV('canais.m3u')">📡 TV AO VIVO</button>
-            <button onclick="loadVOD('kids_tv.json')">🧒 TV KIDS</button>
-            <button onclick="toggleDrop('drop-filmes')">🎬 FILMES ▾</button>
-            <div id="drop-filmes" class="dropdown-container"></div>
-            <button onclick="toggleDrop('drop-series')">📺 SÉRIES ▾</button>
-            <div id="drop-series" class="dropdown-container"></div>
-            <button onclick="loadVOD('kids_filmes.json')">🎈 FILMES KIDS</button>
-            <button onclick="loadVOD('kids_series.json')">🧸 SÉRIES KIDS</button>
+            <button onclick="loadSection('kids_tv')">🧒 TV KIDS</button>
+            <button onclick="loadSection('filmes')">🎬 FILMES</button>
+            <button onclick="loadSection('series')">📺 SÉRIES</button>
+            <button onclick="loadSection('kids_f')">🎈 FILMES KIDS</button>
+            <button onclick="loadSection('kids_s')">🧸 SÉRIES KIDS</button>
         </nav>
     </aside>
 
-    <main class="content-area" id="scroller">
+    <main class="content-area" id="main-scroller">
         <div class="grid" id="main-grid"></div>
     </main>
 </div>
 
 <div id="player-overlay">
-    <div id="player-back"><button class="back-button" onclick="closePlayer()">⬅ SAIR</button></div>
-    <video id="tv-player" class="video-js vjs-big-play-centered" controls preload="auto"></video>
+    <div class="player-controls" id="p-ctrls">
+        <button class="btn-back" onclick="closePlayer()">⬅ SAIR DA EXIBIÇÃO</button>
+    </div>
+    <video id="main-player" class="video-js vjs-big-play-centered"></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-<script>
-    const CONFIG = {
-        base_url: "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/",
-        categories: ["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"]
-    };
 
+<script>
+    const API_BASE = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
     let cache = { filmes: [], series: [], kids_f: [], kids_s: [], kids_tv: [] };
-    let player = videojs('tv-player');
+    let player = videojs('main-player', { controls: true, fluid: false, autoplay: false });
+    let ctrlTimer;
 
     window.onload = async () => {
         updateClock();
-        await syncAllData();
-        setupDropdowns();
-        setupSearch();
+        await syncData();
         setupRemote();
-        // Carrega Filmes por padrão para não vir vazio
-        if(cache.filmes.length > 0) renderGrid(cache.filmes, 'vod');
+        setupSearch();
+        // Começa com filmes para não ficar vazio
+        loadSection('filmes');
         setInterval(updateClock, 60000);
     };
 
     function updateClock() {
-        const now = new Date();
+        const n = new Date();
         const dias = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
-        const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-        document.getElementById('date-now').textContent = `${dias[now.getDay()]}, ${now.getDate()} de ${meses[now.getMonth()]}`;
+        document.getElementById('date-now').textContent = `${dias[n.getDay()]}, ${n.getDate()}/${n.getMonth()+1}`;
     }
 
-    async function syncAllData() {
-        const files = [
-            { key: 'filmes', name: 'filmes.json' },
-            { key: 'series', name: 'series.json' },
-            { key: 'kids_f', name: 'kids_filmes.json' },
-            { key: 'kids_s', name: 'kids_series.json' },
-            { key: 'kids_tv', name: 'kids_tv.json' }
+    async function syncData() {
+        const map = [
+            { k: 'filmes', f: 'filmes.json' },
+            { k: 'series', f: 'series.json' },
+            { k: 'kids_f', f: 'kids_filmes.json' },
+            { k: 'kids_s', f: 'kids_series.json' },
+            { k: 'kids_tv', f: 'kids_tv.json' }
         ];
 
         let total = 0;
-        for (const file of files) {
+        for(let item of map) {
             try {
-                const r = await fetch(CONFIG.base_url + file.name);
-                if (r.ok) {
-                    const data = await r.json();
-                    cache[file.key] = data.sort((a, b) => (a.titulo || a.nome || "").localeCompare(b.titulo || b.nome || ""));
-                    total += data.length;
+                const r = await fetch(API_BASE + item.f);
+                if(r.ok) {
+                    const d = await r.json();
+                    cache[item.k] = d.sort((a,b) => (a.titulo || a.nome).localeCompare(b.titulo || b.nome));
+                    total += d.length;
                 }
-            } catch (e) { console.error("Erro ao carregar: " + file.name); }
+            } catch(e) { console.error("Erro no arquivo: " + item.f); }
         }
-        document.getElementById('stats-counter').textContent = `${total} CONTEÚDOS ONLINE`;
+        document.getElementById('stats-counter').textContent = `${total} TÍTULOS ONLINE`;
     }
 
-    function renderGrid(list, mode) {
-        const grid = document.getElementById('main-grid');
-        grid.innerHTML = list.map(item => `
-            <div class="card ${mode === 'tv' ? 'tv-card' : ''}" tabindex="0" onclick="handleItemClick(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-                <img src="${item.poster || item.logo}" onerror="this.src='https://via.placeholder.com/200x300?text=Sem+Capa'">
-                <div style="padding:8px; font-size:11px; text-align:center;"><strong>${item.titulo || item.nome}</strong></div>
-            </div>
-        `).join('');
-        document.getElementById('scroller').scrollTop = 0;
+    function loadSection(key) {
+        renderGrid(cache[key], key === 'kids_tv' ? 'tv' : 'vod');
     }
 
-    function handleItemClick(item) {
-        if(item.identificador_archive || item.tipo === 'serie') {
-            alert("Detalhes da série: " + (item.titulo || item.nome)); // Aqui entra sua lógica de detalhes
-        } else {
-            openPlayer(item.url, item.titulo || item.nome);
+    function renderGrid(data, mode) {
+        const container = document.getElementById('main-grid');
+        container.innerHTML = '';
+        if(!data || data.length === 0) {
+            container.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Nenhum conteúdo encontrado.</p>';
+            return;
         }
-    }
 
-    function setupSearch() {
-        document.getElementById('search').oninput = (e) => {
-            const val = e.target.value.toLowerCase();
-            const all = [...cache.filmes, ...cache.series, ...cache.kids_f, ...cache.kids_s, ...cache.kids_tv];
-            const res = all.filter(i => (i.titulo || i.nome || "").toLowerCase().includes(val));
-            renderGrid(res, 'vod');
-        };
-    }
-
-    async function loadVOD(file) {
-        const key = file.replace('.json', '').replace('kids_', 'kids_');
-        // Mapeamento direto para o cache
-        let data = [];
-        if(file === 'kids_tv.json') data = cache.kids_tv;
-        else if(file === 'kids_filmes.json') data = cache.kids_f;
-        else if(file === 'kids_series.json') data = cache.kids_s;
-        else data = cache[file.replace('.json','')];
-        
-        renderGrid(data, file.includes('tv') ? 'tv' : 'vod');
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.tabIndex = 0;
+            const title = item.titulo || item.nome;
+            div.innerHTML = `
+                <img src="${item.poster || item.logo}" loading="lazy">
+                <div class="card-title">${title}</div>
+            `;
+            div.onclick = () => openPlayer(item.url, title);
+            container.appendChild(div);
+        });
+        document.getElementById('main-scroller').scrollTop = 0;
     }
 
     function openPlayer(url, title) {
         if(!url) return;
-        const overlay = document.getElementById('player-overlay');
-        overlay.style.display = 'block';
+        document.getElementById('player-overlay').style.display = 'block';
         player.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
         
         const saved = localStorage.getItem('save_' + title);
@@ -195,59 +176,66 @@
         player.on('timeupdate', () => {
             if(player.currentTime() > 10) localStorage.setItem('save_' + title, player.currentTime());
         });
-        
-        const b = document.getElementById('player-back');
-        b.classList.add('show');
-        setTimeout(() => b.classList.remove('show'), 5000);
+        showControls();
     }
 
-    function closePlayer() { player.pause(); document.getElementById('player-overlay').style.display = 'none'; }
-
-    function setupDropdowns() {
-        ['drop-filmes', 'drop-series'].forEach(id => {
-            const container = document.getElementById(id);
-            const type = id.includes('filmes') ? 'filmes' : 'series';
-            CONFIG.categories.forEach(cat => {
-                const div = document.createElement('div');
-                div.className = 'drop-item';
-                div.textContent = cat;
-                div.tabIndex = 0;
-                div.onclick = () => renderGrid(cache[type].filter(i => i.genero === cat), 'vod');
-                container.appendChild(div);
-            });
-        });
+    function closePlayer() {
+        player.pause();
+        document.getElementById('player-overlay').style.display = 'none';
     }
 
-    function toggleDrop(id) {
-        document.querySelectorAll('.dropdown-container').forEach(d => {
-            if(d.id === id) d.classList.toggle('active');
-            else d.classList.remove('active');
-        });
+    function showControls() {
+        const c = document.getElementById('p-ctrls');
+        c.classList.add('show');
+        clearTimeout(ctrlTimer);
+        ctrlTimer = setTimeout(() => c.classList.remove('show'), 4000);
+    }
+
+    function setupSearch() {
+        document.getElementById('search-input').oninput = (e) => {
+            const val = e.target.value.toLowerCase();
+            if(val.length < 2) return;
+            const all = [...cache.filmes, ...cache.series, ...cache.kids_f, ...cache.kids_s];
+            const filtered = all.filter(i => (i.titulo || i.nome || "").toLowerCase().includes(val));
+            renderGrid(filtered, 'vod');
+        };
     }
 
     function setupRemote() {
         document.addEventListener('keydown', (e) => {
-            const active = document.activeElement;
-            if(e.key === 'Enter') active.click();
-            if(e.key === 'Backspace') closePlayer();
-            if(e.key === 'PageUp') document.getElementById('scroller').scrollBy(0, -500);
-            if(e.key === 'PageDown') document.getElementById('scroller').scrollBy(0, 500);
+            const isPlayer = document.getElementById('player-overlay').style.display === 'block';
+            
+            if(e.key === 'Enter') document.activeElement.click();
+            if(e.key === 'Backspace' || e.key === 'Escape') {
+                if(isPlayer) closePlayer();
+            }
+
+            // CH+ / CH- (PageUp / PageDown)
+            if(e.key === 'PageUp') document.getElementById('main-scroller').scrollBy(0, -500);
+            if(e.key === 'PageDown') document.getElementById('main-scroller').scrollBy(0, 500);
+
+            // Comandos dentro do Player
+            if(isPlayer) {
+                showControls();
+                if(e.key === 'ArrowRight') player.currentTime(player.currentTime() + 10);
+                if(e.key === 'ArrowLeft') player.currentTime(player.currentTime() - 10);
+            }
         });
     }
 
     async function loadLiveTV(file) {
-        const res = await fetch(CONFIG.base_url + file);
+        const res = await fetch(API_BASE + file);
         const text = await res.text();
         const channels = [];
         const lines = text.split('\n');
-        for(let i=0; i<lines.length; i++){
-            if(lines[i].startsWith('#EXTINF')){
-                const nome = lines[i].split(',')[1]?.trim();
-                const logo = lines[i].match(/tvg-logo="([^"]+)"/)?.[1];
+        lines.forEach((line, i) => {
+            if(line.startsWith('#EXTINF')){
+                const nome = line.split(',')[1]?.trim();
+                const logo = line.match(/tvg-logo="([^"]+)"/)?.[1];
                 const url = lines[i+1]?.trim();
                 if(url) channels.push({nome, logo, url});
             }
-        }
+        });
         renderGrid(channels, 'tv');
     }
 </script>

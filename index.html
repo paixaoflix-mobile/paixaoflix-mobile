@@ -3,47 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v15.0 Ultimate</title>
+    <title>PaixãoFlix TV — v16.0 Estável</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
     
     <style>
-        :root { --primary: #e50914; --sports: #00ff41; --nba: #fdb927; --bg-dark: #000; --text: #fff; }
+        :root { --primary: #e50914; --sports: #00ff41; --nba: #fdb927; --bg-dark: #000; --text: #ffffff; }
         * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { margin: 0; background: var(--bg-dark); color: var(--text); overflow: hidden; width: 100vw; height: 100vh; }
 
         /* MARCAS D'ÁGUA */
-        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 450px; opacity: 0.1; pointer-events: none; z-index: 0; display: none; }
+        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 450px; opacity: 0.08; pointer-events: none; z-index: 0; display: none; }
 
         .app-container { display: flex; height: 100vh; width: 100vw; position: relative; z-index: 1; }
         
-        /* SIDEBAR E PESQUISA */
+        /* SIDEBAR ORIGINAL */
         .sidebar { width: 280px; background: #000; display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; overflow-y: auto; }
-        .search-box { background: #1a1a1a; border: 1px solid #333; padding: 12px; border-radius: 8px; color: #fff; width: 100%; margin-bottom: 20px; font-size: 14px; }
+        .logo-container { text-align: center; margin-bottom: 20px; }
+        .logo-container img { width: 160px; height: auto; }
         
-        /* DROPDOWN MENU */
-        .dropdown-btn { width: 100%; padding: 12px; margin-bottom: 5px; border: none; border-radius: 8px; background: #111; color: #fff; cursor: pointer; text-align: left; font-weight: 600; display: flex; justify-content: space-between; }
-        .dropdown-container { display: none; background: #080808; padding-left: 10px; margin-bottom: 10px; }
-        .dropdown-container button { width: 100%; padding: 8px; background: transparent; border: none; color: #aaa; text-align: left; font-size: 12px; cursor: pointer; }
-        .dropdown-container button:focus { color: var(--primary); }
+        .search-box { background: #1a1a1a; border: 1px solid #333; padding: 12px; border-radius: 8px; color: #fff; width: 100%; margin-bottom: 20px; outline: none; }
+        .search-box:focus { border-color: var(--primary); }
 
-        /* CARDS DAS LIGAS (TAMANHO REDUZIDO) */
-        .league-grid-header { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 20px; }
-        .league-btn { background: #fff; padding: 5px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; width: 45px; height: 45px; flex-shrink: 0; }
-        .league-btn img { width: 100%; height: 100%; object-fit: contain; }
-        .league-btn:focus { border-color: var(--sports); transform: scale(1.1); }
+        /* MENUS E DROPDOWNS */
+        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 5px; border: none; border-radius: 8px; background: #111; color: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 13px; display: flex; justify-content: space-between; }
+        .nav-menu button:focus { background: var(--primary); }
+        .dropdown-container { display: none; background: #080808; padding: 5px 0 10px 15px; }
+        .dropdown-container button { background: transparent; color: #888; font-size: 12px; padding: 8px; margin: 0; }
+        .dropdown-container button:focus { color: #fff; background: transparent; font-weight: bold; }
 
-        /* GRID CONTEÚDO */
+        /* CONTEÚDO */
         .content-area { flex: 1; overflow-y: auto; padding: 25px; position: relative; }
-        .vod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-        .card { background: #111; border-radius: 6px; overflow: hidden; border: 3px solid transparent; cursor: pointer; transition: 0.2s; }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+        
+        .card { background: #111; border-radius: 8px; overflow: hidden; border: 3px solid transparent; cursor: pointer; transition: 0.2s; }
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card:focus { border-color: var(--primary); transform: scale(1.05); outline: none; }
 
-        /* PLAYER & OVERLAYS */
+        /* LIGAS FOOTBALL (TAMANHO ORIGINAL) */
+        .league-bar { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; }
+        .league-item { width: 50px; height: 50px; background: #fff; border-radius: 8px; padding: 5px; flex-shrink: 0; cursor: pointer; border: 2px solid transparent; }
+        .league-item img { width: 100%; height: 100%; object-fit: contain; }
+        .league-item:focus { border-color: var(--sports); transform: scale(1.1); outline: none; }
+
+        /* OVERLAYS */
         #player-overlay, #details-screen { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; }
-        .btn-back { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; margin: 20px; }
+        .btn-close { position: absolute; top: 20px; left: 20px; z-index: 100; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -53,91 +59,199 @@
 
 <div class="app-container">
     <aside class="sidebar">
-        <input type="text" class="search-box" id="mainSearch" placeholder="Pesquisar em todo o sistema..." onkeyup="globalSearch()">
-        
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png" alt="LOGO">
+        </div>
+
+        <input type="text" id="globalSearch" class="search-box" placeholder="Pesquisar..." onkeyup="doSearch()">
+
         <nav class="nav-menu">
-            <button class="dropdown-btn" style="color:var(--sports)" onclick="openArena('futebol')">⚽ ARENA JOGOS <span>+</span></button>
-            <button class="dropdown-btn" style="color:var(--nba)" onclick="openArena('basquete')">🏀 ARENA NBA <span>+</span></button>
+            <button onclick="openArena('futebol')" style="color:var(--sports); border:1px solid var(--sports);">⚽ ARENA JOGOS</button>
+            <button onclick="openArena('basquete')" style="color:var(--nba); border:1px solid var(--nba);">🏀 ARENA NBA</button>
             
-            <button class="dropdown-btn" onclick="toggleDrop('drop-tv')">📡 TV AO VIVO <span>▼</span></button>
-            <div id="drop-tv" class="dropdown-container">
-                <button onclick="smartLoad('canais.m3u', 'tv')">Todos os Canais</button>
-                <button onclick="smartLoad('kids_canais.m3u', 'tv')">Canais Kids</button>
+            <button onclick="toggleDrop('dtv')">📡 TV AO VIVO <span>▼</span></button>
+            <div id="dtv" class="dropdown-container">
+                <button onclick="loadList('canais.m3u', 'tv')">Todos os Canais</button>
+                <button onclick="loadList('kids_canais.m3u', 'tv')">Canais Kids</button>
             </div>
 
-            <button class="dropdown-btn" onclick="toggleDrop('drop-filmes')">🎬 FILMES <span>▼</span></button>
-            <div id="drop-filmes" class="dropdown-container">
-                <button onclick="smartLoad('filmes.json', 'vod')">Lançamentos</button>
-                <button onclick="smartLoad('kids_filmes.json', 'vod')">Kids</button>
+            <button onclick="toggleDrop('dfi')">🎬 FILMES <span>▼</span></button>
+            <div id="dfi" class="dropdown-container">
+                <button onclick="loadList('filmes.json', 'vod')">Lançamentos</button>
+                <button onclick="loadList('kids_filmes.json', 'vod')">Filmes Kids</button>
             </div>
 
-            <button class="dropdown-btn" onclick="toggleDrop('drop-series')">📺 SÉRIES <span>▼</span></button>
-            <div id="drop-series" class="dropdown-container">
-                <button onclick="smartLoad('series.json', 'serie')">Todas as Séries</button>
-                <button onclick="smartLoad('kids_series.json', 'serie')">Séries Kids</button>
+            <button onclick="toggleDrop('dse')">📺 SÉRIES <span>▼</span></button>
+            <div id="dse" class="dropdown-container">
+                <button onclick="loadList('series.json', 'serie')">Todas as Séries</button>
+                <button onclick="loadList('kids_series.json', 'serie')">Séries Kids</button>
             </div>
-            
-            <button class="dropdown-btn" onclick="loadContinue()">🕒 CONTINUAR</button>
+
+            <button onclick="loadContinue()">🕒 CONTINUAR</button>
         </nav>
     </aside>
 
     <main class="content-area">
-        <div id="arena-foot" style="display:none;">
-            <div class="league-grid-header">
-                <button class="league-btn" onclick="loadFoot(13)"><img src="https://media.api-sports.io/football/leagues/13.png"></button>
-                <button class="league-btn" onclick="loadFoot(39)"><img src="https://media.api-sports.io/football/leagues/39.png"></button>
-                <button class="league-btn" onclick="loadFoot(140)"><img src="https://media.api-sports.io/football/leagues/140.png"></button>
-                <button class="league-btn" onclick="loadFoot(2)"><img src="https://media.api-sports.io/football/leagues/2.png"></button>
-            </div>
-            <div id="foot-live-list" class="vod-grid"></div>
-            <div id="foot-upcoming" class="table-section" style="margin-top:30px;"></div>
+        <div id="arena-box" style="display:none;">
+            <div id="league-selector" class="league-bar"></div>
+            <div id="arena-live-grid" class="grid"></div>
         </div>
 
-        <div id="arena-nba" style="display:none;">
-            <div id="nba-live-list" class="vod-grid"></div>
-        </div>
-
-        <div id="main-display" class="vod-grid"></div>
+        <div id="main-grid" class="grid"></div>
     </main>
 </div>
 
 <div id="details-screen">
-    <button class="btn-back" onclick="hideDetails()">⬅ VOLTAR</button>
-    <div id="details-body" style="padding:40px; display:flex; gap:30px;"></div>
+    <button class="btn-close" onclick="closeDetails()">⬅ VOLTAR</button>
+    <div id="details-content" style="padding:60px 40px; display:flex; gap:40px;"></div>
 </div>
 
 <div id="player-overlay">
-    <button class="btn-back" onclick="closePlayer()">⬅ FECHAR</button>
-    <video id="main-player" class="video-js vjs-big-play-centered" controls></video>
+    <button class="btn-close" onclick="closePlayer()">⬅ FECHAR</button>
+    <video id="vid-player" class="video-js vjs-big-play-centered" controls preload="auto"></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-    const API_KEY = "b4e09054a088c25504269d2761496bae";
-    const GITHUB = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
-    let currentData = [];
-    let player = videojs('main-player');
-
-    // ESTADO INICIAL: TELA EM BRANCO
-    window.onload = () => { console.log("Sistema Pronto"); };
+    const GITHUB_PATH = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
+    const API_FOOT = "b4e09054a088c25504269d2761496bae";
+    const vPlayer = videojs('vid-player');
 
     function toggleDrop(id) {
-        const el = document.getElementById(id);
-        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        const d = document.getElementById(id);
+        d.style.display = (d.style.display === 'block') ? 'none' : 'block';
     }
 
-    async function smartLoad(file, type) {
-        hideArenas();
-        const display = document.getElementById('main-display');
-        display.innerHTML = "Carregando...";
+    async function loadList(file, type) {
+        resetView();
+        const grid = document.getElementById('main-grid');
+        grid.innerHTML = "Carregando...";
+        
         try {
-            const r = await fetch(GITHUB + file);
-            let data = file.endsWith('.m3u') ? parseM3U(await r.text()) : await r.json();
-            
+            const r = await fetch(GITHUB_PATH + file);
+            let data;
+            if(file.endsWith('.m3u')) {
+                data = parseM3U(await r.text());
+            } else {
+                data = await r.json();
+            }
+
             // ORDEM ALFABÉTICA OBRIGATÓRIA
             data.sort((a,b) => (a.titulo || a.name).localeCompare(b.titulo || b.name));
-            currentData = data;
-            
-            display.innerHTML = data.map(item => `
-                <div class="card" tabindex="0" onclick="handlePlay('${encodeURIComponent(JSON.stringify(item))}', '${type}')">
-                    <img src="${item.poster || item.image || '
+
+            grid.innerHTML = data.map(item => `
+                <div class="card" tabindex="0" onclick="handleItem('${encodeURIComponent(JSON.stringify(item))}', '${type}')">
+                    <img src="${item.poster || item.image || 'https://via.placeholder.com/200x300'}">
+                    <div style="padding:8px; font-size:11px; text-align:center;">${item.titulo || item.name}</div>
+                </div>
+            `).join('');
+        } catch(e) { grid.innerHTML = "Erro ao carregar lista. Verifique os arquivos no GitHub."; }
+    }
+
+    function handleItem(encoded, type) {
+        const item = JSON.parse(decodeURIComponent(encoded));
+        if(type === 'serie') {
+            openSerie(item);
+        } else {
+            startPlay(item.url || item.link);
+        }
+    }
+
+    function openSerie(serie) {
+        const ds = document.getElementById('details-screen');
+        ds.style.display = 'block';
+        let eps = "";
+        for(let i=1; i<=(serie.episodios || 10); i++) {
+            const url = `https://archive.org/download/${serie.identificador_archive}/ep${i}.mp4`;
+            eps += `<button onclick="startPlay('${url}')" style="padding:10px; margin:5px; background:#222; border:none; color:white; cursor:pointer; border-radius:5px;">EP ${i}</button>`;
+        }
+        document.getElementById('details-content').innerHTML = `
+            <img src="${serie.poster}" style="width:280px; border-radius:15px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+            <div>
+                <h1 style="color:var(--primary); margin:0;">${serie.titulo}</h1>
+                <p style="color:#888; margin-bottom:20px;">Série Completa - Selecione o Episódio:</p>
+                <div style="display:flex; flex-wrap:wrap; gap:5px;">${eps}</div>
+            </div>`;
+    }
+
+    function openArena(mode) {
+        resetView();
+        document.getElementById('arena-box').style.display = 'block';
+        if(mode === 'futebol') {
+            document.getElementById('w-foot').style.display = 'block';
+            renderFootLeagues();
+        } else {
+            document.getElementById('w-nba').style.display = 'block';
+            loadNBA();
+        }
+    }
+
+    function renderFootLeagues() {
+        const ids = [13, 39, 140, 2, 78, 135];
+        document.getElementById('league-selector').innerHTML = ids.map(id => `
+            <div class="league-item" tabindex="0" onclick="loadFootLive(${id})">
+                <img src="https://media.api-sports.io/football/leagues/${id}.png">
+            </div>
+        `).join('');
+    }
+
+    async function loadFootLive(id) {
+        const g = document.getElementById('arena-live-grid');
+        g.innerHTML = "Buscando...";
+        const r = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&live=all`, {
+            headers: {"x-rapidapi-key": API_FOOT, "x-rapidapi-host": "v3.football.api-sports.io"}
+        });
+        const d = await r.json();
+        g.innerHTML = d.response.map(m => `
+            <div class="card" tabindex="0" onclick="startPlay('LINK_DO_CANAL')">
+                <div style="padding:15px; text-align:center;">
+                    <img src="${m.teams.home.logo}" width="30"> vs <img src="${m.teams.away.logo}" width="30"><br>
+                    <b>${m.goals.home} - ${m.goals.away}</b><br>
+                    <small style="color:var(--sports)">AO VIVO ${m.fixture.status.elapsed}'</small>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    async function loadNBA() {
+        const g = document.getElementById('arena-live-grid');
+        g.innerHTML = "Carregando NBA...";
+        // Implementar fetch NBA similar ao foot
+    }
+
+    function doSearch() {
+        const q = document.getElementById('globalSearch').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = c.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+        });
+    }
+
+    function startPlay(url) {
+        if(!url) return;
+        document.getElementById('player-overlay').style.display = 'block';
+        vPlayer.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
+        vPlayer.play();
+    }
+
+    function resetView() {
+        document.getElementById('main-grid').innerHTML = "";
+        document.getElementById('arena-box').style.display = 'none';
+        document.querySelectorAll('.watermark').forEach(w => w.style.display = 'none');
+    }
+
+    function closePlayer() { vPlayer.pause(); document.getElementById('player-overlay').style.display = 'none'; }
+    function closeDetails() { document.getElementById('details-screen').style.display = 'none'; }
+
+    function parseM3U(t) {
+        const lines = t.split('\n');
+        const list = [];
+        for(let i=0; i<lines.length; i++) {
+            if(lines[i].includes('#EXTINF')) {
+                list.push({ name: lines[i].split(',')[1].trim(), link: lines[i+1].trim(), image: 'https://cdn-icons-png.flaticon.com/512/716/716429.png' });
+            }
+        }
+        return list;
+    }
+</script>
+</body>
+</html>

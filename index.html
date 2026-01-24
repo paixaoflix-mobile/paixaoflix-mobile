@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v14.0 Master</title>
+    <title>PaixãoFlix TV — v15.0 Ultimate</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
@@ -14,44 +14,36 @@
         body { margin: 0; background: var(--bg-dark); color: var(--text); overflow: hidden; width: 100vw; height: 100vh; }
 
         /* MARCAS D'ÁGUA */
-        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 550px; opacity: 0.12; pointer-events: none; z-index: 0; display: none; }
+        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 450px; opacity: 0.1; pointer-events: none; z-index: 0; display: none; }
 
         .app-container { display: flex; height: 100vh; width: 100vw; position: relative; z-index: 1; }
         
-        /* SIDEBAR */
-        .sidebar { width: 260px; background: #000; display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; }
-        .logo img { width: 140px; display: block; margin: 0 auto 20px; }
-        .nav-menu { flex: 1; overflow-y: auto; }
-        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 8px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; cursor: pointer; text-align: left; font-weight: 600; font-size: 13px; }
-        .nav-menu button:focus { background: var(--primary); outline: 2px solid #fff; }
+        /* SIDEBAR E PESQUISA */
+        .sidebar { width: 280px; background: #000; display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; overflow-y: auto; }
+        .search-box { background: #1a1a1a; border: 1px solid #333; padding: 12px; border-radius: 8px; color: #fff; width: 100%; margin-bottom: 20px; font-size: 14px; }
+        
+        /* DROPDOWN MENU */
+        .dropdown-btn { width: 100%; padding: 12px; margin-bottom: 5px; border: none; border-radius: 8px; background: #111; color: #fff; cursor: pointer; text-align: left; font-weight: 600; display: flex; justify-content: space-between; }
+        .dropdown-container { display: none; background: #080808; padding-left: 10px; margin-bottom: 10px; }
+        .dropdown-container button { width: 100%; padding: 8px; background: transparent; border: none; color: #aaa; text-align: left; font-size: 12px; cursor: pointer; }
+        .dropdown-container button:focus { color: var(--primary); }
 
-        /* ÁREA DE CONTEÚDO */
-        .content-area { flex: 1; overflow-y: auto; padding: 30px; position: relative; }
+        /* CARDS DAS LIGAS (TAMANHO REDUZIDO) */
+        .league-grid-header { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 20px; }
+        .league-btn { background: #fff; padding: 5px; border-radius: 8px; border: 2px solid transparent; cursor: pointer; width: 45px; height: 45px; flex-shrink: 0; }
+        .league-btn img { width: 100%; height: 100%; object-fit: contain; }
+        .league-btn:focus { border-color: var(--sports); transform: scale(1.1); }
 
-        /* CARDS DAS LIGAS (MELHOR VISIBILIDADE) */
-        .league-grid-header { display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px; margin-bottom: 30px; }
-        .league-btn { background: #fff; padding: 10px; border-radius: 12px; border: 3px solid transparent; cursor: pointer; min-width: 80px; flex-shrink: 0; }
-        .league-btn:focus { border-color: var(--sports); transform: scale(1.1); outline: none; }
-        .league-btn img { width: 100%; height: auto; display: block; }
-
-        /* JOGOS */
-        .arena-view { display: none; }
-        .score-card { background: rgba(30, 30, 30, 0.95); border-radius: 15px; padding: 20px; margin-bottom: 12px; border: 1px solid #444; display: flex; align-items: center; cursor: pointer; }
-        .score-card:focus { border-color: var(--sports); background: #222; outline: none; }
-
-        /* TABELA */
-        .table-section { margin-top: 40px; background: rgba(20,20,20,0.9); border-radius: 15px; padding: 20px; border: 1px solid #333; }
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; color: #888; padding: 10px; border-bottom: 1px solid #333; }
-        td { padding: 12px 10px; border-bottom: 1px solid #222; font-size: 13px; }
-
-        /* GRID VOD */
-        .vod-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
-        .card { background: #111; border-radius: 8px; overflow: hidden; border: 3px solid transparent; cursor: pointer; }
+        /* GRID CONTEÚDO */
+        .content-area { flex: 1; overflow-y: auto; padding: 25px; position: relative; }
+        .vod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .card { background: #111; border-radius: 6px; overflow: hidden; border: 3px solid transparent; cursor: pointer; transition: 0.2s; }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
-        .card:focus { border-color: var(--primary); outline: none; transform: scale(1.05); }
+        .card:focus { border-color: var(--primary); transform: scale(1.05); outline: none; }
 
-        #player-overlay { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; }
+        /* PLAYER & OVERLAYS */
+        #player-overlay, #details-screen { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; }
+        .btn-back { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; margin: 20px; }
     </style>
 </head>
 <body>
@@ -61,193 +53,91 @@
 
 <div class="app-container">
     <aside class="sidebar">
-        <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
+        <input type="text" class="search-box" id="mainSearch" placeholder="Pesquisar em todo o sistema..." onkeyup="globalSearch()">
+        
         <nav class="nav-menu">
-            <button style="color:var(--sports); border:1px solid var(--sports);" onclick="openArena('futebol')">⚽ ARENA FUTEBOL</button>
-            <button style="color:var(--nba); border:1px solid var(--nba);" onclick="openArena('basquete')">🏀 ARENA BASQUETE</button>
-            <hr style="border-color:#222; margin:15px 0;">
-            <button onclick="smartLoad('canais.m3u', 'tv')">📡 TV AO VIVO</button>
-            <button onclick="smartLoad('filmes.json', 'vod')">🎬 TODOS OS FILMES</button>
-            <button onclick="smartLoad('series.json', 'vod')">📺 TODAS AS SÉRIES</button>
-            <button onclick="smartLoad('kids_canais.m3u', 'tv')">🧒 TV KIDS</button>
-            <button onclick="smartLoad('kids_filmes.json', 'vod')">🎈 FILMES KIDS</button>
-            <button onclick="smartLoad('kids_series.json', 'vod')">🧸 SÉRIES KIDS</button>
-            <button onclick="loadContinue()">🕒 CONTINUAR ASSISTINDO</button>
+            <button class="dropdown-btn" style="color:var(--sports)" onclick="openArena('futebol')">⚽ ARENA JOGOS <span>+</span></button>
+            <button class="dropdown-btn" style="color:var(--nba)" onclick="openArena('basquete')">🏀 ARENA NBA <span>+</span></button>
+            
+            <button class="dropdown-btn" onclick="toggleDrop('drop-tv')">📡 TV AO VIVO <span>▼</span></button>
+            <div id="drop-tv" class="dropdown-container">
+                <button onclick="smartLoad('canais.m3u', 'tv')">Todos os Canais</button>
+                <button onclick="smartLoad('kids_canais.m3u', 'tv')">Canais Kids</button>
+            </div>
+
+            <button class="dropdown-btn" onclick="toggleDrop('drop-filmes')">🎬 FILMES <span>▼</span></button>
+            <div id="drop-filmes" class="dropdown-container">
+                <button onclick="smartLoad('filmes.json', 'vod')">Lançamentos</button>
+                <button onclick="smartLoad('kids_filmes.json', 'vod')">Kids</button>
+            </div>
+
+            <button class="dropdown-btn" onclick="toggleDrop('drop-series')">📺 SÉRIES <span>▼</span></button>
+            <div id="drop-series" class="dropdown-container">
+                <button onclick="smartLoad('series.json', 'serie')">Todas as Séries</button>
+                <button onclick="smartLoad('kids_series.json', 'serie')">Séries Kids</button>
+            </div>
+            
+            <button class="dropdown-btn" onclick="loadContinue()">🕒 CONTINUAR</button>
         </nav>
     </aside>
 
     <main class="content-area">
-        <div id="start-screen" style="height:100%; display:flex; align-items:center; justify-content:center; color:#444; text-align:center;">
-            <h1>PAIXÃOFLIX TV<br><small style="font-size:14px; font-weight:normal;">Selecione uma opção ao lado</small></h1>
+        <div id="arena-foot" style="display:none;">
+            <div class="league-grid-header">
+                <button class="league-btn" onclick="loadFoot(13)"><img src="https://media.api-sports.io/football/leagues/13.png"></button>
+                <button class="league-btn" onclick="loadFoot(39)"><img src="https://media.api-sports.io/football/leagues/39.png"></button>
+                <button class="league-btn" onclick="loadFoot(140)"><img src="https://media.api-sports.io/football/leagues/140.png"></button>
+                <button class="league-btn" onclick="loadFoot(2)"><img src="https://media.api-sports.io/football/leagues/2.png"></button>
+            </div>
+            <div id="foot-live-list" class="vod-grid"></div>
+            <div id="foot-upcoming" class="table-section" style="margin-top:30px;"></div>
         </div>
 
-        <div id="view-futebol" class="arena-view">
-            <div class="league-grid-header" id="header-leagues"></div>
-            <div style="display:grid; grid-template-columns: 1fr 380px; gap:25px;">
-                <div id="foot-live"></div>
-                <div style="background:#000; border-radius:15px; overflow:hidden; border:1px solid #333; height:fit-content;">
-                    <video id="vid-foot" class="video-js vjs-16-9" controls muted></video>
-                    <button onclick="full('vid-foot')" style="width:100%; padding:15px; background:var(--sports); border:none; font-weight:bold; cursor:pointer;">ASSISTIR EM TELA CHEIA</button>
-                </div>
-            </div>
-            <div class="table-section">
-                <h3 id="table-title">📅 PRÓXIMOS JOGOS (CARREGANDO...)</h3>
-                <table id="table-foot"></table>
-            </div>
+        <div id="arena-nba" style="display:none;">
+            <div id="nba-live-list" class="vod-grid"></div>
         </div>
 
-        <div id="view-basquete" class="arena-view">
-            <h1 style="color:var(--nba); border-left: 5px solid var(--nba); padding-left:15px;">NBA ARENA</h1>
-            <div style="display:grid; grid-template-columns: 1fr 380px; gap:25px;">
-                <div id="nba-live"></div>
-                <div style="background:#000; border-radius:15px; overflow:hidden; border:1px solid #333; height:fit-content;">
-                    <video id="vid-nba" class="video-js vjs-16-9" controls muted></video>
-                    <button onclick="full('vid-nba')" style="width:100%; padding:15px; background:var(--nba); border:none; font-weight:bold; cursor:pointer;">ASSISTIR EM TELA CHEIA</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="vod-grid" class="vod-grid"></div>
+        <div id="main-display" class="vod-grid"></div>
     </main>
 </div>
 
+<div id="details-screen">
+    <button class="btn-back" onclick="hideDetails()">⬅ VOLTAR</button>
+    <div id="details-body" style="padding:40px; display:flex; gap:30px;"></div>
+</div>
+
 <div id="player-overlay">
-    <button onclick="closePlayer()" style="position:absolute; top:30px; left:30px; z-index:100; padding:12px 25px; background:red; color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">SAIR</button>
-    <video id="main-player" class="video-js vjs-big-play-centered"></video>
+    <button class="btn-back" onclick="closePlayer()">⬅ FECHAR</button>
+    <video id="main-player" class="video-js vjs-big-play-centered" controls></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
-    const KEY_F = "b4e09054a088c25504269d2761496bae";
-    const KEY_B = "04e954c79a74909cd76e913f72878da9";
-    const API_HOST = "v3.football.api-sports.io";
-    const BASKET_HOST = "v3.basketball.api-sports.io";
-    const GITHUB_BASE = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
-
-    const LIGAS = [
-        {id: 39, n: "Premier"}, {id: 140, n: "LaLiga"}, {id: 135, n: "Serie A"}, 
-        {id: 78, n: "Bundes"}, {id: 61, n: "Ligue 1"}, {id: 13, n: "Brasil A"},
-        {id: 72, n: "Brasil B"}, {id: 2, n: "UCL"}, {id: 253, n: "MLS"}
-    ];
-    
+    const API_KEY = "b4e09054a088c25504269d2761496bae";
+    const GITHUB = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
+    let currentData = [];
     let player = videojs('main-player');
 
-    function openArena(type) {
-        hideAll();
-        if(type === 'futebol') {
-            document.getElementById('view-futebol').style.display = 'block';
-            document.getElementById('w-foot').style.display = 'block';
-            renderLeagues();
-            loadLiveFoot(13); // Começa com Brasileirão
-            loadTableFoot(131, "CORINTHIANS"); // Próximos do Timão
-        } else {
-            document.getElementById('view-basquete').style.display = 'block';
-            document.getElementById('w-nba').style.display = 'block';
-            loadLiveNBA();
-        }
+    // ESTADO INICIAL: TELA EM BRANCO
+    window.onload = () => { console.log("Sistema Pronto"); };
+
+    function toggleDrop(id) {
+        const el = document.getElementById(id);
+        el.style.display = (el.style.display === 'block') ? 'none' : 'block';
     }
 
-    function renderLeagues() {
-        const h = document.getElementById('header-leagues');
-        h.innerHTML = LIGAS.map(l => `
-            <div class="league-btn" tabindex="0" onclick="loadLiveFoot(${l.id})">
-                <img src="https://media.api-sports.io/football/leagues/${l.id}.png" alt="${l.n}">
-            </div>
-        `).join('');
-    }
-
-    async function loadLiveFoot(leagueId) {
-        const div = document.getElementById('foot-live');
-        div.innerHTML = "<p>Buscando confrontos ao vivo...</p>";
+    async function smartLoad(file, type) {
+        hideArenas();
+        const display = document.getElementById('main-display');
+        display.innerHTML = "Carregando...";
         try {
-            const r = await fetch(`https://v3.football.api-sports.io/fixtures?league=${leagueId}&live=all`, {
-                headers: {"x-rapidapi-key": KEY_F, "x-rapidapi-host": API_HOST}
-            });
-            const d = await r.json();
-            renderCards(d.response, 'foot-live', false);
-        } catch(e) { div.innerHTML = "Erro na API de Futebol."; }
-    }
-
-    async function loadTableFoot(teamId, teamName) {
-        const t = document.getElementById('table-foot');
-        document.getElementById('table-title').innerText = `📅 PRÓXIMOS JOGOS: ${teamName}`;
-        try {
-            const r = await fetch(`https://v3.football.api-sports.io/fixtures?team=${teamId}&next=8`, {
-                headers: {"x-rapidapi-key": KEY_F, "x-rapidapi-host": API_HOST}
-            });
-            const d = await r.json();
-            t.innerHTML = `<tr><th>DATA</th><th>COMPETIÇÃO</th><th>CONFRONTO</th></tr>` + 
-            d.response.map(g => `<tr><td>${new Date(g.fixture.date).toLocaleDateString()}</td><td>${g.league.name}</td><td><b>${g.teams.home.name} vs ${g.teams.away.name}</b></td></tr>`).join('');
-        } catch(e) { t.innerHTML = "Erro ao carregar agenda."; }
-    }
-
-    async function loadLiveNBA() {
-        const div = document.getElementById('nba-live');
-        div.innerHTML = "Sincronizando NBA...";
-        const year = new Date().getFullYear();
-        // A NBA costuma usar a temporada pelo ano de início. Ex: 2025
-        try {
-            const r = await fetch(`https://v3.basketball.api-sports.io/games?league=12&season=${year}&live=all`, {
-                headers: {"x-rapidapi-key": KEY_B, "x-rapidapi-host": BASKET_HOST}
-            });
-            const d = await r.json();
-            renderCards(d.response, 'nba-live', true);
-        } catch(e) { div.innerHTML = "NBA temporariamente indisponível."; }
-    }
-
-    function renderCards(games, target, isNba) {
-        const div = document.getElementById(target);
-        if(!games || games.length === 0) { div.innerHTML = "<p style='color:#666; padding:20px;'>Nenhum jogo importante ocorrendo agora nesta liga.</p>"; return; }
-        div.innerHTML = games.map(g => `
-            <div class="score-card" tabindex="0" onclick="play('${g.teams.home.name} vs ${g.teams.away.name}', '${isNba ? 'vid-nba' : 'vid-foot'}')">
-                <img src="${g.teams.home.logo}" width="40">
-                <div style="flex:1; text-align:center;">
-                    <div style="font-size:24px; font-weight:800;">${isNba ? g.scores.home.total : g.goals.home} - ${isNba ? g.scores.away.total : g.goals.away}</div>
-                    <small style="color:var(--sports); letter-spacing:2px;">AO VIVO</small>
-                </div>
-                <img src="${g.teams.away.logo}" width="40">
-            </div>
-        `).join('');
-    }
-
-    async function smartLoad(file, mode) {
-        hideAll();
-        const g = document.getElementById('vod-grid');
-        g.style.display = 'grid';
-        g.innerHTML = "Carregando conteúdo...";
-        try {
-            const r = await fetch(GITHUB_BASE + file);
-            const d = await r.json();
-            g.innerHTML = d.map(item => `
-                <div class="card" tabindex="0" onclick="openPlayer('${item.url}')">
-                    <img src="${item.poster || item.image || 'https://via.placeholder.com/200x300'}">
-                    <div style="padding:10px; font-size:12px; font-weight:600;">${item.titulo}</div>
-                </div>
-            `).join('');
-        } catch(e) { g.innerHTML = "Erro: Certifique-se que o arquivo " + file + " existe no seu GitHub data/."; }
-    }
-
-    function play(t, vidId) {
-        const v = videojs(vidId);
-        // Link de teste fixo para demonstração. No futuro, você mapeará isso para o canal real do M3U
-        v.src({src: 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8', type: 'application/x-mpegURL'});
-        v.play();
-    }
-
-    function full(id) {
-        const s = videojs(id).currentSrc();
-        if(!s) return;
-        document.getElementById('player-overlay').style.display = 'block';
-        player.src({src: s, type: 'application/x-mpegURL'});
-        player.play();
-    }
-
-    function hideAll() {
-        document.getElementById('start-screen').style.display = 'none';
-        document.querySelectorAll('.arena-view, .vod-grid, .watermark').forEach(e => e.style.display = 'none');
-    }
-
-    function closePlayer() { player.pause(); document.getElementById('player-overlay').style.display = 'none'; }
-</script>
-</body>
-</html>
+            const r = await fetch(GITHUB + file);
+            let data = file.endsWith('.m3u') ? parseM3U(await r.text()) : await r.json();
+            
+            // ORDEM ALFABÉTICA OBRIGATÓRIA
+            data.sort((a,b) => (a.titulo || a.name).localeCompare(b.titulo || b.name));
+            currentData = data;
+            
+            display.innerHTML = data.map(item => `
+                <div class="card" tabindex="0" onclick="handlePlay('${encodeURIComponent(JSON.stringify(item))}', '${type}')">
+                    <img src="${item.poster || item.image || '

@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.3.1 Master</title>
+    <title>PaixãoFlix TV — v3.3.2 Master</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
     
     <style>
         :root { --primary: #e50914; --yellow: #ffc107; --match: #46d369; --bg: #000; }
-        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { margin: 0; background: var(--bg); color: #fff; overflow: hidden; height: 100vh; }
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; overflow: hidden; }
+        body { margin: 0; background: var(--bg); color: #fff; height: 100vh; }
 
-        /* SIDEBAR */
         .sidebar { width: 260px; height: 100vh; background: #000; display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; position: fixed; left: 0; top: 0; z-index: 1000; }
         .logo-container { flex-shrink: 0; text-align: center; margin-bottom: 5px; }
         .logo-container img { width: 160px; height: auto; }
@@ -32,7 +31,6 @@
         .dropdown-container.active { display: grid; }
         .drop-item { background: #1a1a1a; padding: 10px; font-size: 13px; text-align: center; border-radius: 4px; font-weight: bold; cursor: pointer; border: 1px solid #333; }
 
-        /* CONTENT */
         .content-area { margin-left: 260px; height: 100vh; overflow-y: auto; padding: 40px; }
         .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); }
         
@@ -47,17 +45,15 @@
 
         .focusable:focus { border-color: #fff !important; outline: none; transform: scale(1.05); z-index: 10; background: rgba(255,255,255,0.1); }
 
-        /* DETAILS */
         #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 50px; overflow-y: auto; }
         .det-flex { display: flex; gap: 40px; }
         .det-poster { width: 320px; border-radius: 8px; border: 2px solid #333; }
         
-        .ep-row { display: grid; grid-template-columns: repeat(10, 1fr); gap: 10px; margin: 30px 0; }
+        #ep-container { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; margin: 30px 0; }
         .btn-ep { background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
 
-        /* PLAYER */
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 5000; display: none; }
-        video { width: 100%; height: 100%; }
+        #player-wrapper { width: 100%; height: 100%; }
         .p-back { position: absolute; top: 20px; left: 20px; z-index: 6000; background: var(--primary); border: none; color: #fff; padding: 12px 24px; border-radius: 4px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
@@ -68,7 +64,7 @@
     <div id="stats-counter">CARREGANDO...</div>
     
     <div class="search-box">
-        <input type="text" id="search" placeholder="Busca Global (TV, Filmes, Séries)..." class="focusable">
+        <input type="text" id="search" placeholder="Busca Global (Global)..." class="focusable">
     </div>
 
     <nav class="nav-menu">
@@ -96,13 +92,13 @@
 
 <div id="player-overlay">
     <button class="p-back focusable" onclick="closePlayer()">VOLTAR</button>
-    <video id="main-video" controls playsinline></video>
+    <div id="player-wrapper"></div>
 </div>
 
 <script>
     let cache = { filmes: [], series: [], tv: [], all: [] };
-    const hls = new Hls();
-    const video = document.getElementById('main-video');
+    let player;
+    let playbackPositions = JSON.parse(localStorage.getItem("paixaoflix_pos") || "{}");
 
     window.onload = async () => {
         await syncData();
@@ -136,32 +132,93 @@
                 return chs;
             };
 
-            // Armazenamento
             cache.filmes = [...f, ...kf].sort((a,b) => (a.titulo || "").localeCompare(b.titulo || ""));
             cache.series = [...s, ...ks].sort((a,b) => (a.titulo || "").localeCompare(b.titulo || ""));
             cache.tv = [...parseTV(t1), ...parseTV(t2)].sort((a,b) => a.nome.localeCompare(b.nome));
             
-            // Cache para busca global
             cache.all = [...cache.filmes.map(x => ({...x, m:'vod'})), 
                          ...cache.series.map(x => ({...x, m:'series'})), 
                          ...cache.tv.map(x => ({...x, m:'tv'}))];
 
-            // Patch Contador: Apenas JSON
             const totalJSON = cache.filmes.length + cache.series.length;
             const d = new Date();
-            const dateStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/${d.getFullYear()}`;
+            const dateStr = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth()+1).padStart(2, '0')}/2026`;
             document.getElementById('stats-counter').innerHTML = `${totalJSON} TÍTULOS DISPONÍVEIS<br>${dateStr}`;
-            
         } catch(e) { console.error("Erro Sync"); }
+    }
+
+    function playMedia(item) {
+        const url = item.url || item.link;
+        if(!url) return;
+
+        document.getElementById('player-overlay').style.display = 'block';
+        if(player) player.destroy();
+
+        player = new Clappr.Player({
+            source: url,
+            parentId: "#player-wrapper",
+            width: '100%',
+            height: '100%',
+            autoPlay: true,
+            stretch: 'fill',
+            preload: 'auto',
+            playback: {
+                hlsjsConfig: {
+                    enableWorker: true,
+                    recoverMediaError: true,
+                    maxBufferLength: 10,
+                    startLevel: -1
+                }
+            },
+            events: {
+                onTimeUpdate: (e) => {
+                    if(!item.isTV) {
+                        playbackPositions[item.titulo || item.nome] = e.current;
+                        localStorage.setItem("paixaoflix_pos", JSON.stringify(playbackPositions));
+                    }
+                }
+            }
+        });
+
+        const saved = playbackPositions[item.titulo || item.nome];
+        if(saved > 10 && !item.isTV) {
+            if(confirm("Deseja retomar de onde parou?")) player.seek(saved);
+        }
+        document.querySelector('.p-back').focus();
+    }
+
+    async function openDetails(item) {
+        document.getElementById('details-screen').style.display = 'block';
+        const content = document.getElementById('details-content');
+        content.innerHTML = `<div class="det-flex"><img src="${item.poster}" class="det-poster"><div><h1>${item.titulo}</h1><p>${item.desc || 'Carregando episódios...'}</p></div></div><div id="ep-container"></div>`;
+        
+        try {
+            const resp = await fetch(`https://archive.org/metadata/${item.identificador_archive}`);
+            const meta = await resp.json();
+            const container = document.getElementById('ep-container');
+            meta.files.filter(f => f.name.endsWith(".mp4") || f.name.endsWith(".mkv")).forEach((f, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-ep focusable';
+                btn.textContent = `EP ${idx + 1}`;
+                btn.onclick = () => playMedia({
+                    titulo: `${item.titulo} - E${idx+1}`,
+                    url: `https://archive.org/download/${item.identificador_archive}/${f.name}`
+                });
+                container.appendChild(btn);
+            });
+        } catch(e) { content.innerHTML += "<p>Erro ao carregar episódios.</p>"; }
+        
+        renderSuggest(item.genero);
+        document.querySelector('#details-screen .focusable').focus();
     }
 
     function setupSearch() {
         document.getElementById('search').addEventListener('input', (e) => {
             const v = e.target.value.toLowerCase();
-            const res = cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v));
             const target = document.getElementById('main-grid');
             target.innerHTML = '';
-            res.forEach(item => renderItem(item, item.m, target));
+            cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v))
+                     .forEach(item => renderItem(item, item.m, target));
         });
     }
 
@@ -175,39 +232,12 @@
         const div = document.createElement('div');
         div.className = `card focusable ${mode === 'tv' ? 'tv-card' : ''}`;
         div.tabIndex = 0;
-        const meta = (mode !== 'tv') ? `<div class="card-meta"><span class="m-green">98% Match</span> <span>${item.year || '2025'}</span></div>` : '';
-        div.innerHTML = `<img src="${item.poster || item.logo}"><div class="card-info"><span class="card-title">${item.titulo || item.nome}</span>${meta}</div>`;
+        div.innerHTML = `<img src="${item.poster || item.logo}"><div class="card-info"><span class="card-title">${item.titulo || item.nome}</span></div>`;
         div.onclick = () => {
-            if(mode === 'vod' || mode === 'tv') playVideo(item.url);
-            if(mode === 'series') openDetails(item);
+            if(mode === 'vod' || mode === 'tv') playMedia(item);
+            else if(mode === 'series') openDetails(item);
         };
         target.appendChild(div);
-    }
-
-    function openDetails(item) {
-        document.getElementById('details-screen').style.display = 'block';
-        let epHtml = '';
-        if(item.identificador_archive) {
-            epHtml = '<div class="ep-row">';
-            for(let i=1; i<=30; i++) {
-                const url = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
-                epHtml += `<button class="btn-ep focusable" onclick="playVideo('${url}')">EP ${i}</button>`;
-            }
-            epHtml += '</div>';
-        }
-        document.getElementById('details-content').innerHTML = `
-            <div class="det-flex">
-                <img src="${item.poster}" class="det-poster">
-                <div class="det-info">
-                    <h1>${item.titulo}</h1>
-                    <div class="card-meta" style="justify-content:flex-start; font-size:16px;">
-                        <span class="m-green">98% Match</span> <span>${item.year || '2025'}</span> <span>${item.genero}</span>
-                    </div>
-                    <p style="color:#ccc; font-size:18px;">${item.desc || 'Disponível na PaixãoFlix.'}</p>
-                </div>
-            </div> ${epHtml}`;
-        renderSuggest(item.genero);
-        document.querySelector('#details-screen .focusable').focus();
     }
 
     function renderSuggest(gen) {
@@ -216,44 +246,25 @@
         cache.filmes.filter(x => x.genero === gen).slice(0, 5).forEach(item => renderItem(item, 'vod', target));
     }
 
-    function playVideo(url) {
-        if(!url) return;
-        document.getElementById('player-overlay').style.display = 'block';
-        video.innerHTML = ''; 
-        if(url.includes('.m3u8')) {
-            if(Hls.isSupported()) { hls.loadSource(url); hls.attachMedia(video); hls.on(Hls.Events.MANIFEST_PARSED, () => video.play()); }
-        } else {
-            video.src = url;
-            video.play().catch(() => { video.type = "video/mp4"; video.play(); });
-        }
-        document.querySelector('.p-back').focus();
-    }
-
     function setupRemote() {
         document.addEventListener('keydown', (e) => {
             const active = document.activeElement;
             const f = Array.from(document.querySelectorAll('.focusable'));
             let i = f.indexOf(active);
-            const cols = 5;
-
             if([37,38,39,40,13].includes(e.keyCode)) e.preventDefault();
-
             switch(e.keyCode) {
                 case 38: i = Math.max(i - 1, 0); break; 
                 case 40: i = Math.min(i + 1, f.length - 1); break; 
-                case 37: i = Math.max(i - cols, 0); break; 
-                case 39: i = Math.min(i + cols, f.length - 1); break; 
+                case 37: i = Math.max(i - 5, 0); break; 
+                case 39: i = Math.min(i + 5, f.length - 1); break; 
                 case 13: active.click(); break;
-                case 8: case 461: case 10009: 
-                    if(document.getElementById('player-overlay').style.display === 'block') closePlayer();
-                    else closeDetails();
-                    break;
+                case 8: case 461: closePlayer(); closeDetails(); break;
             }
             if(f[i]) f[i].focus();
         });
     }
 
-    function closePlayer() { video.pause(); video.src = ""; document.getElementById('player-overlay').style.display='none'; }
+    function closePlayer() { if(player) player.pause(); document.getElementById('player-overlay').style.display='none'; }
     function closeDetails() { document.getElementById('details-screen').style.display='none'; }
     function toggleDrop(id) {
         const el = document.getElementById(id);
@@ -261,7 +272,7 @@
         document.querySelectorAll('.dropdown-container').forEach(x => x.classList.remove('active'));
         if(!act) el.classList.add('active');
     }
-    
+
     async function loadLiveTV(file) {
         const res = await fetch("https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/" + file);
         const text = await res.text();

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v2.8.0 Master</title>
+    <title>PaixãoFlix TV — v2.9.0 Ultra</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#e50914">
@@ -24,13 +24,29 @@
             --text: #ffffff;
         }
 
-        * { box-sizing: border-box; outline: none; font-family: 'Poppins', sans-serif !important; -webkit-tap-highlight-color: transparent; }
+        * { 
+            box-sizing: border-box; 
+            outline: none; 
+            font-family: 'Poppins', sans-serif !important; 
+            -webkit-tap-highlight-color: transparent;
+            touch-action: pan-x pan-y; /* Impede zoom por toque */
+        }
+
         ::-webkit-scrollbar { display: none; }
-        body { margin: 0; background: var(--bg-dark); color: var(--text); overflow: hidden; user-select: none; width: 100vw; height: 100vh; }
+        
+        body { 
+            margin: 0; 
+            background: var(--bg-dark); 
+            color: var(--text); 
+            overflow: hidden; 
+            user-select: none; 
+            width: 100vw; 
+            height: 100vh;
+            -webkit-text-size-adjust: 100%;
+        }
 
         .app-container { display: flex; height: 100vh; width: 100vw; }
         
-        /* SIDEBAR */
         .sidebar { width: 260px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; z-index: 100; flex-shrink: 0; }
         .logo { text-align: center; margin-bottom: 10px; }
         .logo img { width: 140px; height: auto; display: block; margin: 0 auto; }
@@ -42,30 +58,35 @@
         .nav-menu { flex: 1; overflow-y: auto; padding-right: 5px; }
         .nav-menu button { width: 100%; padding: 14px; margin-bottom: 6px; border: none; border-radius: 8px; background: #222; color: #fff; cursor: pointer; text-align: left; font-size: 14px; font-weight: 600; transition: 0.2s; display: flex; align-items: center; gap: 10px; }
         
-        /* CATEGORIAS */
         .dropdown-container { display: none; grid-template-columns: 1fr 1fr; gap: 5px; padding: 8px; background: #0f0f0f; border-radius: 8px; margin-bottom: 10px; width: 100%; }
         .dropdown-container.active { display: grid; }
         .drop-item { padding: 8px; font-size: 12px; background: #1a1a1a; color: #fff; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; overflow: hidden; text-overflow: ellipsis; }
 
-        /* CONTENT */
         .content-area { flex: 1; overflow-y: auto; background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%); position: relative; }
         .grid { display: grid; padding: 20px; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); z-index: 2; position: relative; }
 
-        .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: 0.1s; cursor: pointer; position: relative; }
+        .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 3px solid transparent; transition: 0.1s; cursor: pointer; position: relative; }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
+        
         .card-info { padding: 8px; font-size: 11px; text-align: center; font-weight: 600; }
+        .card-meta { font-size: 9px; color: var(--primary); margin-top: 2px; display: block; }
 
-        /* DETAILS & EPISODES */
         #details-screen { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; padding: 40px; overflow-y: auto; }
         .ep-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; margin-top: 20px; }
         .btn-ep { background: #222; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 4px; cursor: pointer; font-size: 10px; font-weight: bold; text-align: center; }
 
-        /* PLAYER */
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 5000; display: none; }
         #player-overlay.active { display: block; }
         
-        :focus { border: 3px solid #fff !important; transform: scale(1.05); z-index: 10; box-shadow: 0 0 20px rgba(255,255,255,0.4); outline: none; }
+        /* SELETOR EXATO NO TAMANHO DO CONTEÚDO */
+        .focusable:focus { 
+            border: 3px solid #fff !important; 
+            outline: none !important;
+            box-shadow: inset 0 0 0 1px #000; 
+            transform: none !important; /* Removido zoom no foco */
+            z-index: 10;
+        }
     </style>
 </head>
 <body tabindex="-1">
@@ -131,6 +152,11 @@
     });
 
     window.onload = async () => {
+        // Bloqueio Total de Zoom por Teclado (Ctrl + / Ctrl -)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) e.preventDefault();
+        });
+        
         await syncData();
         setupDropdowns();
         setupSearch();
@@ -143,8 +169,9 @@
                 fetch(CONFIG.base_url + "filmes.json").then(r => r.json()),
                 fetch(CONFIG.base_url + "series.json").then(r => r.json())
             ]);
-            cache.filmes = f.sort((a,b) => a.titulo.localeCompare(b.titulo));
-            cache.series = s.sort((a,b) => a.titulo.localeCompare(b.titulo));
+            // ORDEM ALFABÉTICA FIXA
+            cache.filmes = f.sort((a,b) => (a.titulo || "").localeCompare(b.titulo || ""));
+            cache.series = s.sort((a,b) => (a.titulo || "").localeCompare(b.titulo || ""));
             updateStats();
         } catch(e) { document.getElementById('stats-counter').textContent = "SISTEMA OFFLINE"; }
     }
@@ -191,17 +218,17 @@
             if(line.startsWith('#EXTINF')) {
                 const name = line.split(',')[1] || "Canal";
                 const url = arr[i+1]?.trim();
-                const logo = line.match(/tvg-logo="([^"]+)"/)?.[1] || 'https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png';
+                const logo = line.match(/tvg-logo="([^"]+)"/)?.[1] || ''; // Prioriza logo do canal
                 if(url) channels.push({nome: name, url: url, logo: logo, isTV: true});
             }
         });
-        renderGrid(channels, 'tv');
+        renderGrid(channels.sort((a,b) => a.nome.localeCompare(b.nome)), 'tv');
     }
 
     async function loadVOD(file) {
         const res = await fetch(CONFIG.base_url + file);
         const data = await res.json();
-        renderGrid(data, 'vod');
+        renderGrid(data.sort((a,b) => (a.titulo || "").localeCompare(b.titulo || "")), 'vod');
     }
 
     function renderGrid(list, mode) {
@@ -213,10 +240,16 @@
             const div = document.createElement('div');
             div.className = 'card focusable ' + (mode === 'tv' ? 'tv-card' : '');
             div.tabIndex = 0;
+            const imgUrl = item.poster || item.logo || 'https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png';
+            
             div.innerHTML = `
-                <img src="${item.poster || item.logo}" loading="lazy">
-                <div class="card-info">${item.titulo || item.nome}</div>
+                <img src="${imgUrl}" loading="lazy">
+                <div class="card-info">
+                    ${item.titulo || item.nome}
+                    ${mode === 'vod' ? `<span class="card-meta">${item.year || ''} ${item.rating || ''}</span>` : ''}
+                </div>
             `;
+            
             div.onclick = () => {
                 if (item.identificador_archive || item.genero) openDetails(item);
                 else openPlayer(item.url, item.nome || item.titulo, item.isTV);
@@ -235,21 +268,21 @@
                 <img src="${item.poster}" style="width:280px; border-radius:15px; border:2px solid #333;">
                 <div style="flex:1;">
                     <h1 style="font-size:48px; margin:0;">${item.titulo}</h1>
-                    <p style="color:var(--primary); font-weight:bold;">${item.year || '2026'} • ${item.genero}</p>
-                    <p style="font-size:18px; color:#ccc;">${item.desc || 'Sinopse não disponível.'}</p>
+                    <p style="color:var(--primary); font-weight:bold; font-size:20px;">${item.year || ''} • ${item.rating || '★ 8.5'} • ${item.genero}</p>
+                    <p style="font-size:18px; color:#ccc;">${item.desc || 'Sinopse carregando...'}</p>
         `;
 
-        if(item.url && !item.identificador_archive) {
-            html += `<button class="focusable" onclick="openPlayer('${item.url}','${item.titulo}')" style="background:var(--primary); color:white; padding:15px 40px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;"><i class="fa-solid fa-play"></i> ASSISTIR</button>`;
-        } else if(item.identificador_archive) {
+        if(item.identificador_archive) {
             html += `<div class="ep-grid">`;
             currentPlaylist = [];
-            for(let i=1; i<=30; i++) {
+            for(let i=1; i<=50; i++) {
                 const epUrl = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
                 currentPlaylist.push({url: epUrl, title: `${item.titulo} - EP ${i}`});
                 html += `<button class="btn-ep focusable" onclick="playEpisode(${i-1})">EP ${i}</button>`;
             }
             html += `</div>`;
+        } else if(item.url) {
+            html += `<button class="focusable" onclick="openPlayer('${item.url}','${item.titulo}')" style="background:var(--primary); color:white; padding:15px 40px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; margin-top:20px;"><i class="fa-solid fa-play"></i> REPRODUZIR AGORA</button>`;
         }
         
         html += `</div></div>`;
@@ -293,7 +326,7 @@
         document.getElementById('search').addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
             const res = [...cache.filmes, ...cache.series].filter(i => (i.titulo || i.nome || "").toLowerCase().includes(val));
-            renderGrid(res.slice(0,20), 'vod');
+            renderGrid(res.slice(0,24), 'vod');
         });
     }
 
@@ -303,33 +336,37 @@
             const focusables = Array.from(document.querySelectorAll('.focusable, input, .btn-ep, .card, .drop-item'));
             let index = focusables.indexOf(active);
 
-            // Prevenção de scroll indesejado para navegação precisa
-            if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
-                e.preventDefault();
+            // Códigos de controle remoto + Teclado
+            const keys = {
+                UP: 38, DOWN: 40, LEFT: 37, RIGHT: 39, ENTER: 13, BACK: 8, ESC: 27
+            };
+
+            if([37,38,39,40].includes(e.keyCode)) {
+                e.preventDefault(); // Mata o scroll e zoom
             }
 
-            const colCount = 4; // Base para saltos verticais
+            const colCount = 4;
 
-            switch(e.key) {
-                case 'ArrowDown': 
+            switch(e.keyCode) {
+                case keys.DOWN: 
                     if (index + colCount < focusables.length) index += colCount;
                     else index = focusables.length - 1;
                     break;
-                case 'ArrowUp': 
+                case keys.UP: 
                     if (index - colCount >= 0) index -= colCount;
                     else index = 0;
                     break;
-                case 'ArrowRight': 
+                case keys.RIGHT: 
                     index = Math.min(index + 1, focusables.length - 1); 
                     break;
-                case 'ArrowLeft': 
+                case keys.LEFT: 
                     index = Math.max(index - 1, 0); 
                     break;
-                case 'Enter': 
+                case keys.ENTER: 
                     active.click(); 
                     break;
-                case 'Backspace': 
-                case 'Escape':
+                case keys.BACK: 
+                case keys.ESC:
                     if(document.getElementById('player-overlay').classList.contains('active')) closePlayer();
                     else closeDetails();
                     break;

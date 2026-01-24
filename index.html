@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>PaixãoFlix TV — v2.5.0</title>
+    <title>PaixãoFlix TV — v2.6.0 Master</title>
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#e50914">
@@ -13,6 +13,7 @@
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/favicon-96x96.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
@@ -31,103 +32,97 @@
 
         .app-container { display: flex; height: 100vh; width: 100vw; }
         
-        /* SIDEBAR AJUSTADA */
-        .sidebar { width: 240px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; z-index: 100; flex-shrink: 0; }
-        .logo { text-align: center; margin-bottom: 15px; }
+        .sidebar { width: 260px; background: var(--bg-side); display: flex; flex-direction: column; padding: 15px; border-right: 1px solid #222; z-index: 100; flex-shrink: 0; }
+        .logo { text-align: center; margin-bottom: 10px; }
         .logo img { width: 140px; height: auto; display: block; margin: 0 auto; }
         
-        .search-box input { width: 100%; padding: 12px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; font-size: 13px; margin-bottom: 10px; }
+        #stats-counter { font-size: 11px; text-align: center; color: #666; margin-bottom: 10px; font-weight: 600; }
+
+        .search-box input { width: 100%; padding: 12px; border: none; border-radius: 8px; background: #1a1a1a; color: #fff; font-size: 13px; margin-bottom: 10px; border: 1px solid #333; }
         
         .nav-menu { flex: 1; overflow-y: auto; padding-right: 5px; }
-        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 5px; border: none; border-radius: 8px; background: #222; color: #fff; cursor: pointer; text-align: left; font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 6px; border: none; border-radius: 8px; background: #222; color: #fff; cursor: pointer; text-align: left; font-size: 11px; font-weight: 600; transition: 0.2s; }
         
-        /* DROPDOWN CATEGORIES AJUSTADO */
-        .dropdown-container { display: none; grid-template-columns: repeat(1, 1fr); gap: 4px; padding: 8px; background: #0f0f0f; border-radius: 8px; margin-bottom: 10px; width: 100%; }
+        /* CATEGORIAS EM DUAS COLUNAS */
+        .dropdown-container { display: none; grid-template-columns: 1fr 1fr; gap: 5px; padding: 8px; background: #0f0f0f; border-radius: 8px; margin-bottom: 10px; width: 100%; }
         .dropdown-container.active { display: grid; }
-        .drop-item { padding: 10px; font-size: 12px; background: #1a1a1a; color: #fff; text-align: left; border-radius: 4px; cursor: pointer; border: 1px solid #333; }
+        .drop-item { padding: 8px; font-size: 10px; background: #1a1a1a; color: #fff; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; overflow: hidden; text-overflow: ellipsis; }
 
         .content-area { flex: 1; overflow-y: auto; background: radial-gradient(circle at top, #1a1a1a 0%, #000 100%); position: relative; }
-        .grid { display: grid; padding: 20px; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        .grid { display: grid; padding: 20px; gap: 15px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); z-index: 2; position: relative; }
 
-        /* CARDS COM ANO E AVALIAÇÃO */
         .card { background: var(--bg-card); border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: 0.1s; cursor: pointer; position: relative; }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: #222; }
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
-        .card-info { padding: 8px; font-size: 11px; text-align: center; }
+        .card-info { padding: 8px; font-size: 11px; text-align: center; font-weight: 600; }
         .card-meta { display: flex; justify-content: space-between; padding: 0 8px 8px; font-size: 10px; color: #aaa; }
-        .rating-tag { color: #ffc107; font-weight: bold; }
 
-        /* ARENA LAYOUT PROFISSIONAL */
-        .arena-header { padding: 20px; background: rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        /* ARENA 2026 */
+        .arena-header { padding: 20px; background: rgba(0,0,0,0.4); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
         .league-badges { display: flex; gap: 10px; padding: 15px 20px; overflow-x: auto; }
-        .badge { background: #222; padding: 8px 15px; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-size: 11px; border: 1px solid #333; cursor: pointer; flex-shrink: 0; }
-        .badge img { width: 22px; height: 22px; object-fit: contain; }
+        .badge { background: #1a1a1a; padding: 10px 15px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-size: 11px; border: 1px solid #333; cursor: pointer; flex-shrink: 0; }
+        .badge:hover { border-color: var(--sports); }
+        .badge img { width: 20px; height: 20px; }
         
-        .arena-main { display: grid; grid-template-columns: 1fr 320px; gap: 20px; padding: 20px; }
-        .match-card { background: #141414; border-radius: 12px; padding: 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #333; position: relative; margin-bottom: 15px; }
-        .match-team { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 35%; text-align: center; }
-        .match-team img { width: 45px; height: 45px; object-fit: contain; }
-        .match-score { font-size: 32px; font-weight: 800; color: var(--primary); }
-        .live-tag { background: var(--primary); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 4px; position: absolute; top: 10px; left: 10px; font-weight: bold; }
-
-        /* PROXIMOS JOGOS */
-        .next-matches { margin-top: 20px; padding: 0 20px 20px; }
-        .next-card { background: #0f0f0f; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; font-size: 12px; border-left: 4px solid #333; }
+        .match-card { background: #111; border-radius: 12px; padding: 20px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #222; margin-bottom: 12px; }
+        .match-team { width: 40%; text-align: center; font-size: 13px; font-weight: bold; }
+        .match-team img { width: 40px; margin-bottom: 5px; }
 
         /* MARCAS D'AGUA */
-        .watermark { position: fixed; top: 50%; left: 60%; transform: translate(-50%, -50%); width: 450px; opacity: 0.1; pointer-events: none; z-index: 0; display: none; }
+        .watermark { position: fixed; top: 50%; left: 55%; transform: translate(-50%, -50%); width: 400px; opacity: 0.15; pointer-events: none; z-index: 1; display: none; }
 
-        /* PLAYER E OVERLAYS */
-        #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
+        /* PLAYER OVERLAY */
+        #player-overlay { position: fixed; inset: 0; background: #000; z-index: 5000; display: none; }
         #player-overlay.active { display: block; }
-        .vjs-fill { width: 100% !important; height: 100% !important; }
         
-        /* ADESIVO ASSISTINDO AGORA */
-        #now-playing-tag { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); border: 1px solid var(--primary); padding: 10px 20px; border-radius: 50px; display: none; z-index: 4000; align-items: center; gap: 10px; box-shadow: 0 0 15px var(--primary); }
-        .live-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: pulse 1s infinite; }
-        
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        /* ADESIVO MINIMALISTA TV */
+        #now-playing-tag { position: fixed; bottom: 15px; right: 15px; background: rgba(0,0,0,0.9); border: 1px solid var(--primary); padding: 6px 12px; border-radius: 20px; display: none; z-index: 6000; align-items: center; gap: 8px; }
+        .live-dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; animation: pulse 1s infinite; }
 
-        #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 20px; overflow-y: auto; }
-        #details-screen.active { display: block; }
+        /* DETALHES E EPISODIOS */
+        #details-screen { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; padding: 40px; overflow-y: auto; }
+        .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 20px; }
+        .btn-ep { background: #222; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .btn-play-large { background: var(--primary); color: #fff; padding: 15px 40px; border-radius: 8px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; display: flex; align-items: center; gap: 10px; }
 
-        :focus { border-color: var(--primary) !important; scale: 1.02; z-index: 5; }
+        /* FOCO SMART TV */
+        :focus { border: 3px solid #fff !important; transform: scale(1.05); z-index: 10; box-shadow: 0 0 20px rgba(255,255,255,0.4); }
     </style>
 </head>
-<body>
+<body tabindex="-1">
 
 <img id="w-corinthians" src="https://upload.wikimedia.org/wikipedia/pt/b/b4/Corinthians_simbolo.png" class="watermark">
 <img id="w-nba" src="https://upload.wikimedia.org/wikipedia/pt/b/b1/Los_Angeles_Lakers_logo.png" class="watermark">
 
 <div id="now-playing-tag">
     <div class="live-dot"></div>
-    <span id="playing-channel-name" style="font-size: 12px; font-weight: bold;">CANAIS PAIXÃOFLIX</span>
+    <span id="playing-channel-name" style="font-size: 10px; font-weight: bold; color: white;">LIVE</span>
 </div>
 
 <div class="app-container">
     <aside class="sidebar">
         <div class="logo"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
-        <div id="stats-counter" style="font-size:10px; text-align:center; color:grey; margin-bottom:15px;">v2.5.0 Premium</div>
+        <div id="stats-counter">CARREGANDO...</div>
         
         <div class="search-box">
-            <input type="text" id="search" placeholder="Pesquisar..." tabindex="0">
+            <input type="text" id="search" placeholder="Buscar filmes, séries ou canais..." tabindex="0">
         </div>
 
         <nav class="nav-menu">
-            <button onclick="loadLiveTV('canais.m3u')">📡 TV AO VIVO</button>
-            <button onclick="loadLiveTV('kids_canais.m3u')">🧒 TV KIDS</button>
+            <button onclick="loadLiveTV('canais.m3u')" class="focusable">📡 TV AO VIVO</button>
+            <button onclick="loadLiveTV('kids_canais.m3u')" class="focusable">🧒 TV KIDS</button>
             
-            <button onclick="toggleDrop('drop-filmes')">🎬 FILMES ▾</button>
+            <button onclick="toggleDrop('drop-filmes')" class="focusable">🎬 FILMES ▾</button>
             <div id="drop-filmes" class="dropdown-container"></div>
             
-            <button onclick="toggleDrop('drop-series')">📺 SÉRIES ▾</button>
+            <button onclick="toggleDrop('drop-series')" class="focusable">📺 SÉRIES ▾</button>
             <div id="drop-series" class="dropdown-container"></div>
             
-            <button onclick="loadVOD('kids_filmes.json')">🎈 FILMES KIDS</button>
-            <button onclick="loadVOD('kids_series.json')">🧸 SÉRIES KIDS</button>
+            <button onclick="loadVOD('kids_filmes.json')" class="focusable">🎈 FILMES KIDS</button>
+            <button onclick="loadVOD('kids_series.json')" class="focusable">🧸 SÉRIES KIDS</button>
 
-            <button onclick="openArena('futebol')" style="color:var(--sports); border-top:1px solid #333; margin-top:10px;">⚽ ARENA FUTEBOL</button>
-            <button onclick="openArena('basquete')" style="color:var(--nba)">🏀 ARENA BASQUETE</button>
+            <button onclick="openArena('futebol')" style="color:var(--sports); border-top:1px solid #333; margin-top:10px;" class="focusable">⚽ ARENA FUTEBOL</button>
+            <button onclick="openArena('basquete')" style="color:var(--nba)" class="focusable">🏀 ARENA BASQUETE</button>
         </nav>
     </aside>
 
@@ -137,13 +132,15 @@
 </div>
 
 <div id="details-screen">
-    <button class="back-button" onclick="closeDetails()">⬅ VOLTAR</button>
+    <button class="btn-ep focusable" onclick="closeDetails()"><i class="fas fa-arrow-left"></i> VOLTAR</button>
     <div id="details-content"></div>
+    <h3 style="margin-top:40px;">VOCÊ TAMBÉM PODE GOSTAR</h3>
+    <div class="grid" id="suggested-grid" style="padding:0;"></div>
 </div>
 
 <div id="player-overlay">
-    <button class="back-button" onclick="closePlayer()" style="position: absolute; top: 20px; left: 20px; z-index: 3001;">⬅ SAIR</button>
-    <video id="tv-player" class="video-js vjs-big-play-centered vjs-fill" controls preload="auto" playsinline></video>
+    <button class="focusable" onclick="closePlayer()" style="position: absolute; top: 20px; left: 20px; z-index: 5001; background:rgba(0,0,0,0.5); border:none; color:white; padding:10px; border-radius:5px;">✖ FECHAR</button>
+    <video id="tv-player" class="video-js vjs-big-play-centered vjs-fill" controls preload="auto"></video>
 </div>
 
 <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
@@ -155,16 +152,20 @@
     };
 
     let cache = { filmes: [], series: [], tv: [] };
+    let currentPlaylist = [];
+    let currentIndex = 0;
+
     let player = videojs('tv-player', {
         fluid: false,
         playbackRates: [0.5, 1, 1.5, 2],
-        controlBar: { skipButtons: { forward: 10, backward: 10 } }
+        userActions: { hotkeys: true }
     });
 
     window.onload = async () => {
         await syncData();
         setupDropdowns();
         setupSearch();
+        setupRemoteControl();
     };
 
     async function syncData() {
@@ -173,9 +174,17 @@
                 fetch(CONFIG.base_url + "filmes.json").then(r => r.json()),
                 fetch(CONFIG.base_url + "series.json").then(r => r.json())
             ]);
-            cache.filmes = Array.isArray(f) ? f : [];
-            cache.series = Array.isArray(s) ? s : [];
-        } catch(e) { console.error("Erro no Sync"); }
+            cache.filmes = f.sort((a,b) => a.titulo.localeCompare(b.titulo));
+            cache.series = s.sort((a,b) => a.titulo.localeCompare(b.titulo));
+            updateStats();
+        } catch(e) { console.log("Sync Offline"); }
+    }
+
+    function updateStats() {
+        const total = cache.filmes.length + cache.series.length;
+        const now = new Date();
+        const dataFormatada = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase();
+        document.getElementById('stats-counter').innerHTML = `${total} TÍTULOS DISPONÍVEIS<br>${dataFormatada}`;
     }
 
     function setupDropdowns() {
@@ -184,7 +193,8 @@
             const type = id.includes('filmes') ? 'filmes' : 'series';
             CONFIG.categories.forEach(cat => {
                 const item = document.createElement('div');
-                item.className = 'drop-item';
+                item.className = 'drop-item focusable';
+                item.tabIndex = 0;
                 item.textContent = cat;
                 item.onclick = () => filterByCat(type, cat);
                 container.appendChild(item);
@@ -194,9 +204,9 @@
 
     function toggleDrop(id) {
         const el = document.getElementById(id);
-        const isActive = el.classList.contains('active');
+        const active = el.classList.contains('active');
         document.querySelectorAll('.dropdown-container').forEach(d => d.classList.remove('active'));
-        if(!isActive) el.classList.add('active');
+        if(!active) el.classList.add('active');
     }
 
     function filterByCat(type, cat) {
@@ -205,69 +215,39 @@
     }
 
     function openArena(type) {
-        document.getElementById('main-content').innerHTML = '';
+        const content = document.getElementById('main-content');
         document.querySelectorAll('.watermark').forEach(w => w.style.display = 'none');
+        content.innerHTML = '';
         
         if(type === 'futebol') {
             document.getElementById('w-corinthians').style.display = 'block';
-            renderArenaFutebol();
+            content.innerHTML = `
+                <div class="arena-header"><h2>⚽ ARENA FUTEBOL - TEMPORADA 2026</h2></div>
+                <div class="league-badges">
+                    <div class="badge focusable" onclick="filterArena('Paulistão')"><img src="https://upload.wikimedia.org/wikipedia/pt/b/b3/Campeonato_Paulista_S%C3%A9rie_A1_logo.png"> Paulista</div>
+                    <div class="badge focusable" onclick="filterArena('Brasileirão')"><img src="https://media.api-sports.io/football/leagues/13.png"> Brasileirão</div>
+                    <div class="badge focusable" onclick="filterArena('Premier')"><img src="https://media.api-sports.io/football/leagues/39.png"> Premier League</div>
+                    <div class="badge focusable" onclick="filterArena('Champions')"><img src="https://media.api-sports.io/football/leagues/2.png"> Champions</div>
+                    <div class="badge focusable" onclick="filterArena('Copa do Brasil')"><img src="https://upload.wikimedia.org/wikipedia/pt/d/d3/Copa_do_Brasil_2023_logo.png"> Copa do Brasil</div>
+                </div>
+                <div class="grid" style="padding-top:0;">
+                    <div class="match-card focusable" onclick="openPlayer('URL_HLS','CORINTHIANS vs PALMEIRAS')">
+                        <div class="match-team"><img src="https://media.api-sports.io/football/teams/131.png"><br>CORINTHIANS</div>
+                        <div style="text-align:center;"><span style="color:var(--primary); font-weight:bold;">AO VIVO</span><br><h1 style="margin:5px;">0 - 0</h1></div>
+                        <div class="match-team"><img src="https://media.api-sports.io/football/teams/121.png"><br>PALMEIRAS</div>
+                    </div>
+                </div>`;
         } else {
             document.getElementById('w-nba').style.display = 'block';
-            renderArenaBasquete();
+            content.innerHTML = `<div class="arena-header"><h2>🏀 ARENA BASQUETE NBA</h2></div>
+            <div class="grid">
+                <div class="match-card focusable" onclick="openPlayer('URL_NBA','LAKERS vs CELTICS')">
+                    <div class="match-team"><img src="https://media.api-sports.io/basketball/teams/145.png"><br>LAKERS</div>
+                    <div style="text-align:center;"><h1>112-108</h1></div>
+                    <div class="match-team"><img src="https://media.api-sports.io/basketball/teams/133.png"><br>CELTICS</div>
+                </div>
+            </div>`;
         }
-    }
-
-    function renderArenaFutebol() {
-        const content = document.getElementById('main-content');
-        content.innerHTML = `
-            <div class="arena-header"><h2>ARENA FUTEBOL AO VIVO</h2></div>
-            <div class="league-badges">
-                <div class="badge"><img src="https://media.api-sports.io/football/leagues/13.png"> Brasileirão</div>
-                <div class="badge"><img src="https://media.api-sports.io/football/leagues/39.png"> Premier League</div>
-                <div class="badge"><img src="https://media.api-sports.io/football/leagues/2.png"> Champions</div>
-            </div>
-            <div class="arena-main">
-                <div class="match-list">
-                    <div class="match-card" onclick="openPlayer('URL_JOGO_1', 'Jogo ao Vivo')">
-                        <div class="live-tag">LIVE</div>
-                        <div class="match-team"><img src="https://media.api-sports.io/football/teams/126.png"> <strong>SÃO PAULO</strong></div>
-                        <div class="match-score">1 - 0</div>
-                        <div class="match-team"><img src="https://media.api-sports.io/football/teams/131.png"> <strong>CORINTHIANS</strong></div>
-                    </div>
-                </div>
-                <div class="stream-preview"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=400"></div>
-            </div>
-            <div class="next-matches">
-                <h3>PRÓXIMOS CONFRONTOS</h3>
-                <div class="next-card"><span>Palmeiras vs Santos</span> <span>HOJE 21:30</span></div>
-                <div class="next-card"><span>Real Madrid vs City</span> <span>AMANHÃ 16:00</span></div>
-            </div>`;
-    }
-
-    function renderArenaBasquete() {
-        const content = document.getElementById('main-content');
-        content.innerHTML = `
-            <div class="arena-header"><h2>ARENA NBA BASQUETE</h2></div>
-            <div class="league-badges">
-                <div class="badge"><img src="https://media.api-sports.io/basketball/leagues/12.png"> NBA America</div>
-            </div>
-            <div class="arena-main">
-                <div class="match-list">
-                    <div class="match-card" onclick="openPlayer('URL_NBA', 'NBA Live')">
-                        <div class="live-tag">LIVE</div>
-                        <div class="match-team"><img src="https://media.api-sports.io/basketball/teams/145.png"> <strong>LAKERS</strong></div>
-                        <div class="match-score">102 - 98</div>
-                        <div class="match-team"><img src="https://media.api-sports.io/basketball/teams/133.png"> <strong>WARRIORS</strong></div>
-                    </div>
-                </div>
-                <div class="stream-preview"><img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=400"></div>
-            </div>`;
-    }
-
-    async function loadVOD(file) {
-        const res = await fetch(CONFIG.base_url + file);
-        const data = await res.json();
-        renderGrid(data, 'vod');
     }
 
     async function loadLiveTV(file) {
@@ -276,13 +256,19 @@
         const channels = [];
         text.split('\n').forEach((line, i, arr) => {
             if(line.startsWith('#EXTINF')) {
-                const name = line.split(',')[1] || "Canal PaixãoFlix";
+                const name = line.split(',')[1] || "Canal";
                 const url = arr[i+1]?.trim();
-                const logo = line.match(/tvg-logo="([^"]+)"/)?.[1] || 'https://cdn-icons-png.flaticon.com/512/716/716429.png';
-                if(url) channels.push({nome: name, url: url, logo: logo});
+                const logo = line.match(/tvg-logo="([^"]+)"/)?.[1] || '';
+                if(url) channels.push({nome: name, url: url, logo: logo, isTV: true});
             }
         });
         renderGrid(channels, 'tv');
+    }
+
+    async function loadVOD(file) {
+        const res = await fetch(CONFIG.base_url + file);
+        const data = await res.json();
+        renderGrid(data.sort((a,b)=>a.titulo.localeCompare(b.titulo)), 'vod');
     }
 
     function renderGrid(list, mode) {
@@ -293,19 +279,14 @@
         
         list.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'card' + (mode === 'tv' ? ' tv-card' : '');
+            div.className = 'card focusable ' + (mode === 'tv' ? 'tv-card' : '');
             div.tabIndex = 0;
-            const img = (mode === 'tv' ? item.logo : item.poster) || '';
             div.innerHTML = `
-                <img src="${img}" loading="lazy">
-                <div class="card-info"><strong>${item.titulo || item.nome}</strong></div>
-                ${mode === 'vod' ? `
-                <div class="card-meta">
-                    <span>📅 ${item.year || '2024'}</span>
-                    <span class="rating-tag">⭐ ${item.rating || '8.5'}</span>
-                </div>` : ''}
+                <img src="${item.poster || item.logo}" loading="lazy">
+                <div class="card-info">${item.titulo || item.nome}</div>
+                ${!item.isTV ? `<div class="card-meta"><span>${item.year || '2026'}</span><span>⭐ ${item.rating || '9.0'}</span></div>` : ''}
             `;
-            div.onclick = () => item.identificador_archive ? openDetails(item) : openPlayer(item.url, item.nome || item.titulo);
+            div.onclick = () => item.identificador_archive ? openDetails(item) : openPlayer(item.url, item.nome || item.titulo, item.isTV);
             grid.appendChild(div);
         });
     }
@@ -313,49 +294,104 @@
     function openDetails(item) {
         const screen = document.getElementById('details-screen');
         const content = document.getElementById('details-content');
-        let eps = '';
-        for(let i=1; i<=10; i++) {
-            const url = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
-            eps += `<button class="back-button" style="margin:5px; font-size:12px;" onclick="openPlayer('${url}', '${item.titulo} - EP ${i}')">EP ${i}</button>`;
+        screen.style.display = 'block';
+        
+        let actions = item.url ? 
+            `<button class="btn-play-large focusable" onclick="openPlayer('${item.url}','${item.titulo}')"><i class="fas fa-play"></i> ASSISTIR AGORA</button>` : 
+            `<div class="ep-grid">`;
+        
+        if(item.identificador_archive) {
+            currentPlaylist = [];
+            for(let i=1; i<=20; i++) {
+                const epUrl = `https://archive.org/download/${item.identificador_archive}/ep${i}.mp4`;
+                currentPlaylist.push({url: epUrl, title: `${item.titulo} - EP ${i}`});
+                actions += `<button class="btn-ep focusable" onclick="playEpisode(${i-1})">EP ${i}</button>`;
+            }
+            actions += `</div>`;
         }
+
         content.innerHTML = `
-            <div style="display:flex; gap:30px; margin-bottom:30px;">
-                <img src="${item.poster}" style="width:200px; border-radius:12px;">
-                <div>
-                    <h1>${item.titulo}</h1>
-                    <p>${item.year} • ⭐ ${item.rating}</p>
-                    <p style="max-width:600px;">${item.desc || 'Assista agora em HD.'}</p>
-                    <div style="margin-top:20px;">${eps}</div>
+            <div style="display:flex; gap:40px;">
+                <img src="${item.poster}" style="width:280px; border-radius:15px; border:2px solid #333;">
+                <div style="flex:1;">
+                    <h1 style="font-size:48px; margin:0;">${item.titulo}</h1>
+                    <p style="color:var(--primary); font-weight:bold;">${item.year} • ${item.genero} • ⭐ ${item.rating}</p>
+                    <p style="font-size:18px; color:#ccc; line-height:1.6;">${item.desc || 'Informação não disponível no momento.'}</p>
+                    ${actions}
                 </div>
             </div>`;
-        screen.classList.add('active');
+            
+        renderSuggestions(item.genero);
     }
 
-    function openPlayer(url, name) {
+    function renderSuggestions(gen) {
+        const grid = document.getElementById('suggested-grid');
+        const sug = cache.filmes.filter(f => f.genero === gen).slice(0, 6);
+        grid.innerHTML = '';
+        sug.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'card focusable';
+            div.innerHTML = `<img src="${s.poster}"><div class="card-info">${s.titulo}</div>`;
+            div.onclick = () => openDetails(s);
+            grid.appendChild(div);
+        });
+    }
+
+    function playEpisode(index) {
+        currentIndex = index;
+        openPlayer(currentPlaylist[index].url, currentPlaylist[index].title);
+    }
+
+    player.on('ended', () => {
+        if(currentIndex < currentPlaylist.length - 1) {
+            playEpisode(currentIndex + 1);
+        }
+    });
+
+    function openPlayer(url, name, isTV = false) {
         if(!url) return;
         document.getElementById('player-overlay').classList.add('active');
-        document.getElementById('now-playing-tag').style.display = 'flex';
-        document.getElementById('playing-channel-name').textContent = name || 'PAIXÃOFLIX AO VIVO';
-        
-        const type = url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4';
-        player.src({ src: url, type: type });
+        if(isTV) {
+            document.getElementById('now-playing-tag').style.display = 'flex';
+            document.getElementById('playing-channel-name').textContent = name;
+        }
+        player.src({ src: url, type: url.includes('m3u8') ? 'application/x-mpegURL' : 'video/mp4' });
         player.play();
     }
 
-    function closePlayer() { 
-        player.pause(); 
-        document.getElementById('player-overlay').classList.remove('active'); 
-        document.getElementById('now-playing-tag').style.display = 'none';
-    }
-    
-    function closeDetails() { document.getElementById('details-screen').classList.remove('active'); }
+    function closePlayer() { player.pause(); document.getElementById('player-overlay').classList.remove('active'); document.getElementById('now-playing-tag').style.display = 'none'; }
+    function closeDetails() { document.getElementById('details-screen').style.display = 'none'; }
 
     function setupSearch() {
         document.getElementById('search').addEventListener('input', (e) => {
             const val = e.target.value.toLowerCase();
-            document.querySelectorAll('.card').forEach(c => {
-                c.style.display = c.textContent.toLowerCase().includes(val) ? 'block' : 'none';
-            });
+            if(val.length < 2) return;
+            const res = [
+                ...cache.filmes.filter(f => f.titulo.toLowerCase().includes(val)),
+                ...cache.series.filter(s => s.titulo.toLowerCase().includes(val))
+            ];
+            renderGrid(res, 'vod');
+        });
+    }
+
+    function setupRemoteControl() {
+        document.addEventListener('keydown', (e) => {
+            const active = document.activeElement;
+            const focusables = Array.from(document.querySelectorAll('.focusable, .card, .btn-ep, input'));
+            let index = focusables.indexOf(active);
+
+            switch(e.key) {
+                case 'ArrowDown': index = Math.min(index + 5, focusables.length - 1); break;
+                case 'ArrowUp': index = Math.max(index - 5, 0); break;
+                case 'ArrowRight': index = Math.min(index + 1, focusables.length - 1); break;
+                case 'ArrowLeft': index = Math.max(index - 1, 0); break;
+                case 'Enter': active.click(); break;
+                case 'Backspace': 
+                    if(document.getElementById('player-overlay').classList.contains('active')) closePlayer();
+                    else closeDetails();
+                    break;
+            }
+            if(focusables[index]) focusables[index].focus();
         });
     }
 </script>

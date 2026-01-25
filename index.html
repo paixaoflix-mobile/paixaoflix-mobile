@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — Master Final</title>
+    <title>PaixãoFlix TV — Final Master</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -12,49 +12,58 @@
         * { box-sizing: border-box; font-family: 'Poppins', sans-serif; outline: none; }
         body { margin: 0; background: var(--bg); color: #fff; height: 100vh; overflow: hidden; }
 
+        /* SIDEBAR E LOGO */
         .sidebar { width: 260px; height: 100vh; background: #000; display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; position: fixed; left: 0; top: 0; z-index: 1000; }
         .logo-container img { width: 160px; height: auto; display: block; margin: 0 auto; }
         
         /* BOTÕES 3D */
-        .btn-3d, .nav-menu button, .btn-play, .btn-ep, .drop-item {
-            border: none;
-            box-shadow: 0 4px #990000;
-            transition: all 0.1s;
-            cursor: pointer;
-            border-radius: 4px;
+        .nav-menu button, .btn-play, .btn-ep, .drop-item {
+            border: none; background: #222; color: #fff;
+            box-shadow: 0 4px #000; transition: 0.1s; cursor: pointer;
+            border-radius: 4px; font-weight: 700;
         }
-        .btn-3d:active, .nav-menu button:active {
-            box-shadow: 0 1px #660000;
-            transform: translateY(3px);
+        .nav-menu button:focus, .btn-play:focus, .btn-ep:focus, .drop-item:focus {
+            border: 2px solid #fff !important; box-shadow: 0 0 10px #fff; transform: translateY(-2px);
         }
 
-        .nav-menu { flex: 1; overflow-y: auto; scrollbar-width: none; margin-top: 20px; }
-        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 12px; background: #222; color: #fff; text-align: left; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px #111; }
+        .nav-menu { flex: 1; overflow-y: auto; scrollbar-width: none; margin-top: 15px; }
+        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 10px; text-align: left; display: flex; align-items: center; gap: 10px; }
         .nav-menu button i { color: var(--yellow); width: 20px; }
-        .nav-menu button:focus { border: 2px solid #fff !important; box-shadow: 0 0 15px #fff; }
+
+        /* DROPDOWN 2 COLUNAS */
+        .dropdown-container { display: none; grid-template-columns: 1fr 1fr; gap: 5px; padding: 10px 0; }
+        .dropdown-container.active { display: grid; }
+        .drop-item { background: #1a1a1a; padding: 8px; font-size: 11px; text-align: center; box-shadow: 0 3px #000; }
 
         .content-area { margin-left: 260px; height: 100vh; overflow-y: auto; padding: 30px; }
         .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); }
         
-        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; transition: 0.2s; }
-        .card:focus { border-color: #fff; transform: scale(1.05); }
+        /* CAPAS - VOLTANDO AO ORIGINAL */
+        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+        
+        /* LOGOS TV PEQUENAS (RESTAURADO) */
+        .card.tv-card img { width: 80px; height: 80px; object-fit: contain; margin: 10px auto; display: block; }
+        
         .card-info { padding: 8px; text-align: center; }
         .card-title { font-size: 12px; font-weight: bold; display: block; height: 36px; overflow: hidden; }
-        .card-meta { display: flex; justify-content: center; gap: 10px; font-size: 10px; margin-top: 5px; color: var(--match); font-weight: bold; }
+        .card-meta { display: flex; justify-content: center; gap: 10px; font-size: 10px; margin-top: 5px; color: var(--match); }
 
+        /* DETALHES */
         #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 40px; overflow-y: auto; }
         .det-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 40px; }
-        .det-poster { width: 100%; border-radius: 8px; border: 2px solid #333; }
-        .btn-play { background: var(--primary); color: #fff; padding: 15px 40px; font-size: 18px; margin-bottom: 20px; box-shadow: 0 5px #b20710; }
+        .det-poster { width: 100%; border-radius: 8px; }
+        .btn-play { background: var(--primary); padding: 15px 40px; font-size: 18px; margin-bottom: 20px; box-shadow: 0 5px #b20710; }
 
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
-        .tv-sticker { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-left: 5px solid var(--primary); z-index: 3001; font-weight: bold; }
+        .tv-sticker { position: absolute; bottom: 80px; left: 30px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-left: 5px solid var(--primary); z-index: 3001; }
 
+        /* 4 CAPAS MOBILE (OBRIGATÓRIO) */
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
-            .content-area { margin-left: 0; padding: 15px; }
-            .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 10px; }
+            .content-area { margin-left: 0; padding: 10px; }
+            .grid, #suggest-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px; }
+            .card.tv-card img { width: 50px; height: 50px; }
             .det-wrapper { grid-template-columns: 1fr; }
         }
     </style>
@@ -63,35 +72,32 @@
 
 <aside class="sidebar">
     <div class="logo-container"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
-    <div id="stats-counter" style="text-align:center; font-size:12px; margin:10px 0;">Sábado, 24/01/2026</div>
-    <div class="search-box"><input type="text" id="search" placeholder="Pesquisar..." style="width:100%; padding:10px; background:#111; border:1px solid #333; color:#fff;" class="focusable"></div>
+    <div id="stats-counter" style="text-align:center; font-size:11px; margin:10px 0;">Sábado, 24/01/2026</div>
+    <div class="search-box"><input type="text" id="search" placeholder="Buscar..." style="width:100%; padding:10px; background:#111; border:1px solid #333; color:#fff;" class="focusable"></div>
     <nav class="nav-menu">
         <button onclick="loadM3U('canais.m3u')" class="focusable"><i class="fa-solid fa-play"></i> TV AO VIVO</button>
         <button onclick="loadM3U('kids_canais.m3u')" class="focusable"><i class="fa-solid fa-child"></i> TV KIDS</button>
-        <button onclick="loadVOD('filmes.json', 'vod')" class="focusable"><i class="fa-solid fa-film"></i> FILMES</button>
-        <button onclick="loadVOD('series.json', 'series')" class="focusable"><i class="fa-solid fa-tv"></i> SÉRIES</button>
+        <button onclick="toggleDrop('drop-filmes')" class="focusable"><i class="fa-solid fa-film"></i> FILMES ▾</button>
+        <div id="drop-filmes" class="dropdown-container"></div>
+        <button onclick="toggleDrop('drop-series')" class="focusable"><i class="fa-solid fa-tv"></i> SÉRIES ▾</button>
+        <div id="drop-series" class="dropdown-container"></div>
         <button onclick="loadVOD('kids_filmes.json', 'vod')" class="focusable"><i class="fa-solid fa-face-smile"></i> FILMES KIDS</button>
         <button onclick="loadVOD('kids_series.json', 'series')" class="focusable"><i class="fa-solid fa-robot"></i> SÉRIES KIDS</button>
-        <button onclick="showContinue()" class="focusable" style="background:#1a1a1a;"><i class="fa-solid fa-history"></i> CONTINUAR</button>
+        <button onclick="showContinue()" class="focusable" style="background:#1a1a1a"><i class="fa-solid fa-history"></i> CONTINUAR</button>
     </nav>
 </aside>
 
-<main class="content-area">
-    <div class="grid" id="main-grid"></div>
-</main>
+<main class="content-area"><div class="grid" id="main-grid"></div></main>
 
 <div id="details-screen">
     <div class="det-wrapper">
-        <div style="text-align:center">
-            <img id="det-poster" class="det-poster">
-            <button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:20px; background:#333; box-shadow: 0 4px #111;">VOLTAR</button>
-        </div>
+        <div style="text-align:center"><img id="det-poster" class="det-poster"><button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:20px">VOLTAR</button></div>
         <div>
-            <h1 id="det-title" style="margin:0; font-size:40px"></h1>
-            <div style="margin:15px 0; font-weight:bold"><span id="det-year"></span> • ⭐ 9.8 • <span style="color:var(--match)">Full HD</span></div>
-            <p id="det-desc" style="color:#ccc; line-height:1.6"></p>
+            <h1 id="det-title" style="margin:0; font-size:35px"></h1>
+            <div style="margin:10px 0;"><span id="det-year"></span> • <span style="color:var(--match)">98% Match</span></div>
+            <p id="det-desc" style="color:#ccc; font-size:14px"></p>
             <div id="action-area"></div>
-            <div id="ep-container" style="display:flex; flex-wrap:wrap; gap:10px"></div>
+            <div id="ep-container" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:20px"></div>
             <h3 style="margin-top:30px; color:var(--yellow)">INDICAÇÕES</h3>
             <div class="grid" id="suggest-grid"></div>
         </div>
@@ -100,19 +106,20 @@
 
 <div id="player-overlay">
     <div id="tv-sticker" class="tv-sticker" style="display:none"></div>
-    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000; background:red; box-shadow: 0 4px #900;">SAIR DO VÍDEO</button>
+    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000; background:red">SAIR</button>
     <div id="player-wrapper"></div>
 </div>
 
 <script>
     const base = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
     let cache = { filmes: [], series: [], tv: [], all: [] };
-    let tvList = [];
-    let tvIdx = 0;
+    let playlist = [];
+    let pIdx = 0;
     let player;
 
     window.onload = async () => {
         await syncData();
+        setupDropdowns();
         setupRemote();
         setupSearch();
     };
@@ -127,7 +134,6 @@
         cache.series = [...s, ...ks].sort((a,b) => a.titulo.localeCompare(b.titulo));
         cache.tv = [...parseM3U(t1), ...parseM3U(t2)];
         cache.all = [...cache.filmes.map(x=>({...x, m:'vod'})), ...cache.series.map(x=>({...x, m:'series'})), ...cache.tv.map(x=>({...x, m:'tv'}))];
-        document.getElementById('stats-counter').innerHTML = `Sábado, 24/01/2026<br>${cache.filmes.length + cache.series.length} TÍTULOS`;
     }
 
     function parseM3U(txt) {
@@ -143,37 +149,46 @@
         return chs;
     }
 
-    function playMedia(item, isTV = false) {
+    function playMedia(url, item, isTV = false) {
         if(!isTV) localStorage.setItem('paixaoflix_hist', JSON.stringify(item));
         document.getElementById('player-overlay').style.display = 'block';
-        if(isTV) {
-            document.getElementById('tv-sticker').textContent = item.nome;
-            document.getElementById('tv-sticker').style.display = 'block';
-        }
-        const wrap = document.getElementById('player-wrapper');
-        wrap.innerHTML = '';
-        player = new Clappr.Player({ source: item.url, parentId: "#player-wrapper", width: '100%', height: '100%', autoPlay: true });
+        if(isTV) { document.getElementById('tv-sticker').textContent = item.nome; document.getElementById('tv-sticker').style.display = 'block'; }
+        
+        if(player) player.destroy();
+        player = new Clappr.Player({
+            source: url, parentId: "#player-wrapper", width: '100%', height: '100%', autoPlay: true,
+            events: { onEnded: () => { if(playlist.length > pIdx+1) playNext(); } }
+        });
+    }
+
+    function playNext() {
+        pIdx++;
+        const n = playlist[pIdx];
+        playMedia(`https://archive.org/download/${n.id}/${n.file}`, n.item);
     }
 
     async function openDetails(item) {
-        if(item.m === 'tv') return playMedia(item, true);
+        if(item.m === 'tv') return playMedia(item.url, item, true);
         document.getElementById('details-screen').style.display = 'block';
         document.getElementById('det-title').textContent = item.titulo;
         document.getElementById('det-poster').src = item.poster;
         document.getElementById('det-year').textContent = item.year || '2025';
-        document.getElementById('det-desc').textContent = item.desc || 'Conteúdo PaixãoFlix Premium.';
+        document.getElementById('det-desc').textContent = item.desc || 'Conteúdo Premium.';
         
         const act = document.getElementById('action-area');
         const eps = document.getElementById('ep-container');
-        act.innerHTML = `<button class="btn-play focusable" onclick='playMedia(${JSON.stringify(item)})'>ASSISTIR AGORA</button>`;
-        eps.innerHTML = '';
+        act.innerHTML = ''; eps.innerHTML = '';
 
-        if(item.m === 'series') {
+        if(item.m === 'vod') {
+            act.innerHTML = `<button class="btn-play focusable" onclick='playMedia("${item.url}", ${JSON.stringify(item)})'>ASSISTIR AGORA</button>`;
+        } else {
             const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r => r.json());
-            meta.files.filter(f => f.name.endsWith(".mp4")).forEach((f, i) => {
+            const files = meta.files.filter(f => f.name.endsWith(".mp4")).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
+            playlist = files.map(f => ({id: item.identificador_archive, file: f.name, item: item}));
+            files.forEach((f, i) => {
                 const b = document.createElement('button');
                 b.className = 'btn-ep focusable'; b.textContent = `EP ${i+1}`;
-                b.onclick = () => playMedia({ url: `https://archive.org/download/${item.identificador_archive}/${f.name}`, ...item });
+                b.onclick = () => { pIdx = i; playMedia(`https://archive.org/download/${item.identificador_archive}/${f.name}`, item); };
                 eps.appendChild(b);
             });
         }
@@ -183,7 +198,7 @@
     function renderItem(item, mode, target) {
         const div = document.createElement('div');
         div.className = `card focusable ${mode === 'tv' ? 'tv-card' : ''}`; div.tabIndex = 0;
-        const meta = mode !== 'tv' ? `<div class="card-meta"><span>98% Match</span><span>${item.year || '2025'}</span></div>` : '';
+        const meta = mode !== 'tv' ? `<div class="card-meta"><span>${item.year || '2025'}</span><span>⭐ 9.5</span></div>` : '';
         div.innerHTML = `<img src="${item.poster || item.logo}"><div class="card-info"><span class="card-title">${item.titulo || item.nome}</span>${meta}</div>`;
         div.onclick = () => openDetails(item);
         target.appendChild(div);
@@ -194,18 +209,21 @@
         cache.filmes.filter(x => x.genero === gen).sort(() => 0.5 - Math.random()).slice(0, 5).forEach(i => renderItem(i, 'vod', target));
     }
 
-    function showContinue() {
-        const last = localStorage.getItem('paixaoflix_hist');
-        const target = document.getElementById('main-grid'); target.innerHTML = '';
-        if(last) renderItem(JSON.parse(last), 'vod', target);
-        else target.innerHTML = "<h3>Nenhum histórico encontrado.</h3>";
-    }
+    function toggleDrop(id) { document.querySelectorAll('.dropdown-container').forEach(d => d.id !== id && d.classList.remove('active')); document.getElementById(id).classList.toggle('active'); }
 
-    function setupSearch() {
-        document.getElementById('search').addEventListener('input', (e) => {
-            const v = e.target.value.toLowerCase();
-            const target = document.getElementById('main-grid'); target.innerHTML = '';
-            cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v)).forEach(i => renderItem(i, i.m, target));
+    function setupDropdowns() {
+        const cats = ["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"];
+        ['drop-filmes', 'drop-series'].forEach(id => {
+            const container = document.getElementById(id);
+            const type = id.includes('filmes') ? 'filmes' : 'series';
+            cats.forEach(c => {
+                const d = document.createElement('div'); d.className = 'drop-item focusable'; d.textContent = c; d.tabIndex = 0;
+                d.onclick = () => { 
+                    const target = document.getElementById('main-grid'); target.innerHTML = '';
+                    cache[type].filter(x => x.genero === c).forEach(i => renderItem(i, type==='filmes'?'vod':'series', target));
+                };
+                container.appendChild(d);
+            });
         });
     }
 
@@ -213,30 +231,17 @@
         document.addEventListener('keydown', (e) => {
             const active = document.activeElement;
             const focusables = Array.from(document.querySelectorAll('.focusable'));
-
-            if(player && document.getElementById('player-overlay').style.display === 'block') {
-                if(e.keyCode === 33 || e.keyCode === 38) { tvIdx = (tvIdx+1)%tvList.length; playMedia(tvList[tvIdx], true); }
-                if(e.keyCode === 34 || e.keyCode === 40) { tvIdx = (tvIdx-1+tvList.length)%tvList.length; playMedia(tvList[tvIdx], true); }
-            }
-
             if([37,38,39,40,13].includes(e.keyCode)) e.preventDefault();
             if(e.keyCode === 13) active.click();
             if(e.keyCode === 8) { if(player) closePlayer(); else closeDetails(); }
-
-            let next;
-            const rA = active.getBoundingClientRect();
-
+            let next; const rA = active.getBoundingClientRect();
             if(e.keyCode === 39 && active.closest('.sidebar')) {
-                const first = document.querySelector('#main-grid .focusable, #suggest-grid .focusable');
-                if(first) first.focus();
-                return;
+                const f = document.querySelector('#main-grid .focusable, #suggest-grid .focusable, .btn-play');
+                if(f) f.focus(); return;
             }
-
             if(e.keyCode === 37 && rA.left < 300 && !active.closest('.sidebar')) {
-                document.querySelector('.nav-menu .focusable').focus();
-                return;
+                document.querySelector('.nav-menu .focusable').focus(); return;
             }
-
             focusables.forEach(el => {
                 if (el === active || el.offsetParent === null) return;
                 const rB = el.getBoundingClientRect();
@@ -251,18 +256,30 @@
     }
 
     async function loadM3U(file) {
-        const res = await fetch(base + file).then(r => r.text());
-        tvList = parseM3U(res).sort((a,b) => a.nome.localeCompare(b.nome));
         const target = document.getElementById('main-grid'); target.innerHTML = '';
-        tvList.forEach(c => renderItem(c, 'tv', target));
+        cache.tv.filter(x => file.includes('kids') ? x.url.includes('kids') : !x.url.includes('kids')).forEach(c => renderItem(c, 'tv', target));
         target.querySelector('.focusable').focus();
     }
 
     async function loadVOD(file, mode) {
-        const data = await fetch(base + file).then(r => r.json());
         const target = document.getElementById('main-grid'); target.innerHTML = '';
-        data.sort((a,b) => a.titulo.localeCompare(b.titulo)).forEach(i => renderItem(i, mode, target));
+        const data = file.includes('filmes') ? cache.filmes : cache.series;
+        data.forEach(i => renderItem(i, mode, target));
         target.querySelector('.focusable').focus();
+    }
+
+    function setupSearch() {
+        document.getElementById('search').addEventListener('input', (e) => {
+            const v = e.target.value.toLowerCase();
+            const target = document.getElementById('main-grid'); target.innerHTML = '';
+            cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v)).forEach(i => renderItem(i, i.m, target));
+        });
+    }
+
+    function showContinue() {
+        const last = localStorage.getItem('paixaoflix_hist');
+        const target = document.getElementById('main-grid'); target.innerHTML = '';
+        if(last) renderItem(JSON.parse(last), 'vod', target);
     }
 
     function closePlayer() { if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; }

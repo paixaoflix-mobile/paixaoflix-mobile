@@ -64,6 +64,40 @@ https://cdn.jmvstream.com/w/LVW-8719/LVW8719_AcLVAxWy5J/playlist.m3u8
 
 ########## VARIEDADES & FILMES ##########
 
+########## FILMES E CINEMA ##########
+
+#EXTINF:-1 tvg-id="Darkflix" tvg-logo="https://i.imgur.com/9v6Q27q.png" group-title="FILMES",Darkflix
+https://video01.soultv.com.br/darkflix/darkflix/playlist.m3u8
+
+#EXTINF:-1 tvg-id="GLN_Filmes" tvg-logo="https://i.imgur.com/6pYVjS9.png" group-title="FILMES",GLN Filmes
+https://stmv8.samcast.com.br/glnfilmes/glnfilmes/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Cine_Monde" tvg-logo="https://i.imgur.com/9v6Q27q.png" group-title="FILMES",Cine Monde
+https://video01.soultv.com.br/cinemonde/cinemonde/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Soul_Cine" tvg-logo="https://i.imgur.com/9v6Q27q.png" group-title="FILMES",Soul Cine Clube
+https://video01.soultv.com.br/soulcine/soulcine/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Top_Cine" tvg-logo="https://provider-static.plex.tv/epg/images/ott_channels/logos/topcine_logo_dark_v3.png" group-title="FILMES",Top Cine
+https://olympusamagi.amagi.tv/hls/amagi_hls_data_olympusat-topcine-latam-plex/CDN/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Runtime_Esp" tvg-logo="https://provider-static.plex.tv/epg/images/ott_channels/logos/runtime-espanol.png" group-title="FILMES",Runtime Cinema
+https://ammo-espanol-plex.amagi.tv/hls/amagi_hls_data_plexAAAAA-ammo-espanol-plex/CDN/playlist.m3u8
+
+########## SÉRIES E CLÁSSICOS ##########
+
+#EXTINF:-1 tvg-id="Serie_Classic" tvg-logo="https://i.imgur.com/9v6Q27q.png" group-title="SERIES",TV Series Classic
+https://video10.logicahost.com.br/serieclassic/serieclassic/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Viva_Web" tvg-logo="https://i.imgur.com/9v6Q27q.png" group-title="SERIES",Viva Web TV
+https://video01.kshost.com.br:4443/cypriano46326/cypriano46326/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Shorts_TV" tvg-logo="https://i.imgur.com/lyBkCzB.png" group-title="SERIES",Shorts TV
+https://shortstv-fast-spain-lg.amagi.tv/playlist.m3u8
+
+#EXTINF:-1 tvg-id="Cinehouse" tvg-logo="https://provider-static.plex.tv/epg/images/ott_channels/logos/Cinehouse_logo_dark.png" group-title="SERIES",Cinehouse
+https://3e14f4fda10247bc907cf85bbf6f6d88.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Plex_Cinehouse/playlist.m3u8
+
 #EXTINF:-1 tvg-logo="https://i.imgur.com/9v6Q27q.png" group-title="FILMES",Darkflix
 https://video01.soultv.com.br/darkflix/darkflix/playlist.m3u8
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — Master v3.4.2</title>
+    <title>PaixãoFlix TV — Master v3.4.3</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -15,36 +15,43 @@
         .sidebar { width: 260px; height: 100vh; background: #000; display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; position: fixed; left: 0; top: 0; z-index: 1000; }
         #stats-counter { color: #fff; font-size: 13px; font-weight: bold; text-align: center; margin: 15px 0; }
         .search-box input { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; font-weight: bold; }
+        
         .nav-menu { flex: 1; overflow-y: auto; scrollbar-width: none; }
-        .nav-menu button { width: 100%; padding: 15px; margin-bottom: 8px; border: 2px solid transparent; background: transparent; color: #fff; text-align: left; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 12px; border-radius: 4px; }
+        .nav-menu button { width: 100%; padding: 15px; margin-bottom: 8px; border: 2px solid transparent; background: transparent; color: #fff; text-align: left; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 12px; border-radius: 4px; cursor: pointer; }
         .nav-menu button i { color: var(--yellow); width: 25px; text-align: center; }
 
-        .focusable:focus { border: 2px solid #fff !important; background: rgba(255,255,255,0.1) !important; }
+        /* SELETOR EXATO */
+        .focusable:focus { border: 2px solid #fff !important; background: rgba(255,255,255,0.1) !important; outline: none; }
 
         .content-area { margin-left: 260px; height: 100vh; overflow-y: auto; padding: 30px; }
-        .section-title { font-size: 18px; margin: 20px 0 10px; color: var(--yellow); text-transform: uppercase; letter-spacing: 1px; }
-        .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); margin-bottom: 30px; }
+        .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); margin-bottom: 40px; }
         
-        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; position: relative; }
+        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
         .card-info { padding: 8px; text-align: center; }
         .card-title { font-size: 12px; font-weight: bold; display: block; height: 36px; overflow: hidden; }
         .card-meta { display: flex; justify-content: center; gap: 10px; font-size: 10px; margin-top: 5px; font-weight: bold; color: var(--match); }
 
+        /* TELA DE DETALHES */
         #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 40px; overflow-y: auto; }
         .det-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 40px; }
         .det-poster { width: 100%; border-radius: 8px; border: 2px solid #333; }
         .btn-play { background: var(--primary); color: #fff; padding: 15px 40px; border: 2px solid transparent; border-radius: 4px; font-weight: bold; font-size: 18px; margin-bottom: 20px; cursor: pointer; }
+        .btn-ep { background: #222; border: 2px solid transparent; color: #fff; padding: 10px; border-radius: 4px; font-weight: bold; margin: 5px; cursor: pointer; }
 
+        /* PLAYER E ADESIVO */
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
         #player-wrapper { width: 100%; height: 100%; }
-        .tv-sticker { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.7); padding: 10px 20px; border-left: 4px solid var(--primary); font-weight: bold; font-size: 20px; z-index: 4001; }
+        .tv-sticker { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-left: 5px solid var(--primary); z-index: 3001; font-weight: bold; }
 
+        /* REGRA MOBILE: APENAS 4 CAPAS POR LINHA */
         @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .content-area { margin-left: 0; }
-            .grid { grid-template-columns: repeat(4, 1fr) !important; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; }
+            .content-area { margin-left: 0; padding: 15px; }
+            .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 10px; }
+            .det-wrapper { grid-template-columns: 1fr; }
+            .det-poster { width: 200px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -53,7 +60,7 @@
 <aside class="sidebar">
     <div class="logo-container"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
     <div id="stats-counter">...</div>
-    <div class="search-box"><input type="text" id="search" placeholder="Pesquisa Global..." class="focusable"></div>
+    <div class="search-box"><input type="text" id="search" placeholder="Busca Global..." class="focusable"></div>
     <nav class="nav-menu">
         <button onclick="loadM3U('canais.m3u')" class="focusable"><i class="fa-solid fa-play"></i> TV AO VIVO</button>
         <button onclick="loadM3U('kids_canais.m3u')" class="focusable"><i class="fa-solid fa-child"></i> TV KIDS</button>
@@ -65,26 +72,27 @@
 </aside>
 
 <main class="content-area">
-    <div id="continue-section" style="display:none">
-        <div class="section-title">Continuar Assistindo</div>
+    <div id="continue-watching" style="display:none">
+        <h3 style="color:var(--yellow)">CONTINUAR ASSISTINDO</h3>
         <div class="grid" id="continue-grid"></div>
     </div>
-    <div id="main-content">
-        <div class="section-title" id="grid-title">Destaques</div>
-        <div class="grid" id="main-grid"></div>
-    </div>
+    <h3 id="grid-title">DESTAQUES</h3>
+    <div class="grid" id="main-grid"></div>
 </main>
 
 <div id="details-screen">
     <div class="det-wrapper">
-        <div><img id="det-poster" class="det-poster"><button class="btn-play focusable" onclick="closeDetails()" style="width:100%; margin-top:15px; background:#333">VOLTAR</button></div>
+        <div style="text-align:center">
+            <img id="det-poster" class="det-poster">
+            <button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:20px">VOLTAR</button>
+        </div>
         <div>
             <h1 id="det-title" style="margin:0; font-size:40px"></h1>
-            <div style="margin:15px 0; font-weight:bold"><span id="det-year"></span> • ⭐ 9.5 • <span style="color:var(--match)">Full HD</span></div>
-            <p id="det-desc" style="color:#ccc; font-size:16px; margin-bottom:25px"></p>
-            <div id="action-play"></div>
+            <div style="margin:15px 0; font-weight:bold"><span id="det-year"></span> • ⭐ 9.8 • <span style="color:var(--match)">4K UltraHD</span></div>
+            <p id="det-desc" style="color:#ccc; font-size:16px"></p>
+            <div id="action-area"></div>
             <div id="ep-container"></div>
-            <h3 class="section-title">Sugestões</h3>
+            <h3 style="margin-top:30px">INDICAÇÕES</h3>
             <div class="grid" id="suggest-grid" style="grid-template-columns: repeat(5, 1fr);"></div>
         </div>
     </div>
@@ -92,15 +100,15 @@
 
 <div id="player-overlay">
     <div id="tv-sticker" class="tv-sticker" style="display:none"></div>
-    <button class="focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4005; background:red; color:#fff; border:none; padding:10px; border-radius:4px">SAIR</button>
+    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000; background:red">SAIR</button>
     <div id="player-wrapper"></div>
 </div>
 
 <script>
     const base = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
     let cache = { filmes: [], series: [], tv: [], all: [] };
-    let currentTVList = [];
-    let currentTVIndex = 0;
+    let tvList = [];
+    let tvIdx = 0;
     let player;
 
     window.onload = async () => {
@@ -121,31 +129,28 @@
         cache.tv = [...parseM3U(t1), ...parseM3U(t2)];
         cache.all = [...cache.filmes.map(x=>({...x, m:'vod'})), ...cache.series.map(x=>({...x, m:'series'})), ...cache.tv.map(x=>({...x, m:'tv'}))];
         
-        const d = new Date();
-        const dias = ["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
-        document.getElementById('stats-counter').innerHTML = `${dias[d.getDay()]}, ${d.getDate()}/01/2026<br>${cache.filmes.length + cache.series.length} TÍTULOS`;
+        document.getElementById('stats-counter').innerHTML = `Sábado, 24 de Janeiro de 2026<br>${cache.filmes.length + cache.series.length} TÍTULOS DISPONÍVEIS`;
     }
 
     function parseM3U(txt) {
-        const lines = txt.split('\n');
         const chs = [];
-        for(let i=0; i<lines.length; i++) {
-            if(lines[i].startsWith('#EXTINF')) {
-                const n = lines[i].split(',')[1]?.trim();
-                const u = lines[i+1]?.trim();
-                const lg = lines[i].match(/tvg-logo="([^"]+)"/)?.[1] || '';
+        txt.split('\n').forEach((l, i, a) => {
+            if(l.startsWith('#EXTINF')) {
+                const n = l.split(',')[1]?.trim();
+                const u = a[i+1]?.trim();
+                const lg = l.match(/tvg-logo="([^"]+)"/)?.[1] || '';
                 if(u) chs.push({nome: n, url: u, logo: lg, m: 'tv'});
             }
-        }
+        });
         return chs;
     }
 
     function playMedia(item, isTV = false) {
-        if(!isTV) localStorage.setItem('paixaoflix_last', JSON.stringify(item));
+        if(!isTV) localStorage.setItem('paixaoflix_resume', JSON.stringify(item));
         document.getElementById('player-overlay').style.display = 'block';
         if(isTV) {
-            document.getElementById('tv-sticker').style.display = 'block';
             document.getElementById('tv-sticker').textContent = item.nome;
+            document.getElementById('tv-sticker').style.display = 'block';
         }
         const wrap = document.getElementById('player-wrapper');
         wrap.innerHTML = '';
@@ -158,9 +163,9 @@
         document.getElementById('det-title').textContent = item.titulo;
         document.getElementById('det-poster').src = item.poster;
         document.getElementById('det-year').textContent = item.year || '2025';
-        document.getElementById('det-desc').textContent = item.desc || 'Disponível agora.';
+        document.getElementById('det-desc').textContent = item.desc || 'PaixãoFlix Master TV.';
         
-        const act = document.getElementById('action-play');
+        const act = document.getElementById('action-area');
         const eps = document.getElementById('ep-container');
         act.innerHTML = `<button class="btn-play focusable" onclick='playMedia(${JSON.stringify(item)})'>ASSISTIR AGORA</button>`;
         eps.innerHTML = '';
@@ -181,18 +186,17 @@
     function renderItem(item, mode, target) {
         const div = document.createElement('div');
         div.className = `card focusable ${mode === 'tv' ? 'tv-card' : ''}`; div.tabIndex = 0;
-        const meta = mode !== 'tv' ? `<div class="card-meta"><span>98% Match</span><span style="color:#aaa">${item.year || '2025'}</span></div>` : '';
+        const meta = mode !== 'tv' ? `<div class="card-meta"><span>98% Match</span><span>${item.year || '2025'}</span></div>` : '';
         div.innerHTML = `<img src="${item.poster || item.logo}"><div class="card-info"><span class="card-title">${item.titulo || item.nome}</span>${meta}</div>`;
         div.onclick = () => openDetails(item);
         target.appendChild(div);
     }
 
     function renderContinue() {
-        const last = localStorage.getItem('paixaoflix_last');
+        const last = localStorage.getItem('paixaoflix_resume');
         if(last) {
-            document.getElementById('continue-section').style.display = 'block';
-            const target = document.getElementById('continue-grid');
-            target.innerHTML = '';
+            document.getElementById('continue-watching').style.display = 'block';
+            const target = document.getElementById('continue-grid'); target.innerHTML = '';
             renderItem(JSON.parse(last), 'vod', target);
         }
     }
@@ -215,11 +219,10 @@
         document.addEventListener('keydown', (e) => {
             const active = document.activeElement;
             const focusables = Array.from(document.querySelectorAll('.focusable:not([style*="display: none"])'));
-            
-            // CH+ / CH- (Teclas 33 e 34 - PageUp/Down ou Setas no Player)
+
             if(player && document.getElementById('player-overlay').style.display === 'block') {
-                if(e.keyCode === 33 || e.keyCode === 38) changeChannel(1);
-                if(e.keyCode === 34 || e.keyCode === 40) changeChannel(-1);
+                if(e.keyCode === 33 || e.keyCode === 38) { tvIdx = (tvIdx+1)%tvList.length; playMedia(tvList[tvIdx], true); }
+                if(e.keyCode === 34 || e.keyCode === 40) { tvIdx = (tvIdx-1+tvList.length)%tvList.length; playMedia(tvList[tvIdx], true); }
             }
 
             if([37,38,39,40,13].includes(e.keyCode)) e.preventDefault();
@@ -229,14 +232,14 @@
             let next;
             const rA = active.getBoundingClientRect();
 
-            // FIX: Sidebar para Conteúdo -> Vai para o 1º item da grade
+            // Seta Direita na Sidebar: Sempre foca no 1º item do grid
             if(e.keyCode === 39 && active.closest('.sidebar')) {
-                const firstGridItem = document.querySelector('#main-grid .focusable, #continue-grid .focusable');
-                if(firstGridItem) firstGridItem.focus();
+                const first = document.querySelector('#main-grid .focusable, #continue-grid .focusable');
+                if(first) first.focus();
                 return;
             }
 
-            // Esquerda no conteúdo volta para Sidebar
+            // Seta Esquerda na primeira coluna: Volta para o menu
             if(e.keyCode === 37 && rA.left < 300 && !active.closest('.sidebar')) {
                 document.querySelector('.nav-menu .focusable').focus();
                 return;
@@ -255,26 +258,21 @@
         });
     }
 
-    function changeChannel(dir) {
-        currentTVIndex = (currentTVIndex + dir + currentTVList.length) % currentTVList.length;
-        playMedia(currentTVList[currentTVIndex], true);
-    }
-
     async function loadM3U(file) {
         const res = await fetch(base + file).then(r => r.text());
-        currentTVList = parseM3U(res);
+        tvList = parseM3U(res).sort((a,b) => a.nome.localeCompare(b.nome));
         const target = document.getElementById('main-grid'); target.innerHTML = '';
-        currentTVList.sort((a,b) => a.nome.localeCompare(b.nome)).forEach(c => renderItem(c, 'tv', target));
-        document.getElementById('grid-title').textContent = file.includes('kids') ? 'TV Kids' : 'TV ao Vivo';
-        setTimeout(() => target.querySelector('.focusable').focus(), 100);
+        tvList.forEach(c => renderItem(c, 'tv', target));
+        document.getElementById('grid-title').textContent = file.includes('kids') ? 'TV KIDS' : 'TV AO VIVO';
+        target.querySelector('.focusable').focus();
     }
 
     async function loadVOD(file, mode) {
         const data = await fetch(base + file).then(r => r.json());
         const target = document.getElementById('main-grid'); target.innerHTML = '';
         data.sort((a,b) => a.titulo.localeCompare(b.titulo)).forEach(i => renderItem(i, mode, target));
-        document.getElementById('grid-title').textContent = file.split('.')[0].replace('_', ' ').toUpperCase();
-        setTimeout(() => target.querySelector('.focusable').focus(), 100);
+        document.getElementById('grid-title').textContent = file.split('.')[0].toUpperCase();
+        target.querySelector('.focusable').focus();
     }
 
     function closePlayer() { if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; document.getElementById('tv-sticker').style.display='none'; renderContinue(); }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.5.0</title>
+    <title>PaixãoFlix TV — v3.5.1</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -20,60 +20,55 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 .logo-container img { width:160px; display:block; margin:0 auto; }
 
 /* ÍCONES AMARELO PIPOCA */
-.nav-menu i { color: var(--yellow) !important; }
+.nav-menu i { color: var(--yellow) !important; margin-right: 10px; width: 20px; text-align: center; }
 
 .search-box input { width:100%; padding:12px; background:#111; border:1px solid #333; color:#fff; border-radius:4px; margin:15px 0; }
 
 .nav-menu { flex:1; overflow-y:auto; scrollbar-width:none; }
-
-/* BOTÕES 3D SEM EFEITOS */
 .nav-menu button, .btn-ep, .drop-item { 
     width:100%; padding:12px; margin-bottom:10px; background:#222; color:#fff; border:none; 
     box-shadow:0 4px #000; cursor:pointer; text-align:left; display:flex; align-items:center; 
-    gap:10px; border-radius:4px; font-weight:700; font-size:14px; transition: none !important;
+    border-radius:4px; font-weight:700; font-size:14px; transition: none !important;
 }
 
-/* SELETOR BRANCO SEM BRILHO E TAMANHO AJUSTADO */
-.focusable:focus { 
-    border:2px solid #fff !important; 
-    box-shadow: none !important; 
-    transform: none !important;
-    outline: none !important;
-}
+.focusable:focus { border:2px solid #fff !important; box-shadow: none !important; transform: none !important; outline: none !important; }
 
 .dropdown-container { display:none; grid-template-columns:1fr 1fr; gap:5px; padding:10px 0; }
 .dropdown-container.active { display:grid; }
-.drop-item { background:#1a1a1a; padding:8px; font-size:12px; text-align:center; box-shadow:0 3px #000; border-radius:4px; display: block; width: 100%; }
+.drop-item { background:#1a1a1a; padding:8px; font-size:12px; text-align:center; box-shadow:0 3px #000; border-radius:4px; display: block; }
 
 .content-area { margin-left:260px; height:100vh; overflow-y:auto; padding:30px; }
 .grid { display:grid; gap:15px; grid-template-columns:repeat(5,1fr); }
 
-.card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; }
+.card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; cursor: pointer; }
 .card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; }
-.card.tv-card img { width:60px; height:60px; margin:15px auto; object-fit:contain; }
 
 .card-info { padding:8px; text-align:center; }
 .card-title { font-size:12px; font-weight:bold; line-height:1.2; display:block; min-height:30px; margin-bottom:5px; }
+
+/* ESTRELAS AMARELAS */
 .card-meta { display:flex; justify-content:center; gap:8px; font-size:10px; color:var(--match); font-weight:bold; }
-
-/* BOTÃO ASSISTIR AGORA AJUSTADO */
-.btn-watch { width: fit-content !important; padding: 12px 5px !important; background: var(--primary) !important; text-align: center; justify-content: center; }
-
-/* BOTÃO VOLTAR SEM SOMBRA BORDA BRANCA */
-.btn-back { border: 2px solid #fff !important; box-shadow: none !important; background: #222 !important; color: #fff !important; }
+.card-meta span i { color: var(--yellow) !important; }
 
 #details-screen { position:fixed; inset:0; background:#000; z-index:2000; display:none; padding:40px; overflow-y:auto; }
 .det-wrapper { display:grid; grid-template-columns:320px 1fr; gap:40px; }
 
+/* INDICAÇÕES RODAPÉ INTEIRO */
+#suggest-area { grid-column: 1 / -1; width: 100%; margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; }
+#suggest-grid { grid-template-columns: repeat(5, 1fr); width: 100%; }
+
+.btn-watch { width: fit-content !important; padding: 12px 17px !important; background: var(--primary) !important; font-weight: 700; }
+.btn-back { border: 2px solid #fff !important; box-shadow: none !important; background: #222 !important; color: #fff !important; }
+
 #player-overlay { position:fixed; inset:0; background:#000; z-index:3000; display:none; }
-#resume-modal { position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:4000; display:none; align-items:center; justify-content:center; text-align:center; }
+#player-wrapper { width:100%; height:100%; }
 
 @media(max-width:768px){
-    .sidebar{width:100%;height:auto;position:relative;}
-    .content-area{margin-left:0;padding:10px;}
-    .grid { display:flex !important; flex-wrap:wrap !important; gap:8px; justify-content:space-between; }
-    .grid .card { width:30% !important; flex:none; }
-    .det-wrapper{grid-template-columns:1fr;}
+    .sidebar { width:100%; height:auto; position:relative; }
+    .content-area { margin-left:0; padding:10px; }
+    /* 4 CAPAS POR COLUNA NO MOBILE */
+    .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 5px; }
+    .det-wrapper { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -82,21 +77,11 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 
 <div id="splash"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
 
-<div id="resume-modal">
-    <div style="background:#222;padding:30px;border-radius:8px;border:2px solid var(--primary)">
-        <h3 id="resume-text">Continuar assistindo de onde parou?</h3>
-        <div style="display:flex;gap:20px;justify-content:center;margin-top:20px">
-            <button id="btn-resume-yes" class="focusable btn-ep" style="width:auto !important; padding:15px 30px !important">SIM, RETOMAR</button>
-            <button id="btn-resume-no" class="focusable btn-ep" style="width:auto !important; padding:15px 30px !important; background:#e50914">NÃO, REINICIAR</button>
-        </div>
-    </div>
-</div>
-
 <aside class="sidebar">
     <div class="logo-container">
         <img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png">
     </div>
-    <div style="text-align:center;font-size:12px;margin:10px 0;">Sábado, 24 de Janeiro de 2026</div>
+    <div id="current-date" style="text-align:center;font-size:12px;margin:10px 0; color: #ccc;"></div>
     <div id="json-counter" style="text-align:center;color:var(--yellow);font-size:12px;margin-bottom:10px; font-weight:700;"></div>
 
     <div class="search-box">
@@ -132,22 +117,25 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
             <p id="det-desc" style="color:#ccc;margin:20px 0"></p>
             <div id="action-area" style="display:flex; gap:10px;"></div>
             <div id="ep-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px"></div>
-            <h3 style="margin-top:30px;color:var(--yellow)">INDICAÇÕES</h3>
+        </div>
+        <div id="suggest-area">
+            <h3 style="color:var(--yellow); margin-bottom: 20px;">VOCÊ TAMBÉM PODE GOSTAR</h3>
             <div class="grid" id="suggest-grid"></div>
         </div>
     </div>
 </div>
 
 <div id="player-overlay">
-    <button class="focusable btn-ep" onclick="closePlayer()" style="position:absolute;top:20px;left:20px;z-index:4000;background:rgba(229,9,20,0.6); width:auto !important; padding:5px 15px !important;">SAIR DO VÍDEO</button>
-    <div id="player-wrapper" style="width:100%; height:100%;"></div>
+    <button class="focusable btn-ep" onclick="closePlayer()" style="position:absolute;top:20px;left:20px;z-index:4000;background:rgba(229,9,20,0.6); width:auto !important; padding:10px 20px !important; border-radius: 4px;">SAIR</button>
+    <div id="player-wrapper"></div>
 </div>
 
 <script>
 const base="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
-let cache={all:[]}, player, pendingMedia=null, lastPos=0;
+let cache={all:[]}, player, isContinueView = false;
 
 window.onload=async()=>{
+    updateDate();
     const [f,s,kf,ks,t1,t2]=await Promise.all([
         fetch(base+"filmes.json").then(r=>r.json()), fetch(base+"series.json").then(r=>r.json()),
         fetch(base+"kids_filmes.json").then(r=>r.json()), fetch(base+"kids_series.json").then(r=>r.json()),
@@ -167,6 +155,12 @@ window.onload=async()=>{
     setTimeout(()=>{ document.getElementById('splash').style.display='none'; document.getElementById('btn-tv').focus(); }, 1500);
 };
 
+function updateDate(){
+    const d = new Date();
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('current-date').textContent = d.toLocaleDateString('pt-BR', options);
+}
+
 function parseM3U(txt,isKids){
     const res=[]; const lines=txt.split('\n');
     for(let i=0;i<lines.length;i++){
@@ -180,50 +174,53 @@ function parseM3U(txt,isKids){
 
 function updateJsonCounter(){
     const total = cache.all.filter(x=>x.m!=='tv').length;
-    document.getElementById('json-counter').innerHTML=`Já temos <span style="color:#fff">${total}</span> títulos`;
+    document.getElementById('json-counter').innerHTML=`Disponível <span style="color:#fff">${total}</span> títulos`;
 }
 
 function renderItem(item,target){
     const div=document.createElement('div');
-    div.className=`card focusable ${item.m==='tv'?'tv-card':''}`; div.tabIndex=0;
-    const meta = item.m!=='tv' ? `<div class="card-meta"><span>${item.ano||item.year||'2025'}</span><span>⭐ ${item.rating||'9.5'}</span></div>` : '';
+    div.className=`card focusable`; div.tabIndex=0;
+    const meta = item.m!=='tv' ? `<div class="card-meta"><span>${item.ano||item.year||'2025'}</span><span><i class="fa-solid fa-star"></i> ${item.rating||'9.5'}</span></div>` : '';
     div.innerHTML=`<img src="${item.poster||item.logo}"><div class="card-info"><span class="card-title">${item.titulo||item.nome}</span>${meta}</div>`;
-    div.onclick=()=> checkResume(item);
+    
+    div.onclick=()=> {
+        const saved = localStorage.getItem('pos_'+(item.titulo||item.nome));
+        if(isContinueView && saved && parseFloat(saved) > 10){
+            play(item.url || '', item, true);
+        } else { openDetails(item); }
+    };
     target.appendChild(div);
 }
 
-function checkResume(item){
-    const saved = localStorage.getItem('pos_'+(item.titulo||item.nome));
-    if(saved && parseFloat(saved) > 20){
-        pendingMedia = item; lastPos = parseFloat(saved);
-        document.getElementById('resume-modal').style.display='flex';
-        document.getElementById('btn-resume-yes').focus();
-    } else { openDetails(item); }
-}
-
-document.getElementById('btn-resume-yes').onclick=()=>{ document.getElementById('resume-modal').style.display='none'; openDetails(pendingMedia, true); };
-document.getElementById('btn-resume-no').onclick=()=>{ document.getElementById('resume-modal').style.display='none'; openDetails(pendingMedia, false); };
-
-async function openDetails(item, resume=false){
+async function openDetails(item){
     if(item.m==='tv') return play(item.url, item);
     document.getElementById('details-screen').style.display='block';
     document.getElementById('det-title').textContent=item.titulo;
     document.getElementById('det-poster').src=item.poster;
-    document.getElementById('det-desc').textContent=item.desc||'';
-    document.getElementById('det-meta-info').textContent = `${item.ano||item.year||'2025'} • ⭐ ${item.rating||'9.5'}`;
+    document.getElementById('det-desc').textContent=item.desc||'Sinopse não disponível.';
+    document.getElementById('det-meta-info').innerHTML = `${item.ano||item.year||'2025'} • <i class="fa-solid fa-star" style="color:var(--yellow)"></i> ${item.rating||'9.5'}`;
     
     const eps=document.getElementById('ep-container'); eps.innerHTML='';
     const action=document.getElementById('action-area'); action.innerHTML='';
     
     if(item.m==='vod'){
         const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.textContent='ASSISTIR AGORA';
-        b.onclick=()=>play(item.url, item, resume); action.appendChild(b);
+        b.onclick=()=> {
+            const saved = localStorage.getItem('pos_'+item.titulo);
+            play(item.url, item, !!saved);
+        };
+        action.appendChild(b);
     } else if(item.m==='series'){
         const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
         const files = meta.files.filter(f=>f.name.endsWith('.mp4'));
         files.forEach((f,idx)=>{
             const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`; b.style.width="calc(10% - 8px)";
-            b.onclick=()=>play(`https://archive.org/download/${item.identificador_archive}/${f.name}`, item, resume); eps.appendChild(b);
+            b.onclick=()=> {
+                const url = `https://archive.org/download/${item.identificador_archive}/${f.name}`;
+                const saved = localStorage.getItem('pos_'+item.titulo+'_ep'+idx);
+                play(url, {...item, epIdx: idx}, !!saved);
+            };
+            eps.appendChild(b);
         });
     }
     renderSuggest(); document.querySelector('#details-screen .focusable').focus();
@@ -232,16 +229,20 @@ async function openDetails(item, resume=false){
 function play(url, item, resume){
     document.getElementById('player-overlay').style.display='block';
     if(player) player.destroy();
+    const key = 'pos_'+(item.titulo||item.nome)+(item.epIdx !== undefined ? '_ep'+item.epIdx : '');
+    const lastPos = resume ? parseFloat(localStorage.getItem(key)) : 0;
+
     player = new Clappr.Player({
         source:url, parentId:'#player-wrapper', width:'100%', height:'100%', autoPlay:true,
         events: {
             onReady: ()=>{ if(resume && lastPos > 0) player.seek(lastPos); },
-            onTimeUpdate: (e)=>{ localStorage.setItem('pos_'+(item.titulo||item.nome), e.current); }
+            onTimeUpdate: (e)=>{ localStorage.setItem(key, e.current); }
         }
     });
 }
 
 function loadVOD(file,mode){
+    isContinueView = false;
     const g=document.getElementById('main-grid'); g.innerHTML='';
     const isKids = file.includes('kids');
     cache.all.filter(x=>x.m===mode && !!x.k===isKids).forEach(i=>renderItem(i,g));
@@ -249,6 +250,7 @@ function loadVOD(file,mode){
 }
 
 function loadM3U(file){
+    isContinueView = false;
     const g=document.getElementById('main-grid'); g.innerHTML='';
     const kids = file.includes('kids');
     cache.all.filter(x=>x.m==='tv' && x.kids===kids).forEach(i=>renderItem(i,g));
@@ -264,6 +266,7 @@ function setupDropdowns(){
         cats.forEach(c=>{
             const d=document.createElement('div'); d.className='drop-item focusable'; d.tabIndex=0; d.textContent=c;
             d.onclick=()=>{
+                isContinueView = false;
                 const g=document.getElementById('main-grid'); g.innerHTML='';
                 cache.all.filter(x=>x.m===mode && x.genero===c).forEach(i=>renderItem(i,g));
                 g.querySelector('.focusable')?.focus();
@@ -275,31 +278,53 @@ function setupDropdowns(){
 
 function setupRemote(){
     document.addEventListener('keydown',(e)=>{
-        const act=document.activeElement; const focs=Array.from(document.querySelectorAll('.focusable'));
-        const keys = { ENTER:[13,29443,117], BACK:[8,461,10009,27], UP:[38,29460,1], DOWN:[40,29461,2], LEFT:[37,4,29462,3], RIGHT:[39,5,29463,4] };
+        const act=document.activeElement; 
+        const focs=Array.from(document.querySelectorAll('.focusable'));
+        const codes = { 
+            ENTER:[13, 29443, 117, 10001], BACK:[8, 461, 10009, 27, 10002], 
+            UP:[38, 29460, 1], DOWN:[40, 29461, 2], 
+            LEFT:[37, 4, 29462, 3], RIGHT:[39, 5, 29463, 4] 
+        };
 
-        if(keys.ENTER.includes(e.keyCode)) act.click();
-        if(keys.BACK.includes(e.keyCode)) { if(player) closePlayer(); else closeDetails(); }
+        if(codes.ENTER.includes(e.keyCode)) { e.preventDefault(); act.click(); return; }
+        if(codes.BACK.includes(e.keyCode)) { if(player) closePlayer(); else closeDetails(); return; }
         
-        let next; const rA=act.getBoundingClientRect();
-        const dirUP=keys.UP.includes(e.keyCode), dirDOWN=keys.DOWN.includes(e.keyCode), dirLEFT=keys.LEFT.includes(e.keyCode), dirRIGHT=keys.RIGHT.includes(e.keyCode);
+        let next = null; 
+        const rA = act.getBoundingClientRect();
+        const centerA = { x: rA.left + rA.width / 2, y: rA.top + rA.height / 2 };
 
         focs.forEach(el=>{
-            if(el===act || el.offsetParent===null) return;
-            const rB=el.getBoundingClientRect(); const dX=rB.left-rA.left, dY=rB.top-rA.top;
-            if(dirDOWN && dY > 5 && Math.abs(dX) < 300) { if(!next || dY < (next.getBoundingClientRect().top-rA.top)) next=el; }
-            if(dirUP && dY < -5 && Math.abs(dX) < 300) { if(!next || dY > (next.getBoundingClientRect().top-rA.top)) next=el; }
-            if(dirRIGHT && dX > 5 && Math.abs(dY) < 150) { if(!next || dX < (next.getBoundingClientRect().left-rA.left)) next=el; }
-            if(dirLEFT && dX < -5 && Math.abs(dY) < 150) { if(!next || dX > (next.getBoundingClientRect().left-rA.left)) next=el; }
+            if(el === act || el.offsetParent === null) return;
+            const rB = el.getBoundingClientRect();
+            const centerB = { x: rB.left + rB.width / 2, y: rB.top + rB.height / 2 };
+            const dX = centerB.x - centerA.x;
+            const dY = centerB.y - centerA.y;
+
+            let valid = false;
+            // ALGORITMO ORTOGONAL ESTRITO (SEM DIAGONAL)
+            if(codes.DOWN.includes(e.keyCode) && dY > 10 && Math.abs(dX) < Math.abs(dY)) valid = true;
+            if(codes.UP.includes(e.keyCode) && dY < -10 && Math.abs(dX) < Math.abs(dY)) valid = true;
+            if(codes.RIGHT.includes(e.keyCode) && dX > 10 && Math.abs(dY) < Math.abs(dX)) valid = true;
+            if(codes.LEFT.includes(e.keyCode) && dX < -10 && Math.abs(dY) < Math.abs(dX)) valid = true;
+
+            if(valid){
+                if(!next) next = el;
+                else {
+                    const distNext = Math.pow(next.getBoundingClientRect().top - rA.top, 2) + Math.pow(next.getBoundingClientRect().left - rA.left, 2);
+                    const distCurr = Math.pow(rB.top - rA.top, 2) + Math.pow(rB.left - rA.left, 2);
+                    if(distCurr < distNext) next = el;
+                }
+            }
         });
 
-        if(!next && dirLEFT && !act.closest('.sidebar')) next = document.getElementById('btn-tv');
-        if(next) next.focus();
+        if(!next && codes.LEFT.includes(e.keyCode) && !act.closest('.sidebar')) next = document.getElementById('btn-tv');
+        if(next) { e.preventDefault(); next.focus(); }
     });
 }
 
 function setupSearch(){
     document.getElementById('search').oninput=(e)=>{
+        isContinueView = false;
         const v=e.target.value.toLowerCase(), g=document.getElementById('main-grid'); g.innerHTML='';
         if(!v) return;
         cache.all.filter(x=>(x.titulo||x.nome||'').toLowerCase().includes(v)).forEach(i=>renderItem(i,g));
@@ -314,6 +339,7 @@ function renderSuggest(){
 function closeDetails(){ document.getElementById('details-screen').style.display='none'; }
 function closePlayer(){ if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; }
 function showContinue(){
+    isContinueView = true;
     const g=document.getElementById('main-grid'); g.innerHTML='';
     cache.all.filter(x=>localStorage.getItem('pos_'+(x.titulo||x.nome))).forEach(i=>renderItem(i,g));
     g.querySelector('.focusable')?.focus();

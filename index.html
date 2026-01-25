@@ -3,56 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.3.8 Master</title>
+    <title>PaixãoFlix TV — Master v3.3.9</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clappr-level-selector-plugin@latest/dist/level-selector.min.js"></script>
+    
     <style>
         :root { --primary: #e50914; --yellow: #ffc107; --match: #46d369; --bg: #000; }
-        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; cursor: pointer; }
-        body { margin: 0; background: var(--bg); color: #fff; overflow: hidden; height: 100vh; }
+        * { box-sizing: border-box; font-family: 'Poppins', sans-serif; outline: none; }
+        body { margin: 0; background: var(--bg); color: #fff; height: 100vh; overflow: hidden; }
 
-        /* SIDEBAR */
+        /* SIDEBAR E MENUS - CORES ORIGINAIS */
         .sidebar { width: 260px; height: 100vh; background: #000; display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; position: fixed; left: 0; top: 0; z-index: 1000; }
-        #stats-counter { color: #fff; font-size: 13px; font-weight: bold; text-align: center; margin: 15px 0; line-height: 1.4; text-transform: capitalize; }
+        .logo-container img { width: 160px; height: auto; display: block; margin: 0 auto; }
+        #stats-counter { color: #fff; font-size: 13px; font-weight: bold; text-align: center; margin: 15px 0; text-transform: capitalize; }
+        
+        .search-box { margin-bottom: 15px; }
         .search-box input { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; font-weight: bold; }
+
         .nav-menu { flex: 1; overflow-y: auto; scrollbar-width: none; }
-        .nav-menu button { width: 100%; padding: 14px; margin-bottom: 5px; border: none; background: transparent; color: #fff; text-align: left; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 12px; border-radius: 4px; border: 2px solid transparent; }
-        .nav-menu button i { color: var(--yellow); width: 20px; text-align: center; }
+        .nav-menu button { width: 100%; padding: 15px; margin-bottom: 8px; border: 2px solid transparent; background: transparent; color: #fff; text-align: left; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 12px; border-radius: 4px; }
+        .nav-menu button i { font-size: 20px; color: var(--yellow); width: 25px; text-align: center; }
+
+        /* FOCO COM TAMANHO EXATO */
+        .focusable:focus { border-color: #fff !important; background: rgba(255,255,255,0.1); transform: scale(1.02); }
+
+        .dropdown-container { display: none; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 0; }
+        .dropdown-container.active { display: grid; }
+        .drop-item { background: #1a1a1a; padding: 10px; font-size: 12px; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #333; }
 
         /* GRID PRINCIPAL */
-        .content-area { margin-left: 260px; height: 100vh; overflow-y: auto; padding: 25px; }
-        .grid { display: grid; gap: 15px; grid-template-columns: repeat(5, 1fr); }
-        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; transition: 0.2s; }
-        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+        .content-area { margin-left: 260px; height: 100vh; overflow-y: auto; padding: 30px; }
+        .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); }
+        
+        .card { background: #141414; border-radius: 4px; overflow: hidden; cursor: pointer; border: 3px solid transparent; position: relative; }
+        .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
-        .card-info { padding: 8px; text-align: center; font-size: 11px; font-weight: bold; }
-        .card-meta { display: flex; justify-content: center; gap: 8px; font-size: 10px; margin-top: 4px; }
+        
+        .card-info { padding: 10px; text-align: center; }
+        .card-title { font-size: 12px; font-weight: bold; display: block; overflow: hidden; word-break: break-word; }
+        .card-meta { font-size: 11px; margin-top: 5px; display: flex; justify-content: center; gap: 10px; }
+        .m-green { color: var(--match); font-weight: bold; }
 
-        /* FOCO - SELETOR IGUAL AO BOTÃO */
-        .focusable:focus { border-color: #fff !important; outline: none; background: rgba(255,255,255,0.1); }
-
-        /* TELA DE DESCRIÇÃO UNIFORME (SMART TV) */
-        #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 30px; overflow: hidden; }
-        .det-layout { display: grid; grid-template-columns: 300px 1fr; gap: 30px; height: 100%; }
+        /* TELA DE DESCRIÇÃO SMART TV / PC (TUDO EM UMA TELA) */
+        #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 40px; }
+        .det-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 40px; height: 100%; align-content: start; }
         .det-poster { width: 100%; border-radius: 8px; border: 2px solid #333; }
-        .det-info h1 { margin: 0 0 10px 0; font-size: 32px; }
-        .det-meta { margin-bottom: 15px; display: flex; gap: 15px; font-weight: bold; }
-        #ep-container { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; margin: 20px 0; max-height: 150px; overflow-y: auto; }
-        .btn-play { background: var(--primary); color: #fff; border: 2px solid transparent; padding: 12px 30px; font-weight: bold; border-radius: 4px; margin-bottom: 20px; }
-        .btn-ep { background: #222; border: 2px solid transparent; color: #fff; padding: 8px; font-size: 12px; border-radius: 4px; }
+        .det-content h1 { font-size: 38px; margin: 0 0 10px 0; }
+        .det-data { margin-bottom: 20px; font-weight: bold; display: flex; gap: 20px; color: #fff; }
+        
+        #ep-container { display: grid; grid-template-columns: repeat(10, 1fr); gap: 10px; margin: 20px 0; }
+        .btn-assistir { background: var(--primary); color: #fff; padding: 15px 40px; border: 2px solid transparent; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 18px; margin-bottom: 20px; }
+        .btn-ep { background: #222; border: 2px solid transparent; color: #fff; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; }
 
-        /* PLAYER */
+        /* PLAYER TELA CHEIA */
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
         #player-wrapper { width: 100%; height: 100%; }
 
-        /* RESPONSIVIDADE MOBILE */
+        /* RESPONSIVIDADE DISPOSITIVOS MÓVEIS */
         @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; border-bottom: 1px solid #222; }
-            .content-area { margin-left: 0; }
-            .grid { grid-template-columns: repeat(4, 1fr) !important; }
-            #details-screen { overflow-y: auto; }
-            .det-layout { grid-template-columns: 1fr; }
+            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #222; }
+            .content-area { margin-left: 0; padding: 15px; }
+            .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 10px; }
+            .card-title { font-size: 11px; }
+            #details-screen { overflow-y: auto; padding: 20px; }
+            .det-wrapper { grid-template-columns: 1fr; }
+            .det-poster { width: 200px; margin: 0 auto; }
             #ep-container { grid-template-columns: repeat(4, 1fr); }
             #suggest-grid { grid-template-columns: repeat(4, 1fr) !important; }
         }
@@ -63,7 +82,8 @@
 <aside class="sidebar">
     <div class="logo-container"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
     <div id="stats-counter">...</div>
-    <div class="search-box"><input type="text" id="search" placeholder="Pesquisar..." class="focusable"></div>
+    <div class="search-box"><input type="text" id="search" placeholder="Pesquisar em tudo..." class="focusable"></div>
+    
     <nav class="nav-menu">
         <button onclick="loadLiveTV('canais.m3u')" class="focusable"><i class="fa-solid fa-play"></i> TV AO VIVO</button>
         <button onclick="loadLiveTV('kids_canais.m3u')" class="focusable"><i class="fa-solid fa-child"></i> TV KIDS</button>
@@ -79,25 +99,30 @@
 <main class="content-area"><div class="grid" id="main-grid"></div></main>
 
 <div id="details-screen">
-    <div class="det-layout">
-        <div id="det-left">
-            <img id="det-img" class="det-poster">
-            <button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:15px">VOLTAR</button>
+    <div class="det-wrapper">
+        <div style="text-align: center;">
+            <img id="det-poster" class="det-poster">
+            <button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:20px">VOLTAR AO MENU</button>
         </div>
-        <div class="det-info">
+        <div class="det-content">
             <h1 id="det-title"></h1>
-            <div class="det-meta"><span class="m-green">98% Match</span> <span id="det-year"></span> <span id="det-rating">⭐ 9.5</span></div>
-            <p id="det-desc" style="font-size: 14px; color: #ccc; max-height: 80px; overflow: hidden;"></p>
-            <div id="play-area"></div>
+            <div class="det-data">
+                <span class="m-green">98% Match</span>
+                <span id="det-year"></span>
+                <span>⭐ 9.8</span>
+                <span>4K UltraHD</span>
+            </div>
+            <p id="det-desc" style="color: #ccc; line-height: 1.6; margin-bottom: 25px;"></p>
+            <div id="action-area"></div>
             <div id="ep-container"></div>
-            <h3>INDICAÇÕES</h3>
+            <h3 style="margin-top:30px">INDICAÇÕES RELACIONADAS</h3>
             <div class="grid" id="suggest-grid" style="grid-template-columns: repeat(5, 1fr);"></div>
         </div>
     </div>
 </div>
 
 <div id="player-overlay">
-    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000">SAIR</button>
+    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000">SAIR DO VÍDEO</button>
     <div id="player-wrapper"></div>
 </div>
 
@@ -120,29 +145,38 @@
                 fetch(base+"kids_filmes.json").then(r => r.json()), fetch(base+"kids_series.json").then(r => r.json()),
                 fetch(base+"canais.m3u").then(r => r.text()), fetch(base+"kids_canais.m3u").then(r => r.text())
             ]);
-            cache.filmes = [...f, ...kf]; cache.series = [...s, ...ks]; 
+            cache.filmes = [...f, ...kf]; cache.series = [...s, ...ks];
             cache.tv = [...parseM3U(t1), ...parseM3U(t2)];
             cache.all = [...cache.filmes.map(x=>({...x, m:'vod'})), ...cache.series.map(x=>({...x, m:'series'})), ...cache.tv.map(x=>({...x, m:'tv'}))];
             
             const d = new Date();
             const dias = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
             const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-            document.getElementById('stats-counter').innerHTML = `${dias[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}<br>${cache.all.length} TÍTULOS DISPONÍVEIS`;
-        } catch(e) { console.error(e); }
+            document.getElementById('stats-counter').innerHTML = `${dias[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]} de ${d.getFullYear()}<br>${cache.all.length} TÍTULOS ONLINE`;
+        } catch(e) { console.error("Erro Crítico ao carregar dados."); }
     }
 
     function parseM3U(txt) {
-        return txt.split('\n').filter(l => l.startsWith('#EXTINF')).map((l, i, a) => {
-            const u = txt.split('\n')[txt.split('\n').indexOf(l)+1]?.trim();
-            return { nome: (l.split(',')[1] || "").trim(), url: u, logo: l.match(/tvg-logo="([^"]+)"/)?.[1] || '', m: 'tv' };
-        }).filter(x => x.url);
+        const chs = [];
+        const lines = txt.split('\n');
+        for(let i=0; i<lines.length; i++) {
+            if(lines[i].startsWith('#EXTINF')) {
+                const n = lines[i].split(',')[1]?.trim();
+                const u = lines[i+1]?.trim();
+                const lg = lines[i].match(/tvg-logo="([^"]+)"/)?.[1] || '';
+                if(u) chs.push({nome: n, url: u, logo: lg, m: 'tv'});
+            }
+        }
+        return chs;
     }
 
     function playMedia(item) {
         document.getElementById('player-overlay').style.display = 'block';
-        if(player) player.destroy();
+        const container = document.getElementById('player-wrapper');
+        container.innerHTML = '';
         player = new Clappr.Player({
             source: item.url, parentId: "#player-wrapper", width: '100%', height: '100%', autoPlay: true,
+            plugins: [LevelSelector],
             playback: { hlsjsConfig: { enableWorker: true, recoverMediaError: true } }
         });
     }
@@ -151,20 +185,22 @@
         if(item.m === 'tv') return playMedia(item);
         document.getElementById('details-screen').style.display = 'block';
         document.getElementById('det-title').textContent = item.titulo;
-        document.getElementById('det-img').src = item.poster;
+        document.getElementById('det-poster').src = item.poster;
         document.getElementById('det-year').textContent = item.year || '2025';
-        document.getElementById('det-desc').textContent = item.desc || 'PaixãoFlix Master TV.';
+        document.getElementById('det-desc').textContent = item.desc || 'Conteúdo Premium PaixãoFlix disponível para você.';
         
-        const playArea = document.getElementById('play-area');
+        const actionArea = document.getElementById('action-area');
         const epContainer = document.getElementById('ep-container');
-        playArea.innerHTML = ''; epContainer.innerHTML = '';
+        actionArea.innerHTML = ''; epContainer.innerHTML = 'Carregando episódios...';
 
         if(item.m === 'vod') {
-            playArea.innerHTML = `<button class="btn-play focusable" onclick='playMedia(${JSON.stringify(item)})'>ASSISTIR AGORA</button>`;
-        } else if(item.identificador_archive) {
+            actionArea.innerHTML = `<button class="btn-assistir focusable" onclick='playMedia(${JSON.stringify(item)})'>ASSISTIR AGORA</button>`;
+            epContainer.innerHTML = '';
+        } else {
             const resp = await fetch(`https://archive.org/metadata/${item.identificador_archive}`);
             const meta = await resp.json();
-            meta.files.filter(f => f.name.endsWith(".mp4")).forEach((f, idx) => {
+            epContainer.innerHTML = '';
+            meta.files.filter(f => f.name.endsWith(".mp4") || f.name.endsWith(".mkv")).forEach((f, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'btn-ep focusable'; btn.textContent = `EP ${idx + 1}`;
                 btn.onclick = () => playMedia({ url: `https://archive.org/download/${item.identificador_archive}/${f.name}` });
@@ -172,24 +208,26 @@
             });
         }
         renderSuggest(item.genero);
-        // FOCO NO PRIMEIRO ITEM DA PÁGINA DE DETALHES
-        setTimeout(() => document.querySelector('#details-screen .focusable').focus(), 100);
+        setTimeout(() => document.querySelector('#details-screen .focusable')?.focus(), 200);
     }
 
     function renderItem(item, mode, target) {
         const div = document.createElement('div');
         div.className = `card focusable ${mode === 'tv' ? 'tv-card' : ''}`; div.tabIndex = 0;
         const meta = mode !== 'tv' ? `<div class="card-meta"><span class="m-green">98% Match</span><span>${item.year || '2025'}</span></div>` : '';
-        div.innerHTML = `<img src="${item.poster || item.logo}"><div class="card-info"><span>${item.titulo || item.nome}</span>${meta}</div>`;
+        const displayTitle = item.titulo || item.nome;
+        div.innerHTML = `<img src="${item.poster || item.logo}"><div class="card-info"><span class="card-title">${displayTitle}</span>${meta}</div>`;
         div.onclick = () => openDetails(item);
         target.appendChild(div);
     }
 
-    function renderGrid(data, mode) {
-        const target = document.getElementById('main-grid'); target.innerHTML = '';
-        data.forEach(item => renderItem(item, mode, target));
-        // AO CARREGAR GRID, FOCO NO PRIMEIRO ITEM
-        setTimeout(() => target.querySelector('.focusable')?.focus(), 100);
+    function setupSearch() {
+        document.getElementById('search').addEventListener('input', (e) => {
+            const v = e.target.value.toLowerCase();
+            const target = document.getElementById('main-grid');
+            target.innerHTML = '';
+            cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v)).forEach(i => renderItem(i, i.m, target));
+        });
     }
 
     function setupRemote() {
@@ -219,20 +257,24 @@
         });
     }
 
-    function setupSearch() {
-        document.getElementById('search').addEventListener('input', (e) => {
-            const v = e.target.value.toLowerCase();
-            const target = document.getElementById('main-grid'); target.innerHTML = '';
-            cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v)).forEach(i => renderItem(i, i.m, target));
-        });
-    }
-
-    function toggleDrop(id) { document.querySelectorAll('.dropdown-container').forEach(d => d.id !== id && d.classList.remove('active')); document.getElementById(id).classList.toggle('active'); }
     function closePlayer() { if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; document.getElementById('main-grid').innerHTML = ''; }
     function closeDetails() { document.getElementById('details-screen').style.display='none'; }
+    function toggleDrop(id) { document.querySelectorAll('.dropdown-container').forEach(d => d.id !== id && d.classList.remove('active')); document.getElementById(id).classList.toggle('active'); }
     function renderSuggest(gen) { const target = document.getElementById('suggest-grid'); target.innerHTML = ''; cache.filmes.filter(x => x.genero === gen).slice(0, 5).forEach(item => renderItem(item, 'vod', target)); }
-    async function loadLiveTV(file) { renderGrid(cache.tv, 'tv'); }
-    async function loadVOD(file, mode) { const base = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/"; const data = await fetch(base + file).then(r => r.json()); renderGrid(data, mode); }
+    
+    function loadLiveTV(file) { 
+        const target = document.getElementById('main-grid'); target.innerHTML = ''; 
+        cache.tv.forEach(c => renderItem(c, 'tv', target)); 
+        setTimeout(() => target.querySelector('.focusable')?.focus(), 200);
+    }
+    
+    async function loadVOD(file, mode) { 
+        const base = "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/"; 
+        const data = await fetch(base + file).then(r => r.json()); 
+        const target = document.getElementById('main-grid'); target.innerHTML = ''; 
+        data.forEach(item => renderItem(item, mode, target)); 
+        setTimeout(() => target.querySelector('.focusable')?.focus(), 200);
+    }
     
     function setupDropdowns() {
         const cats = ["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"];
@@ -240,7 +282,7 @@
             const container = document.getElementById(id);
             cats.forEach(c => {
                 const d = document.createElement('div'); d.className = 'drop-item focusable'; d.textContent = c; d.tabIndex = 0;
-                d.onclick = () => { const type = id.includes('filmes') ? 'filmes' : 'series'; renderGrid(cache[type].filter(x => x.genero === c), type==='filmes'?'vod':'series'); };
+                d.onclick = () => { const type = id.includes('filmes') ? 'filmes' : 'series'; const target = document.getElementById('main-grid'); target.innerHTML = ''; cache[type].filter(x => x.genero === c).forEach(item => renderItem(item, type==='filmes'?'vod':'series', target)); setTimeout(()=>target.querySelector('.focusable')?.focus(), 200); };
                 container.appendChild(d);
             });
         });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaixãoFlix</title>
+    <title>PaixãoFlix V.5.0.3</title>
     <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
     <style>
         :root {
@@ -23,7 +23,7 @@
             height: 100vh;
         }
 
-        /* MENU LATERAL - ÍCONES EM DESENHO */
+        /* MENU LATERAL - ÍCONES OBRIGATÓRIOS EM DESENHO */
         .sidebar {
             width: 80px;
             background-color: #000;
@@ -49,7 +49,7 @@
             background-position: center;
         }
 
-        /* ÍCONES OBRIGATÓRIOS (DESENHOS) */
+        /* ÍCONES EM DESENHO (CONFORME SOLICITADO) */
         .menu-item[data-type="channels"] { background-image: url('https://cdn-icons-png.flaticon.com/512/716/716429.png'); }
         .menu-item[data-type="movies"] { background-image: url('https://cdn-icons-png.flaticon.com/512/4221/4221419.png'); }
         .menu-item[data-type="series"] { background-image: url('https://cdn-icons-png.flaticon.com/512/3163/3163508.png'); }
@@ -59,7 +59,6 @@
             transform: scale(1.1);
         }
 
-        /* CONTEÚDO PRINCIPAL */
         .main-content {
             flex: 1;
             padding: 20px;
@@ -67,18 +66,18 @@
             flex-direction: column;
         }
 
-        /* HEADER DE CATEGORIA */
+        /* CABEÇALHO DE CATEGORIA EM DESTAQUE */
         .category-header {
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: var(--primary-color);
             text-transform: uppercase;
             border-left: 5px solid var(--primary-color);
             padding-left: 15px;
         }
 
-        /* GRID CONFIGURADO PARA 4 CAPAS */
+        /* GRID CONGELADO EM 4 CAPAS */
         .content-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -102,7 +101,7 @@
             object-fit: cover;
         }
 
-        /* ADESIVO COM NOMES (LABEL) */
+        /* ADESIVO COM NOMES ATIVADO */
         .card-label {
             position: absolute;
             bottom: 0;
@@ -121,12 +120,13 @@
             box-shadow: 0 0 20px rgba(255,255,255,0.4);
         }
 
-        /* INFO - ESTRELA E ANO */
+        /* ESTRELA E ANO FIXOS */
         .info-container {
             margin-top: 15px;
             display: flex;
             gap: 15px;
             align-items: center;
+            font-size: 18px;
         }
 
         .rating::before {
@@ -134,7 +134,6 @@
             color: #f1c40f;
         }
 
-        /* PLAYER */
         #player-modal {
             display: none;
             position: fixed;
@@ -155,18 +154,17 @@
         }
         
         #back-button.selected {
-            background: white;
-            color: red;
-            font-weight: bold;
+            background: white !important;
+            color: red !important;
         }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <div class="menu-item selected" data-type="channels" tabindex="0"></div>
-        <div class="menu-item" data-type="movies" tabindex="0"></div>
-        <div class="menu-item" data-type="series" tabindex="0"></div>
+        <div class="menu-item selected" data-type="channels"></div>
+        <div class="menu-item" data-type="movies"></div>
+        <div class="menu-item" data-type="series"></div>
     </div>
 
     <div class="main-content">
@@ -177,8 +175,7 @@
             <span class="year" id="current-year">2024</span>
         </div>
 
-        <div class="content-grid" id="grid">
-            </div>
+        <div class="content-grid" id="grid"></div>
     </div>
 
     <div id="player-modal">
@@ -188,44 +185,39 @@
 
     <script>
         let currentIndex = 0;
-        let currentSection = 'menu'; // menu, grid, player
+        let currentSection = 'menu'; 
         const menuItems = document.querySelectorAll('.menu-item');
         let gridItems = [];
         let player = null;
 
         const data = {
             channels: [
-                { name: "GLOBO RJ", url: "http://vip.sibfungold.org:8080/bagio19821/GwDQuo6pwf@!Nnmd2ao70N/52814", logo: "https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/globo.jpg", rating: "5.0", year: "LIVE" },
                 { name: "SBT HD", url: "https://cdn.jmvstream.com/w/LVW-10801/LVW10801_Xvg4R0u57n/playlist.m3u8", logo: "https://i.imgur.com/NyttX7c.jpeg", rating: "4.8", year: "LIVE" },
                 { name: "RECORD TV", url: "https://cdn.jmvstream.com/w/LVW-10842/LVW10842_513N26MDBL/playlist.m3u8", logo: "https://i.imgur.com/CjUm4pA.jpeg", rating: "4.7", year: "LIVE" },
-                { name: "BAND HD", url: "http://vip.sibfungold.org:8080/bagio19821/GwDQuo6pwf@!Nnmd2ao70N/3545", logo: "https://upload.wikimedia.org/wikipedia/commons/2/22/Rede_Band_Logo.png", rating: "4.5", year: "LIVE" }
+                { name: "REDETV", url: "https://streaming.cloudecast.com/hls/redetves/index.m3u8", logo: "https://i.imgur.com/L8xmFbF.jpeg", rating: "4.5", year: "LIVE" },
+                { name: "TV CULTURA", url: "https://5b33b873179a2.streamlock.net:1443/live/livestream/playlist.m3u8", logo: "https://i.imgur.com/Fy3sm5q.jpeg", rating: "4.9", year: "LIVE" }
             ],
             movies: [
-                { name: "DARKFLIX", url: "https://video01.soultv.com.br/darkflix/darkflix/playlist.m3u8", logo: "https://i.imgur.com/9v6Q27q.png", rating: "4.9", year: "2023" },
-                { name: "TOP CINE", url: "https://olympusamagi.amagi.tv/hls/amagi_hls_data_olympusat-topcine-latam-plex/CDN/playlist.m3u8", logo: "https://provider-static.plex.tv/epg/images/ott_channels/logos/topcine_logo_dark_v3.png", rating: "4.2", year: "2022" },
+                { name: "DARKFLIX", url: "https://video01.soultv.com.br/darkflix/darkflix/playlist.m3u8", logo: "https://i.imgur.com/9v6Q27q.png", rating: "4.9", year: "2024" },
+                { name: "TOP CINE", url: "https://olympusamagi.amagi.tv/hls/amagi_hls_data_olympusat-topcine-latam-plex/CDN/playlist.m3u8", logo: "https://provider-static.plex.tv/epg/images/ott_channels/logos/topcine_logo_dark_v3.png", rating: "4.2", year: "2024" },
                 { name: "CINE MONDE", url: "https://video01.soultv.com.br/cinemonde/cinemonde/playlist.m3u8", logo: "https://i.imgur.com/9v6Q27q.png", rating: "4.5", year: "2024" },
-                { name: "RUNTIME", url: "https://ammo-espanol-plex.amagi.tv/hls/amagi_hls_data_plexAAAAA-ammo-espanol-plex/CDN/playlist.m3u8", logo: "https://provider-static.plex.tv/epg/images/ott_channels/logos/runtime-espanol.png", rating: "4.0", year: "2021" }
+                { name: "RUNTIME", url: "https://ammo-espanol-plex.amagi.tv/hls/amagi_hls_data_plexAAAAA-ammo-espanol-plex/CDN/playlist.m3u8", logo: "https://provider-static.plex.tv/epg/images/ott_channels/logos/runtime-espanol.png", rating: "4.0", year: "2024" }
             ],
             series: [
-                { name: "SERIES CLASSIC", url: "https://video10.logicahost.com.br/serieclassic/serieclassic/playlist.m3u8", logo: "https://i.imgur.com/9v6Q27q.png", rating: "4.9", year: "ANOS 80" },
                 { name: "VIVA WEB", url: "https://video01.kshost.com.br:4443/cypriano46326/cypriano46326/playlist.m3u8", logo: "https://i.imgur.com/9v6Q27q.png", rating: "4.6", year: "2024" },
-                { name: "SHORTS TV", url: "https://shortstv-fast-spain-lg.amagi.tv/playlist.m3u8", logo: "https://i.imgur.com/lyBkCzB.png", rating: "4.1", year: "2023" },
-                { name: "CINEHOUSE", url: "https://3e14f4fda10247bc907cf85bbf6f6d88.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Plex_Cinehouse/playlist.m3u8", logo: "https://provider-static.plex.tv/epg/images/ott_channels/logos/Cinehouse_logo_dark.png", rating: "4.4", year: "2024" }
+                { name: "SHORTS TV", url: "https://shortstv-fast-spain-lg.amagi.tv/playlist.m3u8", logo: "https://i.imgur.com/lyBkCzB.png", rating: "4.1", year: "2024" },
+                { name: "CINEHOUSE", url: "https://3e14f4fda10247bc907cf85bbf6f6d88.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/Plex_Cinehouse/playlist.m3u8", logo: "https://provider-static.plex.tv/epg/images/ott_channels/logos/Cinehouse_logo_dark.png", rating: "4.4", year: "2024" },
+                { name: "GEEKDOT", url: "https://stream.ichibantv.com:3764/hybrid/play.m3u8", logo: "https://i.imgur.com/zXf9h4X.png", rating: "4.9", year: "2024" }
             ]
         };
 
         function loadGrid(type) {
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
-            const items = data[type];
-            
-            items.forEach((item, index) => {
+            data[type].forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.innerHTML = `
-                    <img src="${item.logo}">
-                    <div class="card-label">${item.name}</div>
-                `;
+                card.innerHTML = `<img src="${item.logo}"><div class="card-label">${item.name}</div>`;
                 grid.appendChild(card);
             });
             gridItems = document.querySelectorAll('.card');
@@ -239,14 +231,13 @@
 
             if (currentSection === 'menu') {
                 menuItems[currentIndex].classList.add('selected');
-                const type = menuItems[currentIndex].getAttribute('data-type');
-                loadGrid(type);
-                document.getElementById('category-title').innerText = type.toUpperCase();
+                loadGrid(menuItems[currentIndex].dataset.type);
+                document.getElementById('category-title').innerText = menuItems[currentIndex].dataset.type === 'channels' ? 'CANAIS ABERTOS' : menuItems[currentIndex].dataset.type.toUpperCase();
             } else if (currentSection === 'grid') {
                 if (gridItems[currentIndex]) {
                     gridItems[currentIndex].classList.add('selected');
-                    const type = menuItems[Array.from(menuItems).findIndex(m => m.classList.contains('selected-active')) || 0].getAttribute('data-type');
-                    const item = data[type || 'channels'][currentIndex];
+                    const type = document.querySelector('.menu-item.selected')?.dataset.type || 'channels';
+                    const item = data[type][currentIndex];
                     document.getElementById('current-rating').innerText = item.rating;
                     document.getElementById('current-year').innerText = item.year;
                 }
@@ -259,43 +250,37 @@
             if (currentSection === 'menu') {
                 if (e.key === 'ArrowDown') currentIndex = (currentIndex + 1) % menuItems.length;
                 if (e.key === 'ArrowUp') currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
-                if (e.key === 'ArrowRight') {
-                    menuItems[currentIndex].classList.add('selected-active');
-                    currentSection = 'grid';
-                    currentIndex = 0;
-                }
+                if (e.key === 'ArrowRight' || e.key === 'Enter') { currentSection = 'grid'; currentIndex = 0; }
             } else if (currentSection === 'grid') {
                 if (e.key === 'ArrowRight') currentIndex = (currentIndex + 1) % gridItems.length;
-                if (e.key === 'ArrowLeft') {
-                    if (currentIndex === 0) {
-                        currentSection = 'menu';
-                        currentIndex = 0;
-                    } else {
-                        currentIndex--;
-                    }
-                }
+                if (e.key === 'ArrowLeft') { if (currentIndex === 0) currentSection = 'menu'; else currentIndex--; }
                 if (e.key === 'ArrowDown' && currentIndex + 4 < gridItems.length) currentIndex += 4;
                 if (e.key === 'ArrowUp' && currentIndex - 4 >= 0) currentIndex -= 4;
                 if (e.key === 'Enter') startPlayer();
             } else if (currentSection === 'player') {
-                if (e.key === 'Enter' || e.key === 'Backspace') closePlayer();
+                // CH+ (Canal Acima) e CH- (Canal Abaixo)
+                if (e.key === 'ChannelUp' || e.key === 'PageUp') { changeChannel(1); }
+                if (e.key === 'ChannelDown' || e.key === 'PageDown') { changeChannel(-1); }
+                if (e.key === 'Enter' || e.key === 'Backspace' || e.key === 'ArrowUp') closePlayer();
             }
             updateSelection();
         });
 
+        function changeChannel(direction) {
+            const type = document.querySelector('.menu-item.selected').dataset.type;
+            currentIndex = (currentIndex + direction + data[type].length) % data[type].length;
+            if (player) player.destroy();
+            const url = data[type][currentIndex].url;
+            player = new Clappr.Player({ source: url, parentId: "#video-player", width: '100%', height: '100%', autoPlay: true });
+        }
+
         function startPlayer() {
-            const type = document.querySelector('.menu-item.selected-active')?.getAttribute('data-type') || 'channels';
+            const type = document.querySelector('.menu-item.selected').dataset.type;
             const url = data[type][currentIndex].url;
             document.getElementById('player-modal').style.display = 'block';
             currentSection = 'player';
-            
-            player = new Clappr.Player({
-                source: url,
-                parentId: "#video-player",
-                width: '100%',
-                height: '100%',
-                autoPlay: true
-            });
+            player = new Clappr.Player({ source: url, parentId: "#video-player", width: '100%', height: '100%', autoPlay: true });
+            updateSelection();
         }
 
         function closePlayer() {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.4.8</title>
+    <title>PaixãoFlix TV — v3.4.9</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -13,7 +13,6 @@
 * { box-sizing:border-box; font-family:'Poppins', sans-serif !important; outline:none; }
 body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden; }
 
-/* TELA DE CARREGAMENTO LOGO 240PX */
 #splash { position:fixed; inset:0; background:#000; z-index:9999; display:flex; align-items:center; justify-content:center; }
 #splash img { width:240px; height:auto; }
 
@@ -29,7 +28,6 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
     gap:10px; border-radius:4px; font-weight:700; font-size:14px; 
 }
 
-/* SELETOR BRANCO SEM BRILHO */
 .focusable:focus { border:2px solid #fff !important; box-shadow: none !important; transform: none !important; }
 
 .dropdown-container { display:none; grid-template-columns:1fr 1fr; gap:5px; padding:10px 0; }
@@ -46,30 +44,20 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 .card-info { padding:8px; text-align:center; }
 .card-title { font-size:12px; font-weight:bold; line-height:1.2; display:block; min-height:30px; margin-bottom:5px; }
 
-/* EPISÓDIOS: 10 POR LINHA */
+/* AVALIAÇÃO E ANO NA CAPA */
+.card-meta { display:flex; justify-content:center; gap:8px; font-size:10px; color:var(--match); font-weight:bold; }
+
 .btn-ep { 
-    width: calc(10% - 8px) !important; 
-    min-width: fit-content;
-    padding: 8px !important; 
-    text-align: center; 
-    justify-content: center;
-    font-size: 11px;
-    display: flex;
+    width: calc(10% - 8px) !important; min-width: fit-content; padding: 8px !important; 
+    text-align: center; justify-content: center; font-size: 11px; display: flex;
 }
 
-/* BOTÃO VOLTAR BORDA BRANCA 2PX */
 .btn-back { border: 2px solid #fff !important; box-shadow: none !important; background: #222; }
-
-/* BOTÃO SAIR SUAVE */
-.btn-exit { 
-    width: fit-content !important; padding: 5px 15px !important; 
-    background: rgba(229, 9, 20, 0.6) !important; font-size: 12px; border: none; color: #fff; cursor: pointer;
-}
+.btn-exit { width: fit-content !important; padding: 5px 15px !important; background: rgba(229, 9, 20, 0.6) !important; font-size: 12px; color: #fff; border:none; }
 
 #details-screen { position:fixed; inset:0; background:#000; z-index:2000; display:none; padding:40px; overflow-y:auto; }
 .det-wrapper { display:grid; grid-template-columns:320px 1fr; gap:40px; }
 
-/* ASSISTIR AGORA À ESQUERDA */
 #action-area { display: flex; justify-content: flex-start; margin: 20px 0; }
 .btn-watch { width: fit-content !important; padding: 12px 20px !important; background: var(--primary); }
 
@@ -134,6 +122,7 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
     <div class="det-wrapper">
         <div style="text-align:center">
             <img id="det-poster" style="width:100%;border-radius:8px">
+            <div id="det-meta-info" style="margin-top:15px; font-weight:700; color:var(--match)"></div>
             <button class="btn-back focusable" onclick="closeDetails()" style="width:100%;margin-top:20px;padding:12px;font-weight:700;">VOLTAR</button>
         </div>
         <div>
@@ -157,29 +146,23 @@ const base="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobil
 let cache={all:[]}, player, pendingMedia=null, lastPos=0;
 
 window.onload=async()=>{
-    try {
-        const [f,s,kf,ks,t1,t2]=await Promise.all([
-            fetch(base+"filmes.json").then(r=>r.json()), fetch(base+"series.json").then(r=>r.json()),
-            fetch(base+"kids_filmes.json").then(r=>r.json()), fetch(base+"kids_series.json").then(r=>r.json()),
-            fetch(base+"canais.m3u").then(r=>r.text()), fetch(base+"kids_canais.m3u").then(r=>r.text())
-        ]);
+    const [f,s,kf,ks,t1,t2]=await Promise.all([
+        fetch(base+"filmes.json").then(r=>r.json()), fetch(base+"series.json").then(r=>r.json()),
+        fetch(base+"kids_filmes.json").then(r=>r.json()), fetch(base+"kids_series.json").then(r=>r.json()),
+        fetch(base+"canais.m3u").then(r=>r.text()), fetch(base+"kids_canais.m3u").then(r=>r.text())
+    ]);
 
-        cache.all=[
-            ...f.map(x=>({...x,m:'vod'})), ...s.map(x=>({...x,m:'series'})),
-            ...kf.map(x=>({...x,m:'vod',k:1})), ...ks.map(x=>({...x,m:'series',k:1})),
-            ...parseM3U(t1,false), ...parseM3U(t2,true)
-        ].sort((a,b)=>(a.titulo||a.nome||'').localeCompare(b.titulo||b.nome||''));
+    cache.all=[
+        ...f.map(x=>({...x,m:'vod'})), ...s.map(x=>({...x,m:'series'})),
+        ...kf.map(x=>({...x,m:'vod',k:1})), ...ks.map(x=>({...x,m:'series',k:1})),
+        ...parseM3U(t1,false), ...parseM3U(t2,true)
+    ].sort((a,b)=>(a.titulo||a.nome||'').localeCompare(b.titulo||b.nome||''));
 
-        updateJsonCounter();
-        setupDropdowns();
-        setupRemote();
-        setupSearch();
-        
-        setTimeout(()=>{
-            document.getElementById('splash').style.display='none';
-            document.getElementById('btn-tv').focus();
-        }, 1500);
-    } catch(e) { console.error("Falha ao sincronizar dados."); }
+    updateJsonCounter();
+    setupDropdowns();
+    setupRemote();
+    setupSearch();
+    setTimeout(()=>{ document.getElementById('splash').style.display='none'; document.getElementById('btn-tv').focus(); }, 1500);
 };
 
 function parseM3U(txt,isKids){
@@ -201,7 +184,8 @@ function updateJsonCounter(){
 function renderItem(item,target){
     const div=document.createElement('div');
     div.className=`card focusable ${item.m==='tv'?'tv-card':''}`; div.tabIndex=0;
-    div.innerHTML=`<img src="${item.poster||item.logo}"><div class="card-info"><span class="card-title">${item.titulo||item.nome}</span></div>`;
+    const meta = item.m!=='tv' ? `<div class="card-meta"><span>${item.ano||item.year||'2025'}</span><span>⭐ ${item.rating||'9.5'}</span></div>` : '';
+    div.innerHTML=`<img src="${item.poster||item.logo}"><div class="card-info"><span class="card-title">${item.titulo||item.nome}</span>${meta}</div>`;
     div.onclick=()=> checkResume(item);
     target.appendChild(div);
 }
@@ -223,7 +207,8 @@ async function openDetails(item, resume=false){
     document.getElementById('details-screen').style.display='block';
     document.getElementById('det-title').textContent=item.titulo;
     document.getElementById('det-poster').src=item.poster;
-    document.getElementById('det-desc').textContent=item.desc||'Carregando informações do servidor...';
+    document.getElementById('det-desc').textContent=item.desc||'Carregando informações...';
+    document.getElementById('det-meta-info').textContent = `${item.ano||item.year||'2025'} • ⭐ ${item.rating||'9.5'}`;
     
     const eps=document.getElementById('ep-container'); eps.innerHTML='';
     const action=document.getElementById('action-area'); action.innerHTML='';
@@ -232,14 +217,12 @@ async function openDetails(item, resume=false){
         const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.textContent='ASSISTIR AGORA';
         b.onclick=()=>play(item.url, item, resume); action.appendChild(b);
     } else if(item.m==='series'){
-        try {
-            const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
-            const files = meta.files.filter(f=>f.name.endsWith('.mp4'));
-            files.forEach((f,idx)=>{
-                const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`;
-                b.onclick=()=>play(`https://archive.org/download/${item.identificador_archive}/${f.name}`, item, resume); eps.appendChild(b);
-            });
-        } catch(e) { eps.innerHTML='Erro ao carregar episódios.'; }
+        const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
+        const files = meta.files.filter(f=>f.name.endsWith('.mp4'));
+        files.forEach((f,idx)=>{
+            const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`;
+            b.onclick=()=>play(`https://archive.org/download/${item.identificador_archive}/${f.name}`, item, resume); eps.appendChild(b);
+        });
     }
     renderSuggest(); document.querySelector('#details-screen .focusable').focus();
 }
@@ -249,7 +232,6 @@ function play(url, item, resume){
     if(player) player.destroy();
     player = new Clappr.Player({
         source:url, parentId:'#player-wrapper', width:'100%', height:'100%', autoPlay:true,
-        playback: { playInline: true, controls: true },
         events: {
             onReady: ()=>{ if(resume) player.seek(lastPos); },
             onTimeUpdate: (e)=>{ localStorage.setItem('pos_'+(item.titulo||item.nome), e.current); }
@@ -274,7 +256,7 @@ function loadM3U(file){
 function toggleDrop(id){ document.getElementById(id).classList.toggle('active'); }
 
 function setupDropdowns(){
-    const cats=["Ação","Anime","Aventura","Comédia","Drama","Faroeste","Ficção","Religioso","Terror","Adulto"];
+    const cats=["Ação","Anime","Aventura","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"];
     ['drop-filmes','drop-series'].forEach(id=>{
         const el=document.getElementById(id); const mode=id.includes('filmes')?'vod':'series';
         cats.forEach(c=>{
@@ -292,20 +274,31 @@ function setupDropdowns(){
 function setupRemote(){
     document.addEventListener('keydown',(e)=>{
         const act=document.activeElement; const focs=Array.from(document.querySelectorAll('.focusable'));
-        if(e.keyCode===13) act.click();
-        if(e.keyCode===8) { if(player) closePlayer(); else closeDetails(); }
+        // MAPEMANTO COMPLETO DE TECLAS (SAMSUNG, LG, ANDROID, TV BOX)
+        const keys = {
+            ENTER: [13, 29443, 117], BACK: [8, 461, 10009, 27],
+            UP: [38, 29460, 1], DOWN: [40, 29461, 2],
+            LEFT: [37, 4, 29462, 3], RIGHT: [39, 5, 29463, 4]
+        };
+
+        if(keys.ENTER.includes(e.keyCode)) act.click();
+        if(keys.BACK.includes(e.keyCode)) { if(player) closePlayer(); else closeDetails(); }
         
         let next; const rA=act.getBoundingClientRect();
+        const dirUP = keys.UP.includes(e.keyCode), dirDOWN = keys.DOWN.includes(e.keyCode), 
+              dirLEFT = keys.LEFT.includes(e.keyCode), dirRIGHT = keys.RIGHT.includes(e.keyCode);
+
         focs.forEach(el=>{
             if(el===act || el.offsetParent===null) return;
             const rB=el.getBoundingClientRect(); const dX=rB.left-rA.left, dY=rB.top-rA.top;
-            if(e.keyCode===40 && dY > 5 && Math.abs(dX) < 300) { if(!next || dY < (next.getBoundingClientRect().top-rA.top)) next=el; }
-            if(e.keyCode===38 && dY < -5 && Math.abs(dX) < 300) { if(!next || dY > (next.getBoundingClientRect().top-rA.top)) next=el; }
-            if(e.keyCode===39 && dX > 5 && Math.abs(dY) < 150) { if(!next || dX < (next.getBoundingClientRect().left-rA.left)) next=el; }
-            if(e.keyCode===37 && dX < -5 && Math.abs(dY) < 150) { if(!next || dX > (next.getBoundingClientRect().left-rA.left)) next=el; }
+            if(dirDOWN && dY > 5 && Math.abs(dX) < 300) { if(!next || dY < (next.getBoundingClientRect().top-rA.top)) next=el; }
+            if(dirUP && dY < -5 && Math.abs(dX) < 300) { if(!next || dY > (next.getBoundingClientRect().top-rA.top)) next=el; }
+            if(dirRIGHT && dX > 5 && Math.abs(dY) < 150) { if(!next || dX < (next.getBoundingClientRect().left-rA.left)) next=el; }
+            if(dirLEFT && dX < -5 && Math.abs(dY) < 150) { if(!next || dX > (next.getBoundingClientRect().left-rA.left)) next=el; }
         });
 
-        if(!next && e.keyCode===37 && !act.closest('.sidebar')) next = document.getElementById('btn-tv');
+        // RETORNO AO MENU LATERAL
+        if(!next && dirLEFT && !act.closest('.sidebar')) next = document.getElementById('btn-tv');
         if(next) next.focus();
     });
 }
@@ -320,6 +313,7 @@ function setupSearch(){
 
 function renderSuggest(){
     const t=document.getElementById('suggest-grid'); t.innerHTML='';
+    // INDICA TUDO MENOS TV
     cache.all.filter(x=>x.m!=='tv').sort(()=>0.5-Math.random()).slice(0,5).forEach(i=>renderItem(i,t));
 }
 

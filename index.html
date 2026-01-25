@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.5.1</title>
+    <title>PaixãoFlix TV — v3.5.2</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -19,7 +19,6 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 .sidebar { width:260px; height:100vh; background:#000; display:flex; flex-direction:column; padding:20px; border-right:1px solid #222; position:fixed; left:0; top:0; z-index:1000; }
 .logo-container img { width:160px; display:block; margin:0 auto; }
 
-/* ÍCONES AMARELO PIPOCA */
 .nav-menu i { color: var(--yellow) !important; margin-right: 10px; width: 20px; text-align: center; }
 
 .search-box input { width:100%; padding:12px; background:#111; border:1px solid #333; color:#fff; border-radius:4px; margin:15px 0; }
@@ -43,19 +42,23 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 .card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; cursor: pointer; }
 .card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; }
 
+/* ESTILO CANAL TV PEQUENO */
+.tv-card { padding: 10px; }
+.tv-card img { width: 70px !important; height: 70px !important; object-fit: contain !important; margin: 0 auto !important; }
+.tv-label { font-size: 10px; color: #ccc; display: block; margin-top: 5px; text-transform: uppercase; font-weight: 700; }
+
 .card-info { padding:8px; text-align:center; }
 .card-title { font-size:12px; font-weight:bold; line-height:1.2; display:block; min-height:30px; margin-bottom:5px; }
 
 /* ESTRELAS AMARELAS */
 .card-meta { display:flex; justify-content:center; gap:8px; font-size:10px; color:var(--match); font-weight:bold; }
-.card-meta span i { color: var(--yellow) !important; }
+.card-meta i { color: var(--yellow) !important; }
 
 #details-screen { position:fixed; inset:0; background:#000; z-index:2000; display:none; padding:40px; overflow-y:auto; }
 .det-wrapper { display:grid; grid-template-columns:320px 1fr; gap:40px; }
 
-/* INDICAÇÕES RODAPÉ INTEIRO */
 #suggest-area { grid-column: 1 / -1; width: 100%; margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; }
-#suggest-grid { grid-template-columns: repeat(5, 1fr); width: 100%; }
+#suggest-grid { width: 100%; }
 
 .btn-watch { width: fit-content !important; padding: 12px 17px !important; background: var(--primary) !important; font-weight: 700; }
 .btn-back { border: 2px solid #fff !important; box-shadow: none !important; background: #222 !important; color: #fff !important; }
@@ -66,7 +69,6 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 @media(max-width:768px){
     .sidebar { width:100%; height:auto; position:relative; }
     .content-area { margin-left:0; padding:10px; }
-    /* 4 CAPAS POR COLUNA NO MOBILE */
     .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 5px; }
     .det-wrapper { grid-template-columns: 1fr; }
 }
@@ -179,9 +181,14 @@ function updateJsonCounter(){
 
 function renderItem(item,target){
     const div=document.createElement('div');
-    div.className=`card focusable`; div.tabIndex=0;
-    const meta = item.m!=='tv' ? `<div class="card-meta"><span>${item.ano||item.year||'2025'}</span><span><i class="fa-solid fa-star"></i> ${item.rating||'9.5'}</span></div>` : '';
-    div.innerHTML=`<img src="${item.poster||item.logo}"><div class="card-info"><span class="card-title">${item.titulo||item.nome}</span>${meta}</div>`;
+    div.className=`card focusable ${item.m==='tv'?'tv-card':''}`; div.tabIndex=0;
+    
+    if(item.m === 'tv'){
+        div.innerHTML=`<img src="${item.logo}"><span class="tv-label">${item.nome}</span>`;
+    } else {
+        const meta = `<div class="card-meta"><span>${item.ano||'2025'}</span><span><i class="fa-solid fa-star"></i> ${item.rating||'9.5'}</span></div>`;
+        div.innerHTML=`<img src="${item.poster}"><div class="card-info"><span class="card-title">${item.titulo}</span>${meta}</div>`;
+    }
     
     div.onclick=()=> {
         const saved = localStorage.getItem('pos_'+(item.titulo||item.nome));
@@ -197,33 +204,28 @@ async function openDetails(item){
     document.getElementById('details-screen').style.display='block';
     document.getElementById('det-title').textContent=item.titulo;
     document.getElementById('det-poster').src=item.poster;
-    document.getElementById('det-desc').textContent=item.desc||'Sinopse não disponível.';
-    document.getElementById('det-meta-info').innerHTML = `${item.ano||item.year||'2025'} • <i class="fa-solid fa-star" style="color:var(--yellow)"></i> ${item.rating||'9.5'}`;
+    document.getElementById('det-desc').textContent=item.desc||'';
+    document.getElementById('det-meta-info').innerHTML = `${item.ano||'2025'} • <i class="fa-solid fa-star" style="color:var(--yellow)"></i> ${item.rating||'9.5'}`;
     
     const eps=document.getElementById('ep-container'); eps.innerHTML='';
     const action=document.getElementById('action-area'); action.innerHTML='';
     
     if(item.m==='vod'){
-        const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.textContent='ASSISTIR AGORA';
-        b.onclick=()=> {
-            const saved = localStorage.getItem('pos_'+item.titulo);
-            play(item.url, item, !!saved);
-        };
+        const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.id='play-primary'; b.textContent='ASSISTIR AGORA';
+        b.onclick=()=> play(item.url, item, !!localStorage.getItem('pos_'+item.titulo));
         action.appendChild(b);
     } else if(item.m==='series'){
         const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
         const files = meta.files.filter(f=>f.name.endsWith('.mp4'));
         files.forEach((f,idx)=>{
             const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`; b.style.width="calc(10% - 8px)";
-            b.onclick=()=> {
-                const url = `https://archive.org/download/${item.identificador_archive}/${f.name}`;
-                const saved = localStorage.getItem('pos_'+item.titulo+'_ep'+idx);
-                play(url, {...item, epIdx: idx}, !!saved);
-            };
+            if(idx===0) b.id='play-primary';
+            b.onclick=()=> play(`https://archive.org/download/${item.identificador_archive}/${f.name}`, {...item, epIdx: idx}, !!localStorage.getItem('pos_'+item.titulo+'_ep'+idx));
             eps.appendChild(b);
         });
     }
-    renderSuggest(); document.querySelector('#details-screen .focusable').focus();
+    renderSuggest(); 
+    setTimeout(() => { document.getElementById('play-primary')?.focus(); }, 50);
 }
 
 function play(url, item, resume){
@@ -283,7 +285,8 @@ function setupRemote(){
         const codes = { 
             ENTER:[13, 29443, 117, 10001], BACK:[8, 461, 10009, 27, 10002], 
             UP:[38, 29460, 1], DOWN:[40, 29461, 2], 
-            LEFT:[37, 4, 29462, 3], RIGHT:[39, 5, 29463, 4] 
+            LEFT:[37, 4, 29462, 3], RIGHT:[39, 5, 29463, 4],
+            CH_UP:[427, 33], CH_DOWN:[428, 34]
         };
 
         if(codes.ENTER.includes(e.keyCode)) { e.preventDefault(); act.click(); return; }
@@ -293,6 +296,9 @@ function setupRemote(){
         const rA = act.getBoundingClientRect();
         const centerA = { x: rA.left + rA.width / 2, y: rA.top + rA.height / 2 };
 
+        const isLateral = codes.LEFT.includes(e.keyCode) || codes.RIGHT.includes(e.keyCode);
+        const isVertical = codes.UP.includes(e.keyCode) || codes.DOWN.includes(e.keyCode) || codes.CH_UP.includes(e.keyCode) || codes.CH_DOWN.includes(e.keyCode);
+
         focs.forEach(el=>{
             if(el === act || el.offsetParent === null) return;
             const rB = el.getBoundingClientRect();
@@ -301,11 +307,10 @@ function setupRemote(){
             const dY = centerB.y - centerA.y;
 
             let valid = false;
-            // ALGORITMO ORTOGONAL ESTRITO (SEM DIAGONAL)
-            if(codes.DOWN.includes(e.keyCode) && dY > 10 && Math.abs(dX) < Math.abs(dY)) valid = true;
-            if(codes.UP.includes(e.keyCode) && dY < -10 && Math.abs(dX) < Math.abs(dY)) valid = true;
-            if(codes.RIGHT.includes(e.keyCode) && dX > 10 && Math.abs(dY) < Math.abs(dX)) valid = true;
-            if(codes.LEFT.includes(e.keyCode) && dX < -10 && Math.abs(dY) < Math.abs(dX)) valid = true;
+            if((codes.DOWN.includes(e.keyCode) || codes.CH_DOWN.includes(e.keyCode)) && dY > 5 && Math.abs(dX) < Math.abs(dY) * 1.5) valid = true;
+            if((codes.UP.includes(e.keyCode) || codes.CH_UP.includes(e.keyCode)) && dY < -5 && Math.abs(dX) < Math.abs(dY) * 1.5) valid = true;
+            if(codes.RIGHT.includes(e.keyCode) && dX > 5 && Math.abs(dY) < Math.abs(dX) * 1.5) valid = true;
+            if(codes.LEFT.includes(e.keyCode) && dX < -10 && Math.abs(dY) < Math.abs(dX) * 1.5) valid = true;
 
             if(valid){
                 if(!next) next = el;

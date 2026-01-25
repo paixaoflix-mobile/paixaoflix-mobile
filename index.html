@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.4.8</title>
+    <title>PaixãoFlix TV — v3.4.9</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -13,60 +13,66 @@
 * { box-sizing:border-box; font-family:'Poppins',sans-serif; outline:none; }
 body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden; }
 
-/* LOGO CARREGAMENTO 240PX */
+/* TELA DE CARREGAMENTO */
 #splash { position:fixed; inset:0; background:#000; z-index:9999; display:flex; align-items:center; justify-content:center; }
 #splash img { width:240px; height:auto; }
 
 .sidebar { width:260px; height:100vh; background:#000; display:flex; flex-direction:column; padding:20px; border-right:1px solid #222; position:fixed; left:0; top:0; z-index:1000; }
 .logo-container img { width:160px; display:block; margin:0 auto; }
 
+/* ÍCONES AMARELO PIPOCA */
+.nav-menu i { color: var(--yellow) !important; }
+
 .search-box input { width:100%; padding:12px; background:#111; border:1px solid #333; color:#fff; border-radius:4px; margin:15px 0; }
 
 .nav-menu { flex:1; overflow-y:auto; scrollbar-width:none; }
-.nav-menu button { width:100%; padding:12px; margin-bottom:10px; background:#222; color:#fff; border:none; box-shadow:0 4px #000; cursor:pointer; text-align:left; display:flex; align-items:center; gap:10px; border-radius:4px; font-weight:700; font-size:14px; }
+/* BOTÕES 3D SEM EFEITOS */
+.nav-menu button, .btn-ep, .drop-item { 
+    width:100%; padding:12px; margin-bottom:10px; background:#222; color:#fff; border:none; 
+    box-shadow:0 4px #000; cursor:pointer; text-align:left; display:flex; align-items:center; 
+    gap:10px; border-radius:4px; font-weight:700; font-size:14px; transition: none;
+}
 
-.nav-menu button:focus,
-.card:focus,
-.btn-3d:focus,
+/* SELETOR BRANCO SEM BRILHO E TAMANHO AJUSTADO */
 .focusable:focus {
     border:2px solid #fff !important;
-    box-shadow:0 0 15px #fff;
-    transform:scale(1.02);
+    box-shadow: none !important;
+    transform: none !important;
+    outline: none;
 }
 
 .dropdown-container { display:none; grid-template-columns:1fr 1fr; gap:5px; padding:10px 0; }
 .dropdown-container.active { display:grid; }
-.drop-item { background:#1a1a1a; padding:8px; font-size:12px; text-align:center; box-shadow:0 3px #000; border-radius:4px; color:#fff; cursor:pointer; }
+.drop-item { background:#1a1a1a; padding:8px; font-size:12px; text-align:center; box-shadow:0 3px #000; border-radius:4px; display: block; }
 
 .content-area { margin-left:260px; height:100vh; overflow-y:auto; padding:30px; }
 .grid { display:grid; gap:15px; grid-template-columns:repeat(5,1fr); }
 
-.card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; transition:0.1s; }
+.card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; }
 .card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; }
 .card.tv-card img { width:60px; height:60px; margin:15px auto; object-fit:contain; }
 
 .card-info { padding:8px; text-align:center; }
 .card-title { font-size:12px; font-weight:bold; line-height:1.2; display:block; min-height:30px; margin-bottom:5px; }
-
 .card-meta { display:flex; justify-content:center; gap:8px; font-size:10px; color:var(--match); font-weight:bold; }
 
-.btn-ep { background:#333; color:#fff; border:none; padding:6px 12px; font-size:12px; font-weight:bold; border-radius:3px; box-shadow:0 3px #000; cursor:pointer; }
+/* BOTÃO ASSISTIR AGORA AJUSTADO */
+.btn-watch { width: fit-content !important; padding: 10px 15px !important; margin: 0 auto; }
+
+/* BOTÃO VOLTAR SEM SOMBRA BORDA BRANCA */
+.btn-back { border: 2px solid #fff !important; box-shadow: none !important; background: #222; color: #fff; }
 
 #details-screen { position:fixed; inset:0; background:#000; z-index:2000; display:none; padding:40px; overflow-y:auto; }
 .det-wrapper { display:grid; grid-template-columns:320px 1fr; gap:40px; }
 
 #player-overlay { position:fixed; inset:0; background:#000; z-index:3000; display:none; }
-#player-wrapper,.clappr-player { width:100%!important; height:100%!important; background:#000!important; }
-
 #resume-modal { position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:4000; display:none; align-items:center; justify-content:center; text-align:center; }
 
 @media(max-width:768px){
     .sidebar{width:100%;height:auto;position:relative;}
     .content-area{margin-left:0;padding:10px;}
-    .grid{ display:flex!important; flex-wrap:wrap!important; gap:8px!important; justify-content:space-between!important; }
-    /* CAPAS MOBILE 30% LARGURA */
-    .grid .card { width:30%!important; flex:none!important; }
-    #suggest-grid .card { width:30%!important; flex:none!important; }
+    .grid{ display:flex !important; flex-wrap:wrap !important; gap:8px; justify-content:space-between; }
+    .grid .card { width:30% !important; flex:none; }
     .det-wrapper{grid-template-columns:1fr;}
 }
 </style>
@@ -77,119 +83,93 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 <div id="splash"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
 
 <div id="resume-modal">
-<div style="background:#222;padding:30px;border-radius:8px;border:2px solid var(--primary)">
-<h3>Continuar assistindo de onde parou?</h3>
-<div style="display:flex;gap:20px;justify-content:center;margin-top:20px">
-<button id="btn-resume-yes" class="focusable btn-ep" style="padding:15px 30px;font-size:16px">RETOMAR</button>
-<button id="btn-resume-no" class="focusable btn-ep" style="padding:15px 30px;font-size:16px;background:#e50914">REINICIAR</button>
-</div>
-</div>
+    <div style="background:#222;padding:30px;border-radius:8px;border:2px solid var(--primary)">
+        <h3>Continuar assistindo de onde parou?</h3>
+        <div style="display:flex;gap:20px;justify-content:center;margin-top:20px">
+            <button id="btn-resume-yes" class="focusable btn-ep" style="padding:15px 30px;font-size:16px">RETOMAR</button>
+            <button id="btn-resume-no" class="focusable btn-ep" style="padding:15px 30px;font-size:16px;background:#e50914">REINICIAR</button>
+        </div>
+    </div>
 </div>
 
 <aside class="sidebar">
-<div class="logo-container">
-<img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png">
-</div>
+    <div class="logo-container">
+        <img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png">
+    </div>
+    <div style="text-align:center;font-size:12px;margin:10px 0;">Sábado, 24 de Janeiro de 2026</div>
+    <div id="json-counter" style="text-align:center;color:var(--yellow);font-size:11px;margin-bottom:10px;">Já temos (0) títulos</div>
 
-<div style="text-align:center;font-size:12px;margin:10px 0;">Sábado, 24 de Janeiro de 2026</div>
+    <div class="search-box">
+        <input type="text" id="search" placeholder="Buscar filmes, séries..." class="focusable">
+    </div>
 
-<div id="json-counter" style="text-align:center;color:var(--yellow);font-size:11px;margin-bottom:10px;">
-Descrição Já temos (0) títulos
-</div>
-
-<div class="search-box">
-<input type="text" id="search" placeholder="Buscar filmes, séries..." class="focusable">
-</div>
-
-<nav class="nav-menu">
-<button id="default-focus" onclick="loadM3U('canais.m3u')" class="focusable"><i class="fa-solid fa-play"></i> TV AO VIVO</button>
-<button onclick="loadM3U('kids_canais.m3u')" class="focusable"><i class="fa-solid fa-child"></i> TV KIDS</button>
-
-<button onclick="toggleDrop('drop-filmes')" class="focusable"><i class="fa-solid fa-film"></i> FILMES ▾</button>
-<div id="drop-filmes" class="dropdown-container"></div>
-
-<button onclick="toggleDrop('drop-series')" class="focusable"><i class="fa-solid fa-tv"></i> SÉRIES ▾</button>
-<div id="drop-series" class="dropdown-container"></div>
-
-<button onclick="loadVOD('kids_filmes.json','vod')" class="focusable"><i class="fa-solid fa-face-smile"></i> FILMES KIDS</button>
-<button onclick="loadVOD('kids_series.json','series')" class="focusable"><i class="fa-solid fa-robot"></i> SÉRIES KIDS</button>
-<button onclick="showContinue()" class="focusable" style="background:#1a1a1a"><i class="fa-solid fa-history"></i> CONTINUAR</button>
-</nav>
+    <nav class="nav-menu">
+        <button onclick="loadM3U('canais.m3u')" class="focusable"><i class="fa-solid fa-play"></i> TV AO VIVO</button>
+        <button onclick="loadM3U('kids_canais.m3u')" class="focusable"><i class="fa-solid fa-child"></i> TV KIDS</button>
+        <button onclick="toggleDrop('drop-filmes')" class="focusable"><i class="fa-solid fa-film"></i> FILMES ▾</button>
+        <div id="drop-filmes" class="dropdown-container"></div>
+        <button onclick="toggleDrop('drop-series')" class="focusable"><i class="fa-solid fa-tv"></i> SÉRIES ▾</button>
+        <div id="drop-series" class="dropdown-container"></div>
+        <button onclick="loadVOD('kids_filmes.json','vod')" class="focusable"><i class="fa-solid fa-face-smile"></i> FILMES KIDS</button>
+        <button onclick="loadVOD('kids_series.json','series')" class="focusable"><i class="fa-solid fa-robot"></i> SÉRIES KIDS</button>
+        <button onclick="showContinue()" class="focusable" style="background:#1a1a1a"><i class="fa-solid fa-history"></i> CONTINUAR</button>
+    </nav>
 </aside>
 
 <main class="content-area">
-<div class="grid" id="main-grid"></div>
+    <div class="grid" id="main-grid"></div>
 </main>
 
 <div id="details-screen">
-<div class="det-wrapper">
-<div style="text-align:center">
-<img id="det-poster" style="width:100%;border-radius:8px">
-<button class="btn-ep focusable" onclick="closeDetails()" style="width:100%;margin-top:20px">VOLTAR</button>
-</div>
-
-<div>
-<h1 id="det-title"></h1>
-<p id="det-desc" style="color:#ccc;margin:20px 0"></p>
-<div id="ep-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px"></div>
-<h3 style="margin-top:30px;color:var(--yellow)">INDICAÇÕES</h3>
-<div class="grid" id="suggest-grid"></div>
-</div>
-</div>
+    <div class="det-wrapper">
+        <div style="text-align:center">
+            <img id="det-poster" style="width:100%;border-radius:8px">
+            <button class="btn-back focusable" onclick="closeDetails()" style="width:100%;margin-top:20px;padding:12px;font-weight:700;">VOLTAR</button>
+        </div>
+        <div>
+            <h1 id="det-title"></h1>
+            <p id="det-desc" style="color:#ccc;margin:20px 0"></p>
+            <div id="ep-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px"></div>
+            <h3 style="margin-top:30px;color:var(--yellow)">INDICAÇÕES</h3>
+            <div class="grid" id="suggest-grid"></div>
+        </div>
+    </div>
 </div>
 
 <div id="player-overlay">
-<button class="focusable" onclick="closePlayer()" style="position:absolute;top:20px;left:20px;z-index:4000;background:red;border:none;color:#fff;padding:10px;border-radius:4px">SAIR</button>
-<div id="player-wrapper"></div>
+    <button class="focusable btn-ep" onclick="closePlayer()" style="position:absolute;top:20px;left:20px;z-index:4000;background:red;">SAIR</button>
+    <div id="player-wrapper"></div>
 </div>
 
 <script>
 const base="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/main/data/";
-let cache={all:[]};
-let player;
-let playlist=[];
-let pIdx=0;
+let cache={all:[]}, player, pendingMedia=null, lastPos=0;
 
 window.onload=async()=>{
-    try {
-        const [f,s,kf,ks,t1,t2]=await Promise.all([
-            fetch(base+"filmes.json").then(r=>r.json()),
-            fetch(base+"series.json").then(r=>r.json()),
-            fetch(base+"kids_filmes.json").then(r=>r.json()),
-            fetch(base+"kids_series.json").then(r=>r.json()),
-            fetch(base+"canais.m3u").then(r=>r.text()),
-            fetch(base+"kids_canais.m3u").then(r=>r.text())
-        ]);
+    const [f,s,kf,ks,t1,t2]=await Promise.all([
+        fetch(base+"filmes.json").then(r=>r.json()), fetch(base+"series.json").then(r=>r.json()),
+        fetch(base+"kids_filmes.json").then(r=>r.json()), fetch(base+"kids_series.json").then(r=>r.json()),
+        fetch(base+"canais.m3u").then(r=>r.text()), fetch(base+"kids_canais.m3u").then(r=>r.text())
+    ]);
 
-        cache.all=[
-            ...f.map(x=>({...x,m:'vod'})),
-            ...s.map(x=>({...x,m:'series'})),
-            ...kf.map(x=>({...x,m:'vod',k:1})),
-            ...ks.map(x=>({...x,m:'series',k:1})),
-            ...parseM3U(t1,false),
-            ...parseM3U(t2,true)
-        ];
+    cache.all=[
+        ...f.map(x=>({...x,m:'vod'})), ...s.map(x=>({...x,m:'series'})),
+        ...kf.map(x=>({...x,m:'vod',k:1})), ...ks.map(x=>({...x,m:'series',k:1})),
+        ...parseM3U(t1,false), ...parseM3U(t2,true)
+    ].sort((a,b)=>(a.titulo||a.nome||'').localeCompare(b.titulo||b.nome||''));
 
-        cache.all.sort((a,b)=>(a.titulo||a.nome||'').localeCompare(b.titulo||b.nome||''));
-        updateJsonCounter();
-        setupDropdowns();
-        setupRemote();
-        
-        setTimeout(() => {
-            document.getElementById('splash').style.display='none';
-            document.getElementById('default-focus').focus();
-        }, 1500);
-
-    } catch(e) { console.error("Erro ao carregar dados."); }
+    updateJsonCounter();
+    setupDropdowns();
+    setupRemote();
+    setupSearch();
+    setTimeout(()=>{ document.getElementById('splash').style.display='none'; document.querySelector('.focusable').focus(); }, 1500);
 };
 
 function parseM3U(txt,isKids){
-    const res=[];const lines=txt.split('\n');
+    const res=[]; const lines=txt.split('\n');
     for(let i=0;i<lines.length;i++){
         if(lines[i].includes('#EXTINF')){
-            const n=lines[i].split(',')[1]?.trim();
-            const u=lines[i+1]?.trim();
-            const l=lines[i].match(/tvg-logo="([^"]+)"/)?.[1]||'';
+            const n=lines[i].split(',')[1]?.trim(), u=lines[i+1]?.trim(), l=lines[i].match(/tvg-logo="([^"]+)"/)?.[1]||'';
             if(u)res.push({nome:n,url:u,logo:l,m:'tv',kids:isKids});
         }
     }
@@ -197,38 +177,82 @@ function parseM3U(txt,isKids){
 }
 
 function updateJsonCounter(){
-    const total=cache.all.filter(x=>x.m!=='tv').length;
-    document.getElementById('json-counter').textContent=`Descrição Já temos (${total}) títulos`;
+    document.getElementById('json-counter').textContent=`Já temos (${cache.all.filter(x=>x.m!=='tv').length}) títulos`;
 }
 
 function renderItem(item,target){
     const div=document.createElement('div');
-    div.className=`card focusable ${item.m==='tv'?'tv-card':''}`;
-    div.tabIndex=0;
-    const meta=item.m!=='tv' ? `<div class="card-meta"><span>${item.year||'2025'}</span><span>⭐ ${item.rating||'9.5'}</span></div>` : '';
+    div.className=`card focusable ${item.m==='tv'?'tv-card':''}`; div.tabIndex=0;
+    const meta=item.m!=='tv'?`<div class="card-meta"><span>${item.year||'2025'}</span><span>⭐ 9.5</span></div>`:'';
     div.innerHTML=`<img src="${item.poster||item.logo}"><div class="card-info"><span class="card-title">${item.titulo||item.nome}</span>${meta}</div>`;
-    div.onclick=()=> openDetails(item);
+    div.onclick=()=>checkResume(item);
     target.appendChild(div);
 }
 
-function loadM3U(file){
-    const g=document.getElementById('main-grid'); g.innerHTML='';
-    const kids = file.includes('kids');
-    cache.all.filter(x=>x.m==='tv' && x.kids === kids).forEach(i=>renderItem(i,g));
-    g.querySelector('.focusable')?.focus();
+function checkResume(item){
+    const saved = localStorage.getItem('pos_'+(item.titulo||item.nome));
+    if(saved && parseFloat(saved) > 10){
+        pendingMedia = item; lastPos = parseFloat(saved);
+        document.getElementById('resume-modal').style.display='flex';
+        document.getElementById('btn-resume-yes').focus();
+    } else { openDetails(item); }
+}
+
+document.getElementById('btn-resume-yes').onclick=()=>{ document.getElementById('resume-modal').style.display='none'; openDetails(pendingMedia, true); };
+document.getElementById('btn-resume-no').onclick=()=>{ document.getElementById('resume-modal').style.display='none'; openDetails(pendingMedia, false); };
+
+async function openDetails(item, resume=false){
+    if(item.m==='tv') return play(item.url, item);
+    document.getElementById('details-screen').style.display='block';
+    document.getElementById('det-title').textContent=item.titulo;
+    document.getElementById('det-poster').src=item.poster;
+    document.getElementById('det-desc').textContent=item.desc||'';
+    const eps=document.getElementById('ep-container'); eps.innerHTML='';
+    
+    if(item.m==='vod'){
+        const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.textContent='ASSISTIR AGORA';
+        b.onclick=()=>play(item.url, item, resume); eps.appendChild(b);
+    } else {
+        const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
+        const files = meta.files.filter(f=>f.name.endsWith('.mp4'));
+        files.forEach((f,idx)=>{
+            const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`;
+            b.onclick=()=>play(`https://archive.org/download/${item.identificador_archive}/${f.name}`, item, resume); eps.appendChild(b);
+        });
+    }
+    renderSuggest(); document.querySelector('#details-screen .focusable').focus();
+}
+
+function play(url, item, resume){
+    document.getElementById('player-overlay').style.display='block';
+    if(player) player.destroy();
+    player = new Clappr.Player({
+        source:url, parentId:'#player-wrapper', width:'100%', height:'100%', autoPlay:true,
+        events: {
+            onReady: ()=>{ if(resume) player.seek(lastPos); },
+            onTimeUpdate: (e)=>{ localStorage.setItem('pos_'+(item.titulo||item.nome), e.current); }
+        }
+    });
 }
 
 function loadVOD(file,mode){
     const g=document.getElementById('main-grid'); g.innerHTML='';
     const isKids = file.includes('kids');
-    cache.all.filter(x=>x.m===mode && !!x.k === isKids).forEach(i=>renderItem(i,g));
+    cache.all.filter(x=>x.m===mode && !!x.k===isKids).forEach(i=>renderItem(i,g));
+    g.querySelector('.focusable')?.focus();
+}
+
+function loadM3U(file){
+    const g=document.getElementById('main-grid'); g.innerHTML='';
+    const kids = file.includes('kids');
+    cache.all.filter(x=>x.m==='tv' && x.kids===kids).forEach(i=>renderItem(i,g));
     g.querySelector('.focusable')?.focus();
 }
 
 function toggleDrop(id){ document.getElementById(id).classList.toggle('active'); }
 
 function setupDropdowns(){
-    const cats=["Ação","Aventura","Comédia","Drama","Terror","Suspense","Ficção","Documentário","Religioso","Adulto"];
+    const cats=["Ação","Anime","Animação","Aventura","Clássicos","Comédia","Crime","Documentários","Dorama","Drama","Faroeste","Ficção","Musical","Nacional","Policial","Religioso","Romance","Suspense","Terror","Adulto"];
     ['drop-filmes','drop-series'].forEach(id=>{
         const el=document.getElementById(id); const mode=id.includes('filmes')?'vod':'series';
         cats.forEach(c=>{
@@ -243,55 +267,20 @@ function setupDropdowns(){
     });
 }
 
-async function openDetails(item){
-    if(item.m==='tv') return play(item.url, item);
-    document.getElementById('details-screen').style.display='block';
-    document.getElementById('det-title').textContent=item.titulo;
-    document.getElementById('det-poster').src=item.poster;
-    document.getElementById('det-desc').textContent=item.desc||'Sem descrição disponível.';
-    
-    const eps=document.getElementById('ep-container'); eps.innerHTML='';
-    if(item.m==='vod'){
-        const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent='ASSISTIR AGORA';
-        b.style='width:100%;padding:15px'; b.onclick=()=>play(item.url, item);
-        eps.appendChild(b);
-    } else if(item.m==='series'){
-        const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
-        playlist = meta.files.filter(f=>f.name.endsWith('.mp4')).map(f=>({url:`https://archive.org/download/${item.identificador_archive}/${f.name}`, name:f.name}));
-        playlist.forEach((ep,idx)=>{
-            const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`;
-            b.onclick=()=>{ pIdx=idx; play(ep.url, item); }; eps.appendChild(b);
-        });
-    }
-    renderSuggest();
-    document.querySelector('#details-screen .focusable')?.focus();
-}
-
-function play(url, item){
-    document.getElementById('player-overlay').style.display='block';
-    if(player) player.destroy();
-    player = new Clappr.Player({ source:url, parentId:'#player-wrapper', width:'100%', height:'100%', autoPlay:true });
-}
-
-function closeDetails(){ document.getElementById('details-screen').style.display='none'; }
-function closePlayer(){ if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; }
-
 function setupRemote(){
     document.addEventListener('keydown',(e)=>{
-        const act=document.activeElement;
-        const focs=Array.from(document.querySelectorAll('.focusable'));
+        const act=document.activeElement; const focs=Array.from(document.querySelectorAll('.focusable'));
         if(e.keyCode===13) act.click();
-        if(e.keyCode===8) { if(document.getElementById('player-overlay').style.display==='block') closePlayer(); else closeDetails(); }
+        if(e.keyCode===8) { if(player) closePlayer(); else closeDetails(); }
         
         let next; const rA=act.getBoundingClientRect();
         focs.forEach(el=>{
             if(el===act || el.offsetParent===null) return;
-            const rB=el.getBoundingClientRect();
-            const dX=rB.left-rA.left; const dY=rB.top-rA.top;
-            if(e.keyCode===40 && dY > 5 && Math.abs(dX) < 150) { if(!next || dY < (next.getBoundingClientRect().top-rA.top)) next=el; }
-            if(e.keyCode===38 && dY < -5 && Math.abs(dX) < 150) { if(!next || dY > (next.getBoundingClientRect().top-rA.top)) next=el; }
-            if(e.keyCode===39 && dX > 5 && Math.abs(dY) < 100) { if(!next || dX < (next.getBoundingClientRect().left-rA.left)) next=el; }
-            if(e.keyCode===37 && dX < -5 && Math.abs(dY) < 100) { if(!next || dX > (next.getBoundingClientRect().left-rA.left)) next=el; }
+            const rB=el.getBoundingClientRect(); const dX=rB.left-rA.left, dY=rB.top-rA.top;
+            if(e.keyCode===40 && dY > 5 && Math.abs(dX) < 200) { if(!next || dY < (next.getBoundingClientRect().top-rA.top)) next=el; }
+            if(e.keyCode===38 && dY < -5 && Math.abs(dX) < 200) { if(!next || dY > (next.getBoundingClientRect().top-rA.top)) next=el; }
+            if(e.keyCode===39 && dX > 5 && Math.abs(dY) < 150) { if(!next || dX < (next.getBoundingClientRect().left-rA.left)) next=el; }
+            if(e.keyCode===37 && dX < -5 && Math.abs(dY) < 150) { if(!next || dX > (next.getBoundingClientRect().left-rA.left)) next=el; }
         });
         if(next) next.focus();
     });
@@ -299,19 +288,24 @@ function setupRemote(){
 
 function setupSearch(){
     document.getElementById('search').oninput=(e)=>{
-        const v=e.target.value.toLowerCase(); const g=document.getElementById('main-grid'); g.innerHTML='';
+        const v=e.target.value.toLowerCase(), g=document.getElementById('main-grid'); g.innerHTML='';
         if(!v) return;
         cache.all.filter(x=>(x.titulo||x.nome||'').toLowerCase().includes(v)).forEach(i=>renderItem(i,g));
     };
 }
 
 function renderSuggest(){
-    const target=document.getElementById('suggest-grid'); target.innerHTML='';
-    cache.all.filter(x=>x.m!=='tv').sort(()=>0.5-Math.random()).slice(0,5).forEach(i=>renderItem(i,target));
+    const t=document.getElementById('suggest-grid'); t.innerHTML='';
+    cache.all.filter(x=>x.m!=='tv').sort(()=>0.5-Math.random()).slice(0,5).forEach(i=>renderItem(i,t));
 }
 
+function closeDetails(){ document.getElementById('details-screen').style.display='none'; }
+function closePlayer(){ if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; }
 function showContinue(){
-    const g=document.getElementById('main-grid'); g.innerHTML='<p style="padding:20px">Nenhum histórico encontrado.</p>';
+    const g=document.getElementById('main-grid'); g.innerHTML='';
+    const last = cache.all.find(x=>localStorage.getItem('pos_'+(x.titulo||x.nome)));
+    if(last) renderItem(last, g);
+    g.querySelector('.focusable')?.focus();
 }
 </script>
 </body>

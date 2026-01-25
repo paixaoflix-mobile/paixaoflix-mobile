@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — v3.5.2</title>
+    <title>PaixãoFlix TV — v3.5.4</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
 
 <style>
 :root { --primary:#e50914; --yellow:#ffc107; --bg:#000; --match:#46d369; }
-* { box-sizing:border-box; font-family:'Poppins', sans-serif !important; outline:none; }
+* { 
+    box-sizing:border-box; 
+    font-family:'Poppins', sans-serif !important; 
+    outline:none; 
+    /* REMOVER BARRA DE ROLAGEM DO SISTEMA INTEIRO */
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+*::-webkit-scrollbar { display: none; }
+
 body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden; }
 
 #splash { position:fixed; inset:0; background:#000; z-index:9999; display:flex; align-items:center; justify-content:center; }
 #splash img { width:240px; height:auto; }
 
-.sidebar { width:260px; height:100vh; background:#000; display:flex; flex-direction:column; padding:20px; border-right:1px solid #222; position:fixed; left:0; top:0; z-index:1000; }
+.sidebar { width:260px; height:100vh; background:#000; display:flex; flex-direction:column; padding:20px; border-right:1px solid #222; position:fixed; left:0; top:0; z-index:1000; overflow-y: auto; }
 .logo-container img { width:160px; display:block; margin:0 auto; }
 
-.nav-menu i { color: var(--yellow) !important; margin-right: 10px; width: 20px; text-align: center; }
+.nav-menu i { color: var(--yellow) !important; margin-right: 12px; width: 20px; text-align: center; font-size: 16px; }
 
 .search-box input { width:100%; padding:12px; background:#111; border:1px solid #333; color:#fff; border-radius:4px; margin:15px 0; }
 
-.nav-menu { flex:1; overflow-y:auto; scrollbar-width:none; }
+.nav-menu { flex:1; overflow-y:auto; }
 .nav-menu button, .btn-ep, .drop-item { 
     width:100%; padding:12px; margin-bottom:10px; background:#222; color:#fff; border:none; 
     box-shadow:0 4px #000; cursor:pointer; text-align:left; display:flex; align-items:center; 
@@ -39,18 +48,16 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 .content-area { margin-left:260px; height:100vh; overflow-y:auto; padding:30px; }
 .grid { display:grid; gap:15px; grid-template-columns:repeat(5,1fr); }
 
-.card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; cursor: pointer; }
+.card { background:#141414; border-radius:4px; overflow:hidden; border:2px solid transparent; cursor: pointer; text-align: center; }
 .card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; }
 
-/* ESTILO CANAL TV PEQUENO */
 .tv-card { padding: 10px; }
-.tv-card img { width: 70px !important; height: 70px !important; object-fit: contain !important; margin: 0 auto !important; }
-.tv-label { font-size: 10px; color: #ccc; display: block; margin-top: 5px; text-transform: uppercase; font-weight: 700; }
+.tv-card img { width: 75px !important; height: 75px !important; object-fit: contain !important; margin: 0 auto !important; }
+.tv-label { font-size: 10px; color: #eee; display: block; margin-top: 8px; text-transform: uppercase; font-weight: 700; background: rgba(255,255,255,0.1); border-radius: 3px; padding: 2px; }
 
-.card-info { padding:8px; text-align:center; }
+.card-info { padding:8px; }
 .card-title { font-size:12px; font-weight:bold; line-height:1.2; display:block; min-height:30px; margin-bottom:5px; }
 
-/* ESTRELAS AMARELAS */
 .card-meta { display:flex; justify-content:center; gap:8px; font-size:10px; color:var(--match); font-weight:bold; }
 .card-meta i { color: var(--yellow) !important; }
 
@@ -58,9 +65,8 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 .det-wrapper { display:grid; grid-template-columns:320px 1fr; gap:40px; }
 
 #suggest-area { grid-column: 1 / -1; width: 100%; margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; }
-#suggest-grid { width: 100%; }
 
-.btn-watch { width: fit-content !important; padding: 12px 17px !important; background: var(--primary) !important; font-weight: 700; }
+.btn-watch { width: fit-content !important; padding: 12px 20px !important; background: var(--primary) !important; font-weight: 700; }
 .btn-back { border: 2px solid #fff !important; box-shadow: none !important; background: #222 !important; color: #fff !important; }
 
 #player-overlay { position:fixed; inset:0; background:#000; z-index:3000; display:none; }
@@ -69,7 +75,7 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
 @media(max-width:768px){
     .sidebar { width:100%; height:auto; position:relative; }
     .content-area { margin-left:0; padding:10px; }
-    .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 5px; }
+    .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px; }
     .det-wrapper { grid-template-columns: 1fr; }
 }
 </style>
@@ -121,14 +127,14 @@ body { margin:0; background:var(--bg); color:#fff; height:100vh; overflow:hidden
             <div id="ep-container" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px"></div>
         </div>
         <div id="suggest-area">
-            <h3 style="color:var(--yellow); margin-bottom: 20px;">VOCÊ TAMBÉM PODE GOSTAR</h3>
+            <h3 style="color:var(--yellow); margin-bottom: 20px;">INDICAÇÕES</h3>
             <div class="grid" id="suggest-grid"></div>
         </div>
     </div>
 </div>
 
 <div id="player-overlay">
-    <button class="focusable btn-ep" onclick="closePlayer()" style="position:absolute;top:20px;left:20px;z-index:4000;background:rgba(229,9,20,0.6); width:auto !important; padding:10px 20px !important; border-radius: 4px;">SAIR</button>
+    <button class="focusable btn-ep" onclick="closePlayer()" style="position:absolute;top:20px;left:20px;z-index:4000;background:rgba(229,9,20,0.6); width:auto !important; padding:10px 20px !important;">SAIR</button>
     <div id="player-wrapper"></div>
 </div>
 
@@ -154,7 +160,11 @@ window.onload=async()=>{
     setupDropdowns();
     setupRemote();
     setupSearch();
-    setTimeout(()=>{ document.getElementById('splash').style.display='none'; document.getElementById('btn-tv').focus(); }, 1500);
+    
+    setTimeout(()=>{ 
+        document.getElementById('splash').style.display='none'; 
+        document.getElementById('btn-tv').focus();
+    }, 1500);
 };
 
 function updateDate(){
@@ -176,7 +186,7 @@ function parseM3U(txt,isKids){
 
 function updateJsonCounter(){
     const total = cache.all.filter(x=>x.m!=='tv').length;
-    document.getElementById('json-counter').innerHTML=`Disponível <span style="color:#fff">${total}</span> títulos`;
+    document.getElementById('json-counter').innerHTML=`Total <span style="color:#fff">${total}</span> títulos`;
 }
 
 function renderItem(item,target){
@@ -191,7 +201,8 @@ function renderItem(item,target){
     }
     
     div.onclick=()=> {
-        const saved = localStorage.getItem('pos_'+(item.titulo||item.nome));
+        const key = 'pos_'+(item.titulo||item.nome);
+        const saved = localStorage.getItem(key);
         if(isContinueView && saved && parseFloat(saved) > 10){
             play(item.url || '', item, true);
         } else { openDetails(item); }
@@ -204,28 +215,27 @@ async function openDetails(item){
     document.getElementById('details-screen').style.display='block';
     document.getElementById('det-title').textContent=item.titulo;
     document.getElementById('det-poster').src=item.poster;
-    document.getElementById('det-desc').textContent=item.desc||'';
-    document.getElementById('det-meta-info').innerHTML = `${item.ano||'2025'} • <i class="fa-solid fa-star" style="color:var(--yellow)"></i> ${item.rating||'9.5'}`;
+    document.getElementById('det-meta-info').innerHTML = `${item.ano||'2025'} • <i class="fa-solid fa-star"></i> ${item.rating||'9.5'}`;
     
     const eps=document.getElementById('ep-container'); eps.innerHTML='';
     const action=document.getElementById('action-area'); action.innerHTML='';
     
     if(item.m==='vod'){
-        const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.id='play-primary'; b.textContent='ASSISTIR AGORA';
+        const b=document.createElement('button'); b.className='btn-ep btn-watch focusable'; b.id='foco-det'; b.textContent='ASSISTIR AGORA';
         b.onclick=()=> play(item.url, item, !!localStorage.getItem('pos_'+item.titulo));
         action.appendChild(b);
     } else if(item.m==='series'){
         const meta = await fetch(`https://archive.org/metadata/${item.identificador_archive}`).then(r=>r.json());
         const files = meta.files.filter(f=>f.name.endsWith('.mp4'));
         files.forEach((f,idx)=>{
-            const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`; b.style.width="calc(10% - 8px)";
-            if(idx===0) b.id='play-primary';
+            const b=document.createElement('button'); b.className='btn-ep focusable'; b.textContent=`Ep ${idx+1}`; b.style.width="calc(12% - 8px)";
+            if(idx===0) b.id='foco-det';
             b.onclick=()=> play(`https://archive.org/download/${item.identificador_archive}/${f.name}`, {...item, epIdx: idx}, !!localStorage.getItem('pos_'+item.titulo+'_ep'+idx));
             eps.appendChild(b);
         });
     }
     renderSuggest(); 
-    setTimeout(() => { document.getElementById('play-primary')?.focus(); }, 50);
+    setTimeout(() => { document.getElementById('foco-det')?.focus(); }, 100);
 }
 
 function play(url, item, resume){
@@ -286,7 +296,7 @@ function setupRemote(){
             ENTER:[13, 29443, 117, 10001], BACK:[8, 461, 10009, 27, 10002], 
             UP:[38, 29460, 1], DOWN:[40, 29461, 2], 
             LEFT:[37, 4, 29462, 3], RIGHT:[39, 5, 29463, 4],
-            CH_UP:[427, 33], CH_DOWN:[428, 34]
+            CH_UP:[33, 427], CH_DOWN:[34, 428]
         };
 
         if(codes.ENTER.includes(e.keyCode)) { e.preventDefault(); act.click(); return; }
@@ -295,9 +305,6 @@ function setupRemote(){
         let next = null; 
         const rA = act.getBoundingClientRect();
         const centerA = { x: rA.left + rA.width / 2, y: rA.top + rA.height / 2 };
-
-        const isLateral = codes.LEFT.includes(e.keyCode) || codes.RIGHT.includes(e.keyCode);
-        const isVertical = codes.UP.includes(e.keyCode) || codes.DOWN.includes(e.keyCode) || codes.CH_UP.includes(e.keyCode) || codes.CH_DOWN.includes(e.keyCode);
 
         focs.forEach(el=>{
             if(el === act || el.offsetParent === null) return;
@@ -315,8 +322,9 @@ function setupRemote(){
             if(valid){
                 if(!next) next = el;
                 else {
-                    const distNext = Math.pow(next.getBoundingClientRect().top - rA.top, 2) + Math.pow(next.getBoundingClientRect().left - rA.left, 2);
-                    const distCurr = Math.pow(rB.top - rA.top, 2) + Math.pow(rB.left - rA.left, 2);
+                    const distCurr = Math.pow(dX, 2) + Math.pow(dY, 2);
+                    const rN = next.getBoundingClientRect();
+                    const distNext = Math.pow((rN.left + rN.width/2) - centerA.x, 2) + Math.pow((rN.top + rN.height/2) - centerA.y, 2);
                     if(distCurr < distNext) next = el;
                 }
             }

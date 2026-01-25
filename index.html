@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PaixãoFlix TV — Master v3.4.3</title>
+    <title>PaixãoFlix TV — Master Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@clappr/player@latest/dist/clappr.min.js"></script>
@@ -13,45 +13,49 @@
         body { margin: 0; background: var(--bg); color: #fff; height: 100vh; overflow: hidden; }
 
         .sidebar { width: 260px; height: 100vh; background: #000; display: flex; flex-direction: column; padding: 20px; border-right: 1px solid #222; position: fixed; left: 0; top: 0; z-index: 1000; }
-        #stats-counter { color: #fff; font-size: 13px; font-weight: bold; text-align: center; margin: 15px 0; }
-        .search-box input { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; font-weight: bold; }
+        .logo-container img { width: 160px; height: auto; display: block; margin: 0 auto; }
         
-        .nav-menu { flex: 1; overflow-y: auto; scrollbar-width: none; }
-        .nav-menu button { width: 100%; padding: 15px; margin-bottom: 8px; border: 2px solid transparent; background: transparent; color: #fff; text-align: left; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 12px; border-radius: 4px; cursor: pointer; }
-        .nav-menu button i { color: var(--yellow); width: 25px; text-align: center; }
+        /* BOTÕES 3D */
+        .btn-3d, .nav-menu button, .btn-play, .btn-ep, .drop-item {
+            border: none;
+            box-shadow: 0 4px #990000;
+            transition: all 0.1s;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-3d:active, .nav-menu button:active {
+            box-shadow: 0 1px #660000;
+            transform: translateY(3px);
+        }
 
-        /* SELETOR EXATO */
-        .focusable:focus { border: 2px solid #fff !important; background: rgba(255,255,255,0.1) !important; outline: none; }
+        .nav-menu { flex: 1; overflow-y: auto; scrollbar-width: none; margin-top: 20px; }
+        .nav-menu button { width: 100%; padding: 12px; margin-bottom: 12px; background: #222; color: #fff; text-align: left; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px #111; }
+        .nav-menu button i { color: var(--yellow); width: 20px; }
+        .nav-menu button:focus { border: 2px solid #fff !important; box-shadow: 0 0 15px #fff; }
 
         .content-area { margin-left: 260px; height: 100vh; overflow-y: auto; padding: 30px; }
-        .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); margin-bottom: 40px; }
+        .grid { display: grid; gap: 20px; grid-template-columns: repeat(5, 1fr); }
         
-        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; }
+        .card { background: #141414; border-radius: 4px; overflow: hidden; border: 2px solid transparent; transition: 0.2s; }
+        .card:focus { border-color: #fff; transform: scale(1.05); }
         .card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
-        .card.tv-card img { aspect-ratio: 16/9; object-fit: contain; padding: 10px; }
         .card-info { padding: 8px; text-align: center; }
         .card-title { font-size: 12px; font-weight: bold; display: block; height: 36px; overflow: hidden; }
-        .card-meta { display: flex; justify-content: center; gap: 10px; font-size: 10px; margin-top: 5px; font-weight: bold; color: var(--match); }
+        .card-meta { display: flex; justify-content: center; gap: 10px; font-size: 10px; margin-top: 5px; color: var(--match); font-weight: bold; }
 
-        /* TELA DE DETALHES */
         #details-screen { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; padding: 40px; overflow-y: auto; }
         .det-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 40px; }
         .det-poster { width: 100%; border-radius: 8px; border: 2px solid #333; }
-        .btn-play { background: var(--primary); color: #fff; padding: 15px 40px; border: 2px solid transparent; border-radius: 4px; font-weight: bold; font-size: 18px; margin-bottom: 20px; cursor: pointer; }
-        .btn-ep { background: #222; border: 2px solid transparent; color: #fff; padding: 10px; border-radius: 4px; font-weight: bold; margin: 5px; cursor: pointer; }
+        .btn-play { background: var(--primary); color: #fff; padding: 15px 40px; font-size: 18px; margin-bottom: 20px; box-shadow: 0 5px #b20710; }
 
-        /* PLAYER E ADESIVO */
         #player-overlay { position: fixed; inset: 0; background: #000; z-index: 3000; display: none; }
-        #player-wrapper { width: 100%; height: 100%; }
         .tv-sticker { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-left: 5px solid var(--primary); z-index: 3001; font-weight: bold; }
 
-        /* REGRA MOBILE: APENAS 4 CAPAS POR LINHA */
         @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; }
+            .sidebar { width: 100%; height: auto; position: relative; }
             .content-area { margin-left: 0; padding: 15px; }
             .grid { grid-template-columns: repeat(4, 1fr) !important; gap: 10px; }
             .det-wrapper { grid-template-columns: 1fr; }
-            .det-poster { width: 200px; margin: 0 auto; }
         }
     </style>
 </head>
@@ -59,8 +63,8 @@
 
 <aside class="sidebar">
     <div class="logo-container"><img src="https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/logoof512.png"></div>
-    <div id="stats-counter">...</div>
-    <div class="search-box"><input type="text" id="search" placeholder="Busca Global..." class="focusable"></div>
+    <div id="stats-counter" style="text-align:center; font-size:12px; margin:10px 0;">Sábado, 24/01/2026</div>
+    <div class="search-box"><input type="text" id="search" placeholder="Pesquisar..." style="width:100%; padding:10px; background:#111; border:1px solid #333; color:#fff;" class="focusable"></div>
     <nav class="nav-menu">
         <button onclick="loadM3U('canais.m3u')" class="focusable"><i class="fa-solid fa-play"></i> TV AO VIVO</button>
         <button onclick="loadM3U('kids_canais.m3u')" class="focusable"><i class="fa-solid fa-child"></i> TV KIDS</button>
@@ -68,15 +72,11 @@
         <button onclick="loadVOD('series.json', 'series')" class="focusable"><i class="fa-solid fa-tv"></i> SÉRIES</button>
         <button onclick="loadVOD('kids_filmes.json', 'vod')" class="focusable"><i class="fa-solid fa-face-smile"></i> FILMES KIDS</button>
         <button onclick="loadVOD('kids_series.json', 'series')" class="focusable"><i class="fa-solid fa-robot"></i> SÉRIES KIDS</button>
+        <button onclick="showContinue()" class="focusable" style="background:#1a1a1a;"><i class="fa-solid fa-history"></i> CONTINUAR</button>
     </nav>
 </aside>
 
 <main class="content-area">
-    <div id="continue-watching" style="display:none">
-        <h3 style="color:var(--yellow)">CONTINUAR ASSISTINDO</h3>
-        <div class="grid" id="continue-grid"></div>
-    </div>
-    <h3 id="grid-title">DESTAQUES</h3>
     <div class="grid" id="main-grid"></div>
 </main>
 
@@ -84,23 +84,23 @@
     <div class="det-wrapper">
         <div style="text-align:center">
             <img id="det-poster" class="det-poster">
-            <button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:20px">VOLTAR</button>
+            <button class="btn-ep focusable" onclick="closeDetails()" style="width:100%; margin-top:20px; background:#333; box-shadow: 0 4px #111;">VOLTAR</button>
         </div>
         <div>
             <h1 id="det-title" style="margin:0; font-size:40px"></h1>
-            <div style="margin:15px 0; font-weight:bold"><span id="det-year"></span> • ⭐ 9.8 • <span style="color:var(--match)">4K UltraHD</span></div>
-            <p id="det-desc" style="color:#ccc; font-size:16px"></p>
+            <div style="margin:15px 0; font-weight:bold"><span id="det-year"></span> • ⭐ 9.8 • <span style="color:var(--match)">Full HD</span></div>
+            <p id="det-desc" style="color:#ccc; line-height:1.6"></p>
             <div id="action-area"></div>
-            <div id="ep-container"></div>
-            <h3 style="margin-top:30px">INDICAÇÕES</h3>
-            <div class="grid" id="suggest-grid" style="grid-template-columns: repeat(5, 1fr);"></div>
+            <div id="ep-container" style="display:flex; flex-wrap:wrap; gap:10px"></div>
+            <h3 style="margin-top:30px; color:var(--yellow)">INDICAÇÕES</h3>
+            <div class="grid" id="suggest-grid"></div>
         </div>
     </div>
 </div>
 
 <div id="player-overlay">
     <div id="tv-sticker" class="tv-sticker" style="display:none"></div>
-    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000; background:red">SAIR</button>
+    <button class="btn-ep focusable" onclick="closePlayer()" style="position:absolute; top:20px; left:20px; z-index:4000; background:red; box-shadow: 0 4px #900;">SAIR DO VÍDEO</button>
     <div id="player-wrapper"></div>
 </div>
 
@@ -113,7 +113,6 @@
 
     window.onload = async () => {
         await syncData();
-        renderContinue();
         setupRemote();
         setupSearch();
     };
@@ -128,8 +127,7 @@
         cache.series = [...s, ...ks].sort((a,b) => a.titulo.localeCompare(b.titulo));
         cache.tv = [...parseM3U(t1), ...parseM3U(t2)];
         cache.all = [...cache.filmes.map(x=>({...x, m:'vod'})), ...cache.series.map(x=>({...x, m:'series'})), ...cache.tv.map(x=>({...x, m:'tv'}))];
-        
-        document.getElementById('stats-counter').innerHTML = `Sábado, 24 de Janeiro de 2026<br>${cache.filmes.length + cache.series.length} TÍTULOS DISPONÍVEIS`;
+        document.getElementById('stats-counter').innerHTML = `Sábado, 24/01/2026<br>${cache.filmes.length + cache.series.length} TÍTULOS`;
     }
 
     function parseM3U(txt) {
@@ -146,7 +144,7 @@
     }
 
     function playMedia(item, isTV = false) {
-        if(!isTV) localStorage.setItem('paixaoflix_resume', JSON.stringify(item));
+        if(!isTV) localStorage.setItem('paixaoflix_hist', JSON.stringify(item));
         document.getElementById('player-overlay').style.display = 'block';
         if(isTV) {
             document.getElementById('tv-sticker').textContent = item.nome;
@@ -163,7 +161,7 @@
         document.getElementById('det-title').textContent = item.titulo;
         document.getElementById('det-poster').src = item.poster;
         document.getElementById('det-year').textContent = item.year || '2025';
-        document.getElementById('det-desc').textContent = item.desc || 'PaixãoFlix Master TV.';
+        document.getElementById('det-desc').textContent = item.desc || 'Conteúdo PaixãoFlix Premium.';
         
         const act = document.getElementById('action-area');
         const eps = document.getElementById('ep-container');
@@ -180,7 +178,6 @@
             });
         }
         renderSuggest(item.genero);
-        setTimeout(() => document.querySelector('#details-screen .focusable').focus(), 200);
     }
 
     function renderItem(item, mode, target) {
@@ -192,25 +189,22 @@
         target.appendChild(div);
     }
 
-    function renderContinue() {
-        const last = localStorage.getItem('paixaoflix_resume');
-        if(last) {
-            document.getElementById('continue-watching').style.display = 'block';
-            const target = document.getElementById('continue-grid'); target.innerHTML = '';
-            renderItem(JSON.parse(last), 'vod', target);
-        }
-    }
-
     function renderSuggest(gen) {
         const target = document.getElementById('suggest-grid'); target.innerHTML = '';
         cache.filmes.filter(x => x.genero === gen).sort(() => 0.5 - Math.random()).slice(0, 5).forEach(i => renderItem(i, 'vod', target));
+    }
+
+    function showContinue() {
+        const last = localStorage.getItem('paixaoflix_hist');
+        const target = document.getElementById('main-grid'); target.innerHTML = '';
+        if(last) renderItem(JSON.parse(last), 'vod', target);
+        else target.innerHTML = "<h3>Nenhum histórico encontrado.</h3>";
     }
 
     function setupSearch() {
         document.getElementById('search').addEventListener('input', (e) => {
             const v = e.target.value.toLowerCase();
             const target = document.getElementById('main-grid'); target.innerHTML = '';
-            if(!v) return;
             cache.all.filter(x => (x.titulo || x.nome || "").toLowerCase().includes(v)).forEach(i => renderItem(i, i.m, target));
         });
     }
@@ -218,7 +212,7 @@
     function setupRemote() {
         document.addEventListener('keydown', (e) => {
             const active = document.activeElement;
-            const focusables = Array.from(document.querySelectorAll('.focusable:not([style*="display: none"])'));
+            const focusables = Array.from(document.querySelectorAll('.focusable'));
 
             if(player && document.getElementById('player-overlay').style.display === 'block') {
                 if(e.keyCode === 33 || e.keyCode === 38) { tvIdx = (tvIdx+1)%tvList.length; playMedia(tvList[tvIdx], true); }
@@ -232,21 +226,19 @@
             let next;
             const rA = active.getBoundingClientRect();
 
-            // Seta Direita na Sidebar: Sempre foca no 1º item do grid
             if(e.keyCode === 39 && active.closest('.sidebar')) {
-                const first = document.querySelector('#main-grid .focusable, #continue-grid .focusable');
+                const first = document.querySelector('#main-grid .focusable, #suggest-grid .focusable');
                 if(first) first.focus();
                 return;
             }
 
-            // Seta Esquerda na primeira coluna: Volta para o menu
             if(e.keyCode === 37 && rA.left < 300 && !active.closest('.sidebar')) {
                 document.querySelector('.nav-menu .focusable').focus();
                 return;
             }
 
             focusables.forEach(el => {
-                if (el === active) return;
+                if (el === active || el.offsetParent === null) return;
                 const rB = el.getBoundingClientRect();
                 const dist = Math.hypot(rA.x - rB.x, rA.y - rB.y);
                 if ((e.keyCode === 40 && rB.top >= rA.bottom-5) || (e.keyCode === 38 && rB.bottom <= rA.top+5) ||
@@ -263,7 +255,6 @@
         tvList = parseM3U(res).sort((a,b) => a.nome.localeCompare(b.nome));
         const target = document.getElementById('main-grid'); target.innerHTML = '';
         tvList.forEach(c => renderItem(c, 'tv', target));
-        document.getElementById('grid-title').textContent = file.includes('kids') ? 'TV KIDS' : 'TV AO VIVO';
         target.querySelector('.focusable').focus();
     }
 
@@ -271,11 +262,10 @@
         const data = await fetch(base + file).then(r => r.json());
         const target = document.getElementById('main-grid'); target.innerHTML = '';
         data.sort((a,b) => a.titulo.localeCompare(b.titulo)).forEach(i => renderItem(i, mode, target));
-        document.getElementById('grid-title').textContent = file.split('.')[0].toUpperCase();
         target.querySelector('.focusable').focus();
     }
 
-    function closePlayer() { if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; document.getElementById('tv-sticker').style.display='none'; renderContinue(); }
+    function closePlayer() { if(player) player.destroy(); document.getElementById('player-overlay').style.display='none'; }
     function closeDetails() { document.getElementById('details-screen').style.display='none'; }
 </script>
 </body>

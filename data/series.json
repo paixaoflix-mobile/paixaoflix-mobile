@@ -260,16 +260,6 @@
     "type": "serie"
   },
 {
-    "titulo": "Marcada",
-    "identificador_archive": "marcada-1-temporada-paixaoflix",
-    "genero": "Documentário",
-    "year": "2023",
-    "rating": "7.0",
-    "desc": "Este documentário baseado no best-seller de Ibram X. Kendi usa animação inovadora e perspetivas de especialistas para explorar a história das ideias racistas na América.",
-    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/zKr6pPEtvyc0wGiiFseLNPvYhz9.jpg",
-    "type": "serie"
-  },
-{
     "titulo": "Mila no Multiverso",
     "identificador_archive": "mila-multiverse-s01-paixaoflix",
     "genero": "Aventura",

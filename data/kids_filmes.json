@@ -1,5 +1,125 @@
 [
   {
+    "titulo": "Bob Esponja - Em Busca da Calça Quadrada",
+    "url": "https://ia601806.us.archive.org/14/items/bob-esponja-em-busca-da-calca-quadrada-paixaoflix/CONV_Bob%20Esponja%20Em%20Busca%20da%20Cal%C3%A7a%20Quadrada.mp4",
+    "genero": "Animação",
+    "year": "2025",
+    "rating": "6.7",
+    "desc": "Bob Esponja e seus amigos da Fenda do Bikini embarcam na maior aventura de suas vidas. Ao tentar provar que é grandão, ele acaba invocando o temido pirata fantasma Holandês Voador, que arrasta Bob Esponja e Patrick para uma jornada caótica no submundo. Enfrentando desafios enormes e com uma equipe de resgate em seu encalço, Bob Esponja descobre que a verdadeira coragem aparece quando os amigos encaram o desconhecido juntos.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/obDYToEfPFNMKW6x0eamCrjTMzK.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Davi - Nasce Um Rei",
+    "url": "https://ia801602.us.archive.org/34/items/davi-nasce-um-rei-paixaoflix/CONV_Davi%20Nasce%20Um%20Rei.mp4",
+    "genero": "Animação",
+    "year": "2025",
+    "rating": "7.8",
+    "desc": "Em um reino tomado pelo medo e pela opressão, um jovem pastor de ovelhas decide enfrentar um gigante guerreiro e a escuridão que o acompanha. Com nada além de fé, coragem, uma funda e algumas pedras nas mãos, ele desafia um império e desperta o coração de uma nação.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/4GK7WiXuIaLecQDJZkmL8xieTIa.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Um Mundo Encantado 2",
+    "url": "https://ia800800.us.archive.org/20/items/um-mundo-encantado-2-paixaoflix/CONV_Um%20Mundo%20Encantado%202.mp4",
+    "genero": "Aventura",
+    "year": "2024",
+    "rating": "4.9",
+    "desc": "Teun trabalha no parque temático Efteling e é encarregado de cuidar de Jamie, a filha do diretor do parque, Indra. Quando o segurança Cor é atacado uma noite por um fantasma com uma espada em chamas, Teun e Jamie se envolvem em um mistério. Quem ou o que é esse fantasma, e o que ele está fazendo em Efteling?.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/6IfNtA1SSLmm52Se9d49nHQbiQ1.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Patos!",
+    "url": "https://ia800700.us.archive.org/17/items/patrulha-canina-paixaoflix/CONV_Patos.mp4",
+    "genero": "Animação",
+    "year": "2023",
+    "rating": "6.7",
+    "desc": "Na nova comédia da Illumination, o pai de uma família de Patos é convencido a passar por Nova York e ir até as Bahamas durante a migração de inverno.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wXWnUhdnSuADRp9w7aAZNHx682v.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "O Filme Looney, Looney, Looney do Pernalonga",
+    "url": "https://ia800102.us.archive.org/15/items/o-filme-looney-looney-looney-do-pernalonga-paixaoflix/CONV_O%20Filme%20Looney%20do%20Pernalonga.mp4",
+    "genero": "Animação",
+    "year": "1981",
+    "rating": "7.2",
+    "desc": "Neste filme, Pernalonga mostra o que sabe fazer de melhor: arrumar encrencas com Eufrasino Puxa-Briga, Patolino, mafiosos e cavaleiros. Pernalonga apresenta uma premiação com vários curtas clássicos do Looney Toon.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/jLClJrQiJDr5997n5cAXmLSV9av.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Arca de Noé",
+    "url": "https://ia601807.us.archive.org/34/items/arca-de-noe-paixaoflix/CONV_Arca%20de%20Noe.mp4",
+    "genero": "Animação",
+    "year": "2024",
+    "rating": "6.9",
+    "desc": "Tom, um guitarrista talentoso e pragmático, e Vini, um poeta romântico e sonhador, são uma dupla carismática e caótica de ratos. Quando o grande dilúvio se aproxima, apenas um macho e uma fêmea de cada espécie são permitidos na Arca de Noé. Tom consegue entrar, mas Vini fica para fora e conta com a ajuda de uma barata engenhosa e a boa sorte do destino para se juntar ao amigo. Durante a viagem, brigas por território e alimentos se instauram, deixando os animais mais fortes contra os mais fracos.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/iI79rRbcwPKVlbEN5Sc4EwppRpa.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "O Espanta Tubarões",
+    "url": "https://ia800102.us.archive.org/22/items/o-espanta-tubaroes-paixaoflix/CONV_O%20Espanta%20Tubar%C3%B5es.mp4",
+    "genero": "Animação",
+    "year": "2004",
+    "rating": "6.0",
+    "desc": "Oscar é um pequeno peixe que tem sonhos grandes, que se torna um herói involuntário após pregar uma grande mentira. Após ser perseguido pelo filho do tubarão-chefe, Oscar presencia sua morte. Querendo bancar o herói, ele assume a autoria do assassinato e, com isso, se torna uma grande celebridade no mundo aquático. Porém a situação se complica quando ele é designado para repetir a façanha, eliminando outros tubarões.",
+    "poster": "https://www.themoviedb.org/t/p/w600_and_h900_face/1tPhFqGScPYbaLuczBnlFGjNUqj.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Leo",
+    "url": "https://ia600700.us.archive.org/10/items/leo-paixaoflix/CONV_Leo.mp4",
+    "genero": "Animação",
+    "year": "2023",
+    "rating": "7.4",
+    "desc": "Uma comédia musical que narra o último ano do Ensino Fundamental pelos olhos do lagarto Leo, o bichinho de estimação da sala.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/gSOVog7ydsaF1YpgAqBqnKYFGY.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Luca",
+    "url": "https://ia800800.us.archive.org/6/items/luca-paixaoflix/CONV_Luca.mp4",
+    "genero": "Animação",
+    "year": "2021",
+    "rating": "6.7",
+    "desc": "Ambientado na bela Riviera Italiana, este longa-metragem da Disney e da Pixar acompanha as aventuras do garoto Luca durante um verão inesquecível repleto de macarronadas, gelatos e passeios incríveis de motoneta ao lado de seu novo amigo Alberto. Mas um grande segredo ameaça colocar fim à diversão: abaixo da superfície da água, eles são monstros marinhos!.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/m6Ockf2oYhxXoBIBaRLDwCOE410.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Mickey, Donald e Pateta - Os Três Mosqueteiros",
+    "url": "https://ia600509.us.archive.org/34/items/mickey-donald-e-pateta-os-tres-mosqueteiros-paixaoflix/CONV_Mickey%2C%20Donald%20e%20Pateta%20-%20Os%20Tr%C3%AAs%20Mosqueteiros.mp4",
+    "genero": "Animação",
+    "year": "2004",
+    "rating": "6.7",
+    "desc": "Em seu primeiro longa-metragem, Mickey, Donald e Pateta são três amigos que trabalham como faxineiros e dividem o mesmo sonho: tornar-se mosqueteiros. Uma grande mudança começa quando Capitão Bafo, o ganancioso comandante dos mosqueteiros, e sua cruel tenente Clarabela decidem usar os três amigos em um plano para conquistar o reino da Princesa Minnie.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/euce4fzdZOLM0ytoQJv5ZJCorhy.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Os Flintstones Encontram Pedrácula e Frankenstone",
+    "url": "https://ia800309.us.archive.org/15/items/os-flintstones-encontram-pedracula-e-frankenstone-paixaoflix/CONV_Os%20Flintstones%20Encontram%20Pedr%C3%A1cula%20e%20Frankenstone.mp4",
+    "genero": "Animação",
+    "year": "1979",
+    "rating": "7.6",
+    "desc": "Ao participarem de um concurso, os Flintstones e os Rubbles ganham uma viagem para um castelo na Rocksilvânia e acabam tendo um desagradável encontro com o Conde Pedrácula e seu criado Frankenstone.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/9pu2sz72eqHovp7nC30kITRHvEm.jpg",
+    "type": "movie"
+  },
+  {
+    "titulo": "Todo Mundo Ama O Pateta",
+    "url": "https://ia801708.us.archive.org/24/items/todo-mundo-ama-o-pateta-paixaoflix/CONV_Todo%20Mundo%20Ama%20o%20Pateta.mp4",
+    "genero": "Animação",
+    "year": "2003",
+    "rating": "7.1",
+    "desc": "Toda família vai adorar ver o Pateta sair de uma trapalhada e entrar em outra nesta coleção que reúne suas histórias mais divertidas. O dia está lindo e tudo vai muito bem até que o Pateta resolve demonstrar seus talentos atléticos em A Arte de Esquiar e em Como Pescar. Em Pateta e Wilbur, Pateta e um grilo saltitante descobrem o verdadeiro significado da amizade numa viagem de pescaria.",
+    "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/nYQoJz4CqmYSjEdy0dXHwdcU3QO.jpg",
+    "type": "movie"
+  },
+  {
     "titulo": "Batman vs. As Tartarugas Ninjas",
     "url": "https://ia601706.us.archive.org/13/items/batman-vs-as-tartarugas-ninjas-paixaoflix/CONV_Batman%20vs%20As%20Tartarugas%20Ninjas.mp4",
     "genero": "Animação",

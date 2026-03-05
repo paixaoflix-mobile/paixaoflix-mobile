@@ -1,5 +1,13 @@
 [
   {
+    "titulo": "A Criada",
+    "tmdb_id": "1368166",
+    "categories": "Drama",
+    "trailer": "https://youtu.be/pJyT5N6cdCk",
+    "url": "https://ia800502.us.archive.org/35/items/PaixaoFlix-A-Empregada-2025/A%20Empregada%202025%205%201.mp4",
+    "type": "movie"
+  },
+  {
     "titulo": "Percy Jackson e o Mar de Monstros",
     "url": "https://ia600301.us.archive.org/28/items/percy-jackson-e-o-mar-de-monstros-paixaoflix/CONV_Percy%20Jackson%20e%20o%20Mar%20de%20Monstros.mp4",
     "genero": "Aventura",
@@ -9,7 +17,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/izLw6mf5coAJZV6n9wDfbYWXXHW.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Todo Mundo Ama O Pateta",
     "url": "https://ia801708.us.archive.org/24/items/todo-mundo-ama-o-pateta-paixaoflix/CONV_Todo%20Mundo%20Ama%20o%20Pateta.mp4",
     "genero": "Animação",
@@ -19,7 +27,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/nYQoJz4CqmYSjEdy0dXHwdcU3QO.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Percy Jackson e o Ladrão de Raios",
     "url": "https://ia801707.us.archive.org/19/items/percy-jackson-e-o-ladrao-de-raios-paixaoflix/CONV_Percy%20Jackson%20e%20o%20Ladr%C3%A3o%20de%20Raios.mp4",
     "genero": "Aventura",
@@ -29,7 +37,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/nuQFRVgKAXZNmjJhNuPO0dXcZqn.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Os Flintstones Encontram Pedrácula e Frankenstone",
     "url": "https://ia800309.us.archive.org/15/items/os-flintstones-encontram-pedracula-e-frankenstone-paixaoflix/CONV_Os%20Flintstones%20Encontram%20Pedr%C3%A1cula%20e%20Frankenstone.mp4",
     "genero": "Animação",
@@ -39,7 +47,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/9pu2sz72eqHovp7nC30kITRHvEm.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Mickey, Donald e Pateta - Os Três Mosqueteiros",
     "url": "https://ia600509.us.archive.org/34/items/mickey-donald-e-pateta-os-tres-mosqueteiros-paixaoflix/CONV_Mickey%2C%20Donald%20e%20Pateta%20-%20Os%20Tr%C3%AAs%20Mosqueteiros.mp4",
     "genero": "Animação",
@@ -49,7 +57,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/euce4fzdZOLM0ytoQJv5ZJCorhy.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Luca",
     "url": "https://ia800800.us.archive.org/6/items/luca-paixaoflix/CONV_Luca.mp4",
     "genero": "Animação",
@@ -59,7 +67,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/m6Ockf2oYhxXoBIBaRLDwCOE410.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Leo",
     "url": "https://ia600700.us.archive.org/10/items/leo-paixaoflix/CONV_Leo.mp4",
     "genero": "Animação",
@@ -69,7 +77,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/gSOVog7ydsaF1YpgAqBqnKYFGY.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Festa de Léo",
     "url": "https://ia600101.us.archive.org/8/items/a-festa-de-leo-paixaoflix/CONV_A%20Festa%20de%20Leo.mp4",
     "genero": "Drama",
@@ -79,7 +87,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/s3EUAA30BRuwTE0QpmzxaMVa8Mn.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Espanta Tubarões",
     "url": "https://ia800102.us.archive.org/22/items/o-espanta-tubaroes-paixaoflix/CONV_O%20Espanta%20Tubar%C3%B5es.mp4",
     "genero": "Animação",
@@ -89,7 +97,7 @@
     "poster": "https://www.themoviedb.org/t/p/w600_and_h900_face/1tPhFqGScPYbaLuczBnlFGjNUqj.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Preço do Prazer",
     "url": "https://ia600103.us.archive.org/5/items/o-preco-do-prazer-paixaoflix/CONV_O%20Preco%20do%20Prazer.mp4",
     "genero": "Adulto",
@@ -99,7 +107,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/uvnvE2lwwcFH4Smc4ilz194EdoD.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Arca de Noé",
     "url": "https://ia601807.us.archive.org/34/items/arca-de-noe-paixaoflix/CONV_Arca%20de%20Noe.mp4",
     "genero": "Animação",
@@ -109,7 +117,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/iI79rRbcwPKVlbEN5Sc4EwppRpa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Filme Looney, Looney, Looney do Pernalonga",
     "url": "https://ia800102.us.archive.org/15/items/o-filme-looney-looney-looney-do-pernalonga-paixaoflix/CONV_O%20Filme%20Looney%20do%20Pernalonga.mp4",
     "genero": "Animação",
@@ -119,7 +127,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/jLClJrQiJDr5997n5cAXmLSV9av.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Patos!",
     "url": "https://ia800700.us.archive.org/17/items/patrulha-canina-paixaoflix/CONV_Patos.mp4",
     "genero": "Animação",
@@ -129,7 +137,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wXWnUhdnSuADRp9w7aAZNHx682v.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Nossa Vizinhança",
     "url": "https://ia800804.us.archive.org/32/items/nossa-vizinhanca-paixaoflix/CONV_Nossa%20Vizinhanca.mp4",
     "genero": "Drama",
@@ -139,7 +147,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/5ivxdAWTJf6YdQDBLmysTgJiqqh.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Nossa Vizinhança",
     "url": "https://ia800804.us.archive.org/32/items/nossa-vizinhanca-paixaoflix/CONV_Nossa%20Vizinhanca.mp4",
     "genero": "Lançamento",
@@ -149,7 +157,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/5ivxdAWTJf6YdQDBLmysTgJiqqh.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Lar Sinistro",
     "url": "https://ia800100.us.archive.org/22/items/o-lar-sinistro-paixaoflix/CONV_O%20Lar%20Sinistro.mp4",
     "genero": "Terror",
@@ -159,7 +167,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/40nxLSRwm0sfiTVEPBtWXfCVhd1.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Lar Sinistro",
     "url": "https://ia800100.us.archive.org/22/items/o-lar-sinistro-paixaoflix/CONV_O%20Lar%20Sinistro.mp4",
     "genero": "Lançamento",
@@ -169,7 +177,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/40nxLSRwm0sfiTVEPBtWXfCVhd1.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Falsário",
     "url": "https://ia801809.us.archive.org/18/items/o-falsario-paixaoflix/CONV_O%20Fals%C3%A1rio.mp4",
     "genero": "Crime",
@@ -179,7 +187,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/kruMkxPyLf8bZIuu53JxgyZ29kj.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Falsário",
     "url": "https://ia801809.us.archive.org/18/items/o-falsario-paixaoflix/CONV_O%20Fals%C3%A1rio.mp4",
     "genero": "Lançamento",
@@ -189,7 +197,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/kruMkxPyLf8bZIuu53JxgyZ29kj.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Um Dia Extraordinário",
     "url": "https://ia800802.us.archive.org/34/items/um-dia-extraordinario-paixaoflix/CONV_Um%20Dia%20Extraordin%C3%A1rio.mp4",
     "genero": "Crime",
@@ -199,7 +207,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/AuRamBsUf8AqRzHmWMjb2jg5vVZ.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Um Dia Extraordinário",
     "url": "https://ia800802.us.archive.org/34/items/um-dia-extraordinario-paixaoflix/CONV_Um%20Dia%20Extraordin%C3%A1rio.mp4",
     "genero": "Lançamento",
@@ -209,7 +217,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/AuRamBsUf8AqRzHmWMjb2jg5vVZ.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Um Mundo Encantado 2",
     "url": "https://ia800800.us.archive.org/20/items/um-mundo-encantado-2-paixaoflix/CONV_Um%20Mundo%20Encantado%202.mp4",
     "genero": "Aventura",
@@ -219,7 +227,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/6IfNtA1SSLmm52Se9d49nHQbiQ1.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Vendedor de Sonhos",
     "url": "https://ia800207.us.archive.org/2/items/dreamseller-the-brandon-novak-documentary-paixaoflix/CONV_The%20Dreamseller.mp4",
     "genero": "Nacional",
@@ -229,7 +237,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/hV6l4wOhPDbEflqM1A2047D4F0E.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Dinheiro Suspeito",
     "url": "https://ia800304.us.archive.org/3/items/dinheiro-suspeito-paixaoflix/CONV_Dinheiro%20Suspeito.mp4",
     "genero": "Crime",
@@ -239,7 +247,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/bm04TGkE5ySrHbHlO6YloYZvs4P.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Dinheiro Suspeito",
     "url": "https://ia800304.us.archive.org/3/items/dinheiro-suspeito-paixaoflix/CONV_Dinheiro%20Suspeito.mp4",
     "genero": "Lançamento",
@@ -249,7 +257,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/bm04TGkE5ySrHbHlO6YloYZvs4P.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Davi - Nasce Um Rei",
     "url": "https://ia801602.us.archive.org/34/items/davi-nasce-um-rei-paixaoflix/CONV_Davi%20Nasce%20Um%20Rei.mp4",
     "genero": "Animação",
@@ -259,7 +267,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/4GK7WiXuIaLecQDJZkmL8xieTIa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Davi - Nasce Um Rei",
     "url": "https://ia801602.us.archive.org/34/items/davi-nasce-um-rei-paixaoflix/CONV_Davi%20Nasce%20Um%20Rei.mp4",
     "genero": "Lançamento",
@@ -269,7 +277,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/4GK7WiXuIaLecQDJZkmL8xieTIa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Davi - Nasce Um Rei",
     "url": "https://ia801602.us.archive.org/34/items/davi-nasce-um-rei-paixaoflix/CONV_Davi%20Nasce%20Um%20Rei.mp4",
     "genero": "Religioso",
@@ -279,7 +287,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/4GK7WiXuIaLecQDJZkmL8xieTIa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Bob Esponja - Em Busca da Calça Quadrada",
     "url": "https://ia601806.us.archive.org/14/items/bob-esponja-em-busca-da-calca-quadrada-paixaoflix/CONV_Bob%20Esponja%20Em%20Busca%20da%20Cal%C3%A7a%20Quadrada.mp4",
     "genero": "Animação",
@@ -289,7 +297,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/obDYToEfPFNMKW6x0eamCrjTMzK.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Bob Esponja - Em Busca da Calça Quadrada",
     "url": "https://ia601806.us.archive.org/14/items/bob-esponja-em-busca-da-calca-quadrada-paixaoflix/CONV_Bob%20Esponja%20Em%20Busca%20da%20Cal%C3%A7a%20Quadrada.mp4",
     "genero": "Lançamento",
@@ -299,7 +307,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/obDYToEfPFNMKW6x0eamCrjTMzK.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Dirty Dancing - Ritmo Quente",
     "url": "https://ia801703.us.archive.org/27/items/dirty-dancing-ritmo-quente-paixaoflix/CONV_Dirty%20Dancing.mp4",
     "genero": "Romance",
@@ -309,7 +317,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/mUVIRUpqKQa8uKDgyYrQHs6rlbz.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Dirty Dancing - O Musical",
     "url": "https://ia600305.us.archive.org/4/items/dirty-dancing--o-musical-paixaoflix/CONV_Dirty%20Dancing%20O%20Musical.mp4",
     "genero": "Romance",
@@ -329,7 +337,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/yvD1G41HwHgj8afCjmfGbyRmBBR.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Serra das Almas",
     "url": "https://ia801706.us.archive.org/32/items/serra-das-almas-paixaoflix/Serra%20das%20Almas.mp4",
     "genero": "Crime",
@@ -339,7 +347,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/dMdB58yXQjQOd4eWXiLUbunYfB4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Serra das Almas",
     "url": "https://ia801706.us.archive.org/32/items/serra-das-almas-paixaoflix/Serra%20das%20Almas.mp4",
     "genero": "Lançamento",
@@ -349,7 +357,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/dMdB58yXQjQOd4eWXiLUbunYfB4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "MMA Meu Melhor Amigo",
     "url": "https://ia800404.us.archive.org/35/items/mma-meu-melhor-amigo-paixaoflix/MMA%20Meu%20Melhor%20Amigo.mp4",
     "genero": "Familia",
@@ -359,7 +367,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/959Vbki8itfHoNbZnURFBi5pULa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "MMA Meu Melhor Amigo",
     "url": "https://ia800404.us.archive.org/35/items/mma-meu-melhor-amigo-paixaoflix/MMA%20Meu%20Melhor%20Amigo.mp4",
     "genero": "Lançamento",
@@ -369,7 +377,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/959Vbki8itfHoNbZnURFBi5pULa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Confia Sonho de Cria",
     "url": "https://ia801706.us.archive.org/31/items/confia-sonho-de-cria-paixaoflix/Confia%20Sonho%20de%20Cria.mp4",
     "genero": "Nacional",
@@ -379,7 +387,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/6m5ryNvYBc4xZxZkPD4hJSJzQh8.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Confia Sonho de Cria",
     "url": "https://ia801706.us.archive.org/31/items/confia-sonho-de-cria-paixaoflix/Confia%20Sonho%20de%20Cria.mp4",
     "genero": "Lançamento",
@@ -389,7 +397,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/6m5ryNvYBc4xZxZkPD4hJSJzQh8.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Amigos Imaginários",
     "url": "https://ia601408.us.archive.org/3/items/amigosimaginarios-kids-paixaoflix/Amigos%20Imagin%C3%A1rios_ready.mp4",
     "genero": "Comédia",
@@ -399,7 +407,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wIs9ktN8SztPNYVMm3grZzWetAO.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "As Novas Aventuras do Fusca",
     "url": "https://ia800802.us.archive.org/1/items/as-novas-aventuras-do-fusca-paixaoflix/CONV_As%20Novas%20Aventuras%20Do%20Fusca.mp4",
     "genero": "Romance",
@@ -409,7 +417,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/2owUFcJsLJw7e6k6CliDRWkoGX4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "As Tartarugas Ninja 3",
     "url": "https://ia800404.us.archive.org/24/items/as-tartarugas-ninja-iii-paixaoflix/CONV_As%20Tartarugas%20Ninja%20III%20%281993%29.mp4",
     "genero": "Ficção",
@@ -419,7 +427,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/vQ4DQb617N4ipB7LPfUIfGR3X9P.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "As Tartarugas Ninja 2 - O Segredo do Ooze",
     "url": "https://ia800404.us.archive.org/24/items/as-tartarugas-ninja-iii-paixaoflix/CONV_As%20Tartarugas%20Ninja%20II%20-%20O%20Segredo%20do%20Ooze%20%281991%29.mp4",
     "genero": "Ficção",
@@ -429,7 +437,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/vQ4DQb617N4ipB7LPfUIfGR3X9P.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "As Tartarugas Ninja",
     "url": "https://ia800802.us.archive.org/3/items/as-tartarugas-ninja-paixaoflix/CONV_As%20Tartarugas%20Ninjas%20I%20%281990%29.mp4",
     "genero": "Ficção",
@@ -439,7 +447,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wlbpAi91pyN2QbGmX2aJnJHIhL4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Rute e Boaz",
     "url": "https://ia801701.us.archive.org/30/items/rute-e-boaz-paixaoflix/CONV_Ruth%20e%20Boaz.mp4",
     "genero": "Romance",
@@ -449,7 +457,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/u7tqBQrxq6AyT7LMcBzv3vykysn.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Rute e Boaz",
     "url": "https://ia801701.us.archive.org/30/items/rute-e-boaz-paixaoflix/CONV_Ruth%20e%20Boaz.mp4",
     "genero": "Lançamento",
@@ -459,7 +467,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/u7tqBQrxq6AyT7LMcBzv3vykysn.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "French Lover",
     "url": "https://ia801706.us.archive.org/11/items/french-lover-paixaoflix/CONV_French%20Lover.mp4",
     "genero": "Romance",
@@ -469,7 +477,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/bLqPpqNoKbNbXysIeft1tLIl6KB.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "French Lover",
     "url": "https://ia801706.us.archive.org/11/items/french-lover-paixaoflix/CONV_French%20Lover.mp4",
     "genero": "Lançamento",
@@ -479,7 +487,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/bLqPpqNoKbNbXysIeft1tLIl6KB.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Malês",
     "url": "https://ia601703.us.archive.org/6/items/revolta-dos-males-paixaoflix/CONV_Mal%C3%AAs.mp4",
     "genero": "Nacional",
@@ -489,7 +497,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/zqqMdCnQfVuhAyxNI5Pxr2gt6b3.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Malês",
     "url": "https://ia601703.us.archive.org/6/items/revolta-dos-males-paixaoflix/CONV_Mal%C3%AAs.mp4",
     "genero": "Lançamento",
@@ -499,7 +507,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/zqqMdCnQfVuhAyxNI5Pxr2gt6b3.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Batman vs. As Tartarugas Ninjas",
     "url": "https://ia601706.us.archive.org/13/items/batman-vs-as-tartarugas-ninjas-paixaoflix/CONV_Batman%20vs%20As%20Tartarugas%20Ninjas.mp4",
     "genero": "Animação",
@@ -509,7 +517,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/taY4vESo77uuVLf0qHtIIUgjXmN.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Agente Secreto",
     "url": "https://ia800509.us.archive.org/30/items/the-secret-agent-paixaoflix/CONV_The%20Secret%20Agent.mp4",
     "genero": "Nacional",
@@ -519,7 +527,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/cjHczbkm4j9Dccgf2RzyjZh8kYT.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Agente Secreto",
     "url": "https://ia800509.us.archive.org/30/items/the-secret-agent-paixaoflix/CONV_The%20Secret%20Agent.mp4",
     "genero": "Lançamento",
@@ -529,7 +537,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/cjHczbkm4j9Dccgf2RzyjZh8kYT.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "As Ondas",
     "url": "https://ia800600.us.archive.org/14/items/as-ondas-paixaoflix/CONV_As%20Ondas.mp4",
     "genero": "Romance",
@@ -549,7 +557,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/kSWYR3yqlbOIJdqRop970ce5mBS.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Countdown",
     "url": "https://ia601206.us.archive.org/32/items/pf-acaocountdown/%20Countdown.mp4",
     "genero": "Crime",
@@ -559,7 +567,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/o67cJGmKTs2B5Qr6wzdPod9f1Dz.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Countdown",
     "url": "https://ia601206.us.archive.org/32/items/pf-acaocountdown/%20Countdown.mp4",
     "genero": "Lançamento",
@@ -569,7 +577,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/o67cJGmKTs2B5Qr6wzdPod9f1Dz.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Creed II",
     "url": "https://ia600300.us.archive.org/11/items/pf-acaocreedii/Creed%20II.mp4",
     "genero": "Drama",
@@ -579,7 +587,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/4eVe0XEmkxNPNzLWNw7D7f0Q6pt.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Creed I -  Nascido Para Lutar",
     "url": "https://ia600300.us.archive.org/34/items/pf-acaocreedinascidoparalutar/Creed%20I%20-%20%20Nascido%20Para%20Lutar.mp4",
     "genero": "Drama",
@@ -589,7 +597,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/53VTzu0nhbNYmIbqdDbFqobsLHt.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Karatê Kid",
     "url": "https://ia803109.us.archive.org/30/items/pf-acaokaratekid/Karat%C3%AA%20Kid.mp4",
     "genero": "Ação",
@@ -599,7 +607,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/AbBlpGNj69gWQNKO0qg6QGDnbaW.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Luta de Um Campeão",
     "url": "https://ia801703.us.archive.org/23/items/pf-acaoalutadeumcampeao/A%20Luta%20de%20Um%20Campe%C3%A3o.mp4",
     "genero": "Drama",
@@ -609,7 +617,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/f6ssjFw6CcCQT57VIo44myVhOi7.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Capitão América Admirável Mundo Novo",
     "url": "https://ia803105.us.archive.org/28/items/pf-acaocapitaoamericaadmiravelmundonovo/Capit%C3%A3o%20Am%C3%A9rica%20Admir%C3%A1vel%20Mundo%20Novo.mp4",
     "genero": "Ação",
@@ -619,7 +627,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/5nbSgP8f5LMCI0PwVRRaHJaUmR3.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Capitão América Admirável Mundo Novo",
     "url": "https://ia803105.us.archive.org/28/items/pf-acaocapitaoamericaadmiravelmundonovo/Capit%C3%A3o%20Am%C3%A9rica%20Admir%C3%A1vel%20Mundo%20Novo.mp4",
     "genero": "Lançamento",
@@ -629,7 +637,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/5nbSgP8f5LMCI0PwVRRaHJaUmR3.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Creed III",
     "url": "https://ia803105.us.archive.org/29/items/pf-acaocreediii/Creed%20III.mp4",
     "genero": "Drama",
@@ -639,7 +647,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/kLgmZVrRVY41FWCCidi9IqmM473.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "De Volta a Ação",
     "url": "https://ia803105.us.archive.org/13/items/pf-acaodevoltaaacao/De%20Volta%20a%20A%C3%A7%C3%A3o.mp4",
     "genero": "Ação",
@@ -649,7 +657,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/m4gzzzeYRmrwasrBdJmjhBmjS3U.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "De Volta a Ação",
     "url": "https://ia803105.us.archive.org/13/items/pf-acaodevoltaaacao/De%20Volta%20a%20A%C3%A7%C3%A3o.mp4",
     "genero": "Lançamento",
@@ -659,7 +667,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/m4gzzzeYRmrwasrBdJmjhBmjS3U.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Irmão de Sangue",
     "url": "https://ia601206.us.archive.org/4/items/pf-acaoirmaodesangue/Irm%C3%A3o%20de%20Sangue.mp4",
     "genero": "Documentários",
@@ -669,7 +677,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/8niel2KjxfcOGmLWQc6p2fo5pUm.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "La Entidad",
     "url": "https://ia801702.us.archive.org/33/items/pf26-terror-la-entidad/La%20Entidad.mp4",
     "genero": "Terrror",
@@ -679,7 +687,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/v2PI16PXks6ZFTYBm8Bb0uGJmh2.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "La Entidad",
     "url": "https://ia801702.us.archive.org/33/items/pf26-terror-la-entidad/La%20Entidad.mp4",
     "genero": "Lançamento",
@@ -689,7 +697,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/v2PI16PXks6ZFTYBm8Bb0uGJmh2.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Acampamento Maldito",
     "url": "https://ia601702.us.archive.org/17/items/pf26-terror-acampamento-maldito-2020-/Acampamento%20Maldito%20%282020%29.mp4",
     "genero": "Terrror",
@@ -699,7 +707,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ayMAxYTvCMWCQKG84dRT8ZEa0GC.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Aldeia Maldita",
     "url": "https://ia800403.us.archive.org/20/items/pf26-terror-aldeia-maldita/Aldeia%20Maldita.mp4",
     "genero": "Terrror",
@@ -709,7 +717,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/nf4w2flxKHpzX7C2OCTiqzUl9xn.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Purgatório",
     "url": "https://ia601701.us.archive.org/11/items/pf26-terror-purgatorio/Purgat%C3%B3rio.mp4",
     "genero": "Terrror",
@@ -719,7 +727,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/o22g7myLjN6ldiHFiQTroqVamEJ.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Possessão - O Último Estágio",
     "url": "https://ia803207.us.archive.org/31/items/pf26-terror-possessao--o-ultimo-estagio/Possess%C3%A3o%20-%20O%20%C3%9Altimo%20Est%C3%A1gio.mp4",
     "genero": "Terrror",
@@ -729,7 +737,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ivfDBwXa4C9XHcr0r6SfusWx6ox.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Desejo Mortal - A Professora Assassina",
     "url": "https://ia600109.us.archive.org/3/items/pf26-terror-a-professora-assassina--a-continuacao-sombria-de-psicopata-americano/A%20PROFESSORA%20ASSASSINA%20-%20A%20CONTINUA%C3%87%C3%83O%20SOMBRIA%20DE%20PSICOPATA%20AMERICANO.mp4",
     "genero": "Terrror",
@@ -739,7 +747,7 @@
     "poster": "https://i.imgur.com/VRqhp1x.jpeg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Entidade",
     "url": "https://ia803105.us.archive.org/29/items/pf26-terror-a-entidade-2019/A%20Entidade%20%282019%29.mp4",
     "genero": "Terrror",
@@ -749,7 +757,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/oCnfdWnOvEXHsm4d3V2Y5bjo512.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Os Cavaleiros do Zodíaco - Os Guerreiros do Armagedon",
     "url": "https://ia801703.us.archive.org/24/items/pf26-anime-cdz--4-os-guerreiros-do-armagedon/CDZ%20-%204%20Os%20guerreiros%20do%20armagedon.mp4",
     "genero": "Anime",
@@ -759,7 +767,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/cXCWqtb7oRtkQfpxjdPS4G2c3RR.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Os Cavaleiros do Zodíaco - Prólogo do Céu ",
     "url": "https://ia803108.us.archive.org/11/items/pf26-anime-cdz-filme-05-prologo-do-ceu/CDZ%20-Filme%20-05%20Prologo%20do%20C%C3%A9u.mp4",
     "genero": "Anime",
@@ -769,7 +777,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/kslCOlg1trlqry0XF3kCqdwh3ZP.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "My Hero Academia Agora é a Sua Vez",
     "url": "https://ia801204.us.archive.org/6/items/pf26-anime-my-hero-academia-agora-e-a-sua-vez-2024/My%20Hero%20Academia%20Agora%20%C3%A9%20a%20Sua%20Vez%202024.mp4",
     "genero": "Anime",
@@ -779,7 +787,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/lA1ph3BIWgQq0asDYxAxFLtxzx1.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Alvin e os Esquilos Na Estrada",
     "url": "https://ia802907.us.archive.org/30/items/alvin-e-os-esquilos-na-estrada-animacao/Alvin%20e%20os%20Esquilos%20Na%20Estrada%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -789,7 +797,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/1XuMjOFkfSpMz0ID6SSG2ISawVP.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Paixão De Cristo",
     "url": "https://ia800809.us.archive.org/11/items/a-paixao-de-cristo-2004-religioso/A%20Paix%C3%A3o%20De%20Cristo%202004.mp4",
     "genero": "Religioso",
@@ -799,7 +807,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/d7QIYy7cyKz8mr6QzhdSekaKdlN.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Última Tentação de Cristo",
     "url": "https://ia800201.us.archive.org/21/items/a-ultima-tentacao-de-cristo-1988-religioso/A%20%C3%9Altima%20Tenta%C3%A7%C3%A3o%20de%20Cristo.1988.mp4",
     "genero": "Religioso",
@@ -809,7 +817,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/yqUf4l6UuqCUKs7cVH879anIoC6.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Bons de Bico",
     "url": "https://ia600807.us.archive.org/9/items/bons-de-bico-animacao/Bons%20de%20Bico%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -819,7 +827,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/k4QhfbV2ptqos6pC9kcrFMg1pHV.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Astro Boy",
     "url": "https://ia601602.us.archive.org/14/items/astro-boy-animacao-animacao/Astro%20Boy%20-%20anima%C3%A7%C3%A3o%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -829,7 +837,7 @@
     "poster": "https://1.bp.blogspot.com/-2jL7orvtJqs/WNM2gf_VKiI/AAAAAAAABL8/X4z8M3gFEIYCHp6CxBuf_8vhTrMW4CeqwCLcB/s320/astro_boy_torrent.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Dois Irmãos - Uma Jornada Fantástica",
     "url": "https://ia800904.us.archive.org/19/items/dois-irmaos-uma-jornada-fantastica-animacao/Dois%20Irm%C3%A3os%20-%20Uma%20Jornada%20Fant%C3%A1stica%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -839,7 +847,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/jsi2UM64Mhr6NmY1LKeeCuZOaCo.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Garfield",
     "url": "https://ia903108.us.archive.org/3/items/garfield-animacao/Garfield%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -849,7 +857,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/eJhCZ3pPjNLKxdNezjrQaQsfENP.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Em Busca da Liberdade",
     "url": "https://ia601605.us.archive.org/10/items/coragem-e-esperanca-religioso/%20Coragem%20e%20Esperan%C3%A7a.mp4",
     "genero": "Drama",
@@ -859,7 +867,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/mFF6kbPZZ4A3oySfW40s9CClNcg.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Ele Cuida de Mim",
     "url": "https://ia800904.us.archive.org/5/items/ele-cuida-de-mim-religioso/Ele%20Cuida%20de%20Mim.mp4",
     "genero": "Religioso",
@@ -869,7 +877,7 @@
     "poster": "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/Ele-Cuida-de-Mim.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Ele Cuida de Mim",
     "url": "https://ia800904.us.archive.org/5/items/ele-cuida-de-mim-religioso/Ele%20Cuida%20de%20Mim.mp4",
     "genero": "Lançamento",
@@ -879,7 +887,7 @@
     "poster": "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/Ele-Cuida-de-Mim.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Jester Till",
     "url": "https://ia801706.us.archive.org/21/items/jester-till-animacao/Jester%20Till%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -889,7 +897,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/iWQ54Hcyu8M7SQNThOGx5MzwCJU.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Lara Croft - Rise Of The Tomb Rider",
     "url": "https://ia803105.us.archive.org/8/items/lara-croft-rise-of-the-tomb-rider-animacao/Lara%20Croft%20-%20Rise%20Of%20The%20Tomb%20Rider%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Ação",
@@ -899,7 +907,7 @@
     "poster": "https://raw.githubusercontent.com/paixaoflix-mobile/paixaoflix-mobile/refs/heads/main/Lara%20Croft%20-%20Rise%20Of%20The%20Tomb%20Rider.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Prova de Fogo",
     "url": "https://ia601608.us.archive.org/11/items/filme-gospel-l-baseado-em-fatos-reais-religioso/Filme%20gospel%20l%20baseado%20em%20fatos%20reais.mp4",
     "genero": "Religioso",
@@ -909,7 +917,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/1zceCQ1x2mPUPn4Op2f8NSfS5zf.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "MEU AMIGO ROBÔ",
     "url": "https://ia601204.us.archive.org/14/items/meu-amigo-robo-animacao/MEU%20AMIGO%20ROB%C3%94%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -919,7 +927,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/zmgx7H51Tq9wgpW0DZxSGzXURZy.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Mortadelo e Salaminho - Missão Inacreditável ",
     "url": "https://ia800205.us.archive.org/20/items/mortadelo-e-salaminho-missao-inacreditavel-animacao/Mortadelo%20e%20Salaminho%20-%20Miss%C3%A3o%20Inacredit%C3%A1vel%20-%20anima%C3%A7%C3%A3o.mp4",
     "genero": "Animação",
@@ -929,7 +937,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/mBKoXlVMGol8YpoMgbqcBU33bZc.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Avatar - Fogo e Cinzas",
     "url": "https://ia801703.us.archive.org/27/items/avatar-fogo-e-cinzas-2025/Avatar%20-%20Fogo%20e%20Cinzas.mp4",
     "genero": "Ficção",
@@ -939,7 +947,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/9k2zKeUfcKkAz1dGt5MP6dZMm4G.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Avatar - Fogo e Cinzas",
     "url": "https://ia801703.us.archive.org/27/items/avatar-fogo-e-cinzas-2025/Avatar%20-%20Fogo%20e%20Cinzas.mp4",
     "genero": "Lançamento",
@@ -949,7 +957,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/9k2zKeUfcKkAz1dGt5MP6dZMm4G.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Intocáveis",
     "url": "https://ia600200.us.archive.org/8/items/intocaveis-paixaoflix/Intoc%C3%A1veis_ptbr.mp4",
     "genero": "Drama",
@@ -959,7 +967,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/2tAzFC2xUAXEx96l5Xixb6WLAyO.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Carandiru",
     "url": "https://ia800602.us.archive.org/13/items/carandiru-nacional-paixaoflix/Carandiru.mp4",
     "genero": "Drama",
@@ -969,7 +977,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/bkq8RsbCb7ugW0ZmsD8SYEvQWSp.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Antes de Partir",
     "url": "https://ia600908.us.archive.org/11/items/antes-de-partir-paixaoflix/Antes%20de%20Partir.mp4",
     "genero": "Drama",
@@ -1029,7 +1037,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ml3rgtf0RD4VFcEZyyqwEFWOlfB.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Bad Boys - Tudo ou Nada",
     "url": "https://ia801703.us.archive.org/27/items/pf-acaobadboysateofim/Bad%20Boys%20Ate%20o%20Fim.mp4",
     "genero": "Ação",
@@ -1039,7 +1047,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/f2RdgXHVk4oZhLOhoeKQYhz8wK8.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Blindado",
     "url": "https://ia800901.us.archive.org/34/items/pf-acaoblindado/Blindado.mp4",
     "genero": "Drama",
@@ -1059,7 +1067,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/v0xT4MS9GGGt9lJaLvKU06sBfuc.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Apertem os Cintos o Piloto Sumiu 2",
     "url": "https://ia800301.us.archive.org/20/items/o-trofeu-roubado-paixaoflix/Apertem%20os%20Cintos%20o%20Piloto%20Sumiu%202%201982.mp4",
     "genero": "Comédia",
@@ -1139,7 +1147,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ytdK03kYesKHtBHJvlCQjLNtMre.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Vault",
     "url": "https://ia801607.us.archive.org/16/items/vault-police-paixaoflix/Vault_ready.mp4",
     "genero": "Crime",
@@ -1149,7 +1157,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/rOIWNpTDUfIqBJI87vCDqGkCY0h.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Central do Brasil",
     "url": "https://ia600400.us.archive.org/30/items/central-do-brasil-1998-1768671271/Central%20do%20Brasil%20-%201998.mp4",
     "genero": "Drama",
@@ -1159,7 +1167,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/m7e0BfUT9HRyl1w754EgGfHlYdP.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Fuga das Galinhas 2 - Estamos Fritas",
     "url": "https://ia800404.us.archive.org/20/items/afugadasgalinhasaameacadosnuggets-kids-paixaoflix/A%20Fuga%20das%20Galinhas%20-%20A%20Amea%C3%A7a%20dos%20Nuggets_ready.mp4",
     "genero": "Animação",
@@ -1169,7 +1177,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/8O7qM2ue5VHPsu1FFbZSRMpCqwY.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Deslizando pela Vida",
     "url": "https://ia801501.us.archive.org/17/items/deslizando-pela-vida-paixaoflix/Deslizando%20pela%20Vida.mp4",
     "genero": "Romance",
@@ -1189,7 +1197,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/yQa1pEGji6JlWaVcow3KPabBKnI.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "As Branquelas - Sem Cortes",
     "url": "https://ia600309.us.archive.org/26/items/as-branquelas-sem-cortes-paixaoflix/As%20Branquelas%20Sem%20Cortes.mp4",
     "genero": "Comédia",
@@ -1219,7 +1227,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/o0brhd2qdfFL3o7VxFDsUfUSaML.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Para Além da Lua",
     "url": "https://ia600700.us.archive.org/5/items/acaminhodalua-kids-paixaoflix/A%20Caminho%20da%20Lua_ready.mp4",
     "genero": "Animação",
@@ -1229,7 +1237,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/3ufzsrhrIIdvkP1jz0t7ipppQil.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Na Linha de Fogo",
     "url": "https://ia600505.us.archive.org/6/items/nalinhadefogo-police-paixaoflix/Na%20Linha%20de%20Fogo_ready.mp4",
     "genero": "Suspense",
@@ -1249,7 +1257,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/tR72QtCpWFyATitQhY4EmAgfEt4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Rita Lee - Mania de Você",
     "url": "https://ia601706.us.archive.org/10/items/rita-lee-mania-de-voce-paixaoflix/Rita%20Lee%20-%20Mania%20de%20Voc%C3%AA.mp4",
     "genero": "Documentários",
@@ -1269,7 +1277,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/7bD5lOOfWCcrlav2U8IzbEfETp0.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Os Condenados II",
     "url": "https://ia800302.us.archive.org/21/items/oscondenadosii-police-paixaoflix/Os%20Condenados%20II_ready.mp4",
     "genero": "Ação",
@@ -1279,7 +1287,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/xeSqpHnvqOQACOodVI8O8MvLgkg.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Osíris",
     "url": "https://ia800208.us.archive.org/34/items/osiris-scifi-paixaoflix/Os%C3%ADris_ready.mp4",
     "genero": "Ficção",
@@ -1299,7 +1307,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/zV73BurKh944kFpjna1QTF43gPl.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Os Condenados I",
     "url": "https://ia600301.us.archive.org/18/items/oscondenadosi-police-paixaoflix/Os%20Condenados%20I_ready.mp4",
     "genero": "Ação",
@@ -1309,7 +1317,7 @@
     "poster": "https://i.imgur.com/bokVzcg.jpeg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Sogra Perfeita 2",
     "url": "https://ia800402.us.archive.org/29/items/a-sogra-perfeita-2-paixaoflix/A%20Sogra%20Perfeita%202.mp4",
     "genero": "Comédia",
@@ -1329,7 +1337,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/x434Dw7Aj8JkrTBo9uapCLDtA42.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Appaloosa uma cidade sem lei",
     "url": "https://ia600301.us.archive.org/35/items/semlei-police-paixaoflix/Sem%20Lei_ready.mp4",
     "genero": "Faroeste",
@@ -1339,7 +1347,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/31EyHyUEijrxExHHGlKfSH6clDN.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "TRAFF!C",
     "url": "https://ia800102.us.archive.org/7/items/traffc-police-paixaoflix/TRAFF%21C_ready.mp4",
     "genero": "Crime",
@@ -1349,7 +1357,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/fkk54pyjkeQJB03wBybpisG1RCB.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Era do Gelo 1",
     "url": "https://ia801703.us.archive.org/26/items/aeradogelo12002-kids-paixaoflix/A%20Era%20do%20Gelo%201%20-%202002_ready.mp4",
     "genero": "Animação",
@@ -1359,7 +1367,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/2kYi3DJDdlFVyAkXxJcGvsozaEO.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Tropa de Elite 2",
     "url": "https://ia601701.us.archive.org/29/items/tropadeeliteii-police-paixaoflix/Tropa%20de%20Elite%20II_ready.mp4",
     "genero": "Nacional",
@@ -1369,7 +1377,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ldCCmRdBPk5FR13W975zXAM1dGi.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Ó Paí, Ó",
     "url": "https://ia601703.us.archive.org/4/items/o-pai-o-paixaoflix/%C3%93%20Pa%C3%AD%2C%20%C3%93.mp4",
     "genero": "Nacional",
@@ -1379,7 +1387,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/BFVGUEQxhORXLRsclpzvGsIIFY.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Manas",
     "url": "https://ia800302.us.archive.org/33/items/manas-2025-paixaoflix/Manas%20-%202025.mp4",
     "genero": "Nacional",
@@ -1399,7 +1407,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/sGLx3nUukO3ysgyuvuO8XrplTjV.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Era do Gelo 3",
     "url": "https://ia800601.us.archive.org/2/items/aeradogelo32009-kids-paixaoflix/A%20Era%20do%20Gelo%203%20-%202009_ready.mp4",
     "genero": "Animação",
@@ -1409,7 +1417,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/pW4i32dbjMcMDLIHdzbhN2CgBR4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Ó Paí, Ó 2",
     "url": "https://ia800701.us.archive.org/31/items/o-pai-o-2-paixaoflix/%C3%93%20Pa%C3%AD%2C%20%C3%93%202.mp4",
     "genero": "Nacional",
@@ -1419,7 +1427,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/rTus3KG0ZAbqbuHWBafV7Adsbyf.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Últimas Palavras",
     "url": "https://ia600801.us.archive.org/33/items/ultimaspalavras-scifi-paixaoflix/%C3%9Altimas%20Palavras_ready.mp4",
     "genero": "Documentários",
@@ -1439,7 +1447,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ypfl5VYRkeZ3HVM64HxOKriloe4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Prédio Vazio",
     "url": "https://ia800309.us.archive.org/6/items/predio-vazio-2025-paixaoflix/Pr%C3%A9dio%20Vazio%202025.mp4",
     "genero": "Terror",
@@ -1449,7 +1457,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/iOJR3xbCxfbarH8LYnHfDqtfIYa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Era do Gelo 4",
     "url": "https://ia801702.us.archive.org/33/items/aeradogelo42012-kids-paixaoflix/A%20Era%20do%20Gelo%204%20-%202012_ready.mp4",
     "genero": "Animação",
@@ -1459,7 +1467,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/dWiHLqARtyAAOy0nLvXIxRYkfNA.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Era do Gelo - Especial de Natal",
     "url": "https://ia800102.us.archive.org/28/items/aeradogeloespecialdenatal-kids-paixaoflix/A%20Era%20do%20Gelo-Especial%20de%20Natal_ready.mp4",
     "genero": "Animação",
@@ -1469,7 +1477,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/tNJDdFZozVL4JWc7pYbAsnbeF4K.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Uma Batalha Após a Outra",
     "url": "https://ia800101.us.archive.org/11/items/umabatalhaaposaoutra-police-paixaoflix/Uma%20Batalha%20Ap%C3%B3s%20a%20Outra_ready.mp4",
     "genero": "Crime",
@@ -1509,7 +1517,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/4SAiNZDYZ3pGbCWjSI7LyX2rNtE.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Brilho Eterno de uma Mente Sem Lembranças",
     "url": "https://ia600503.us.archive.org/8/items/brilhoeternodeumamentesemlembrancas-scifi-paixaoflix/Brilho%20Eterno%20de%20uma%20Mente%20Sem%20Lembran%C3%A7as_ready.mp4",
     "genero": "Comédia",
@@ -1519,7 +1527,7 @@
     "poster": "https://i.imgur.com/Q8P0tIS.jpeg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Crime Sem Saída",
     "url": "https://ia801708.us.archive.org/18/items/crimesemsaida-police-paixaoflix/Crime%20Sem%20Sa%C3%ADda_ready.mp4",
     "genero": "Policial",
@@ -1529,7 +1537,7 @@
     "poster": "https://apachetorrent.com/capas/crime-sem-saida-legendado-download-torrent-2020-dublado-dual-audio-bluray-1080p-720p-4k-hd.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Aba e sua Banda",
     "url": "https://ia801707.us.archive.org/34/items/abaesuabanda-kids-paixaoflix/Aba%20e%20sua%20Banda_ready.mp4",
     "genero": "Animação",
@@ -1549,7 +1557,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/2494cJdyc8AM0UubMlmJWibbTHw.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Vitoria",
     "url": "https://ia600402.us.archive.org/13/items/vitoria-paixaoflix/Vitoria.mp4",
     "genero": "Nacional",
@@ -1569,7 +1577,7 @@
     "poster": "https://media.themoviedb.org/t/p/w220_and_h330_face/ayiFikg3Q0oDS1PD7yI03Oxskja.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Federal",
     "url": "https://ia800701.us.archive.org/22/items/federal-police-paixaoflix/Federal_ready.mp4",
     "genero": "Nacional",
@@ -1579,7 +1587,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/g4zgHAu2GGU5BiMTUwrpBRVad9L.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "De Repente, Miss!",
     "url": "https://ia800400.us.archive.org/14/items/de-repente-miss-paixaoflix/De%20Repente%2C%20Miss%21.mp4",
     "genero": "Comédia",
@@ -1589,7 +1597,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/5TnXwuvfmd7bYz8VKfXzAFe2rYz.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Impacto Brutal",
     "url": "https://ia800505.us.archive.org/33/items/impactobrutal-police-paixaoflix/Impacto%20Brutal_ready.mp4",
     "genero": "Clássicos",
@@ -1599,7 +1607,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/pXqZNCGwZR4o2MrXJIzn41XvNZG.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Mundo Jurássico - Renascimento",
     "url": "https://ia600800.us.archive.org/5/items/jurassicworldrecomeco-scifi-paixaoflix/Jurassic%20World%20-%20Recome%C3%A7o_ready.mp4",
     "genero": "Ficção",
@@ -1609,7 +1617,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/a3k0o2b8EIgTW5FkF43UpFCVVeF.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Familia Pero no Mucho",
     "url": "https://ia801709.us.archive.org/8/items/familia-pero-no-mucho-paixaoflix/Familia%20Pero%20no%20Mucho.mp4",
     "genero": "Comédia",
@@ -1629,7 +1637,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/a3k0o2b8EIgTW5FkF43UpFCVVeF.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Familia Pero no Mucho",
     "url": "https://ia801709.us.archive.org/8/items/familia-pero-no-mucho-paixaoflix/Familia%20Pero%20no%20Mucho.mp4",
     "genero": "Lançamento",
@@ -1639,7 +1647,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/mNAb8OTrlhW5eFwlsPUW3CRXCXh.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Bela e a Fera",
     "url": "https://ia800102.us.archive.org/28/items/abelaeafera-kids-paixaoflix/A%20Bela%20e%20a%20Fera_ready.mp4",
     "genero": "Animação",
@@ -1659,7 +1667,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ubXNpxL2ASSzY0f8Hxv08pOsV2L.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Marcados - A História do Racismo nos EUA",
     "url": "https://ia801707.us.archive.org/13/items/marcadosahistoriadoracismonoseua-doc-paixaoflix/Marcados%20-%20A%20Hist%C3%B3ria%20do%20Racismo%20nos%20EUA_ready.mp4",
     "genero": "Documentários",
@@ -1669,7 +1677,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/zKr6pPEtvyc0wGiiFseLNPvYhz9.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Menino 23 - Infancias Perdidas no Brasil",
     "url": "https://ia903103.us.archive.org/4/items/menino23infanciasperdidasnobrasil2016720phdtvripavcgooz-doc-paixaoflix/Menino%2023%20-%20Infancias%20Perdidas%20no%20Brasil.2016.720p.HDTVRip.AVC-gooz_ready.mp4",
     "genero": "Documentários",
@@ -1679,7 +1687,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ojxPUoTwfrEOSGoNfMkhetA6ZJf.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Pecadores",
     "url": "https://ia801401.us.archive.org/7/items/pecadores-paixaoflix/Pecadores.mp4",
     "genero": "Terror",
@@ -1699,7 +1707,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/a9kYEboW1TQaeilGYUAx1MO0DUp.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Piratas do Caribe - A Vingança de Salazar",
     "url": "https://ia601400.us.archive.org/26/items/piratasdocaribeavingancadesalazar-paixaoflix/Piratas%20do%20Caribe%20-%20A%20Vingan%C3%A7a%20de%20Salazar_ready.mp4",
     "genero": "Aventura",
@@ -1709,7 +1717,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/eAFHzqf9jtvG6HbxykBCSQLUNWF.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Homem que Quer Viver para Sempre",
     "url": "https://ia600400.us.archive.org/33/items/ohomemquequerviverparasempre2025-doc-paixaoflix/O%20Homem%20que%20Quer%20Viver%20para%20Sempre%202025_ready.mp4",
     "genero": "Documentários",
@@ -1719,7 +1727,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/s6mdvaGWxdfLb23wWBO1gHdnMdG.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Homem Sem Passado",
     "url": "https://ia801704.us.archive.org/13/items/homem-sem-passado-paixaoflix/Homem%20Sem%20Passado.mp4",
     "genero": "Comédia",
@@ -1729,7 +1737,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0xfBj5aeo3isfOqKz8TIbRM16f.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Piratas do Caribe - Navegando em Águas Misteriosas",
     "url": "https://ia601708.us.archive.org/14/items/piratasdocaribenavegandoemaguasmisteriosas-paixaoflix/Piratas%20do%20Caribe%20-%20Navegando%20em%20%C3%81guas%20Misteriosas_ready.mp4",
     "genero": "Aventura",
@@ -1739,7 +1747,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/mQuyx1qXOc6ftTctYVG3gcvWrEH.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Racionais MCs",
     "url": "https://ia801400.us.archive.org/26/items/racionaismcssaopaulo2022-doc-paixaoflix/Racionais%20MCs%20-%20Sao.Paulo.2022_ready.mp4",
     "genero": "Documentários",
@@ -1749,7 +1757,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/mRsRonH875t4CU7wFpDCqCPQ9Qz.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Sarahs Oil",
     "url": "https://ia800100.us.archive.org/18/items/sarahs-oil-2025-1080p-webrip-dublado-paixaoflix/Sarahs.Oil.2025.1080p.WEBRip.Dublado.mp4",
     "genero": "Drama",
@@ -1769,7 +1777,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/eZh6ShWg7392xgYOp1qek7nBsuW.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Piratas do Caribe - No Fim do Mundo",
     "url": "https://ia601709.us.archive.org/20/items/piratasdocaribenofimdomundo-paixaoflix/Piratas%20do%20Caribe%20-%20No%20Fim%20do%20Mundo_ready.mp4",
     "genero": "Aventura",
@@ -1779,7 +1787,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/2vgdFnsThB3acNVSUN9TzpUwLg5.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Kwento",
     "url": "https://ia800505.us.archive.org/25/items/kwento-paixaoflix/Kwento.mp4",
     "genero": "Crime",
@@ -1799,7 +1807,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/rdTe8rEojymnHdLwNCw4mbKOsZf.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Ritas",
     "url": "https://ia800800.us.archive.org/6/items/ritas2025-doc-paixaoflix/Ritas%202025_ready.mp4",
     "genero": "Documentários",
@@ -1819,7 +1827,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/tyKdgqeE9thRx6xycRxetUcpLrw.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Planeta dos Macacos - A Guerra",
     "url": "https://ia601400.us.archive.org/28/items/planetadosmacacosaguerra-paixaoflix/Planeta%20dos%20Macacos%20-%20A%20Guerra_ready.mp4",
     "genero": "Ficção",
@@ -1829,7 +1837,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/n336SuXSxpQkrzWJbSAeWFcKWy4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Planeta Dos Macacos - A Origem",
     "url": "https://ia801307.us.archive.org/14/items/planetadosmacacosaorigem-paixaoflix/Planeta%20Dos%20Macacos%20-%20A%20Origem_ready.mp4",
     "genero": "Ficção",
@@ -1839,7 +1847,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/yIjOizM5XPqvM0vBfRJqBg4KEC.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "King Richard - Criando Campeãs",
     "url": "https://ia600700.us.archive.org/6/items/king-richard-criando-campeas-paixaoflix/King%20Richard%20-%20Criando%20Campe%C3%A3s.mp4",
     "genero": "Drama",
@@ -1849,7 +1857,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/1GzzYMqCUbx0RMY3yAdrKdKVonh.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Planeta dos Macacos",
     "url": "https://ia600801.us.archive.org/12/items/planetadosmacacos-paixaoflix/Planeta%20dos%20Macacos_ready.mp4",
     "genero": "Ficção",
@@ -1859,8 +1867,8 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/qmv5Q5rjbO2wMveB1UC31prOCKH.jpg",
     "type": "movie"
   },
-{
-  "titulo": "Titan O Desastre da OceanGate",
+  {
+    "titulo": "Titan O Desastre da OceanGate",
     "url": "https://ia801701.us.archive.org/10/items/titanodesastredaoceangate2025-doc-paixaoflix/Titan%20O%20Desastre%20da%20OceanGate%202025_ready.mp4",
     "genero": "Documentários",
     "year": "2025",
@@ -1870,7 +1878,7 @@
     "type": "movie"
   },
   {
-  "titulo": "Titan O Desastre da OceanGate",
+    "titulo": "Titan O Desastre da OceanGate",
     "url": "https://ia801701.us.archive.org/10/items/titanodesastredaoceangate2025-doc-paixaoflix/Titan%20O%20Desastre%20da%20OceanGate%202025_ready.mp4",
     "genero": "Lançamento",
     "year": "2025",
@@ -1879,7 +1887,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/tcdz5yKjEvJQxJzjvbsphjNSNCe.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Till - A Busca por Justiça",
     "url": "https://ia800700.us.archive.org/5/items/till-a-busca-por-justica-paixaoflix/Till%20-%20A%20Busca%20por%20Justi%C3%A7a.mp4",
     "genero": "Drama",
@@ -1889,7 +1897,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/ogb70EGzxqdbH5p8mmWJ5CEYSp3.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Torre Greenfell A Verdade por Trás do Desastre",
     "url": "https://ia903202.us.archive.org/4/items/torregreenfellaverdadeportrasdodesastre2025-doc-paixaoflix/Torre%20Greenfell%20A%20Verdade%20por%20Tr%C3%A1s%20do%20Desastre%202025_ready.mp4",
     "genero": "Documentários",
@@ -1898,7 +1906,7 @@
     "desc": "Sobreviventes, testemunhas e especialistas contam a história do trágico incêndio que assolou uma torre residencial em Londres e da investigação que se seguiu.",
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/8jSNNh3tfQPyZxihqCUSSEt0rK2.jpg",
     "type": "movie"
-   },
+  },
   {
     "titulo": "Torre Greenfell A Verdade por Trás do Desastre",
     "url": "https://ia903202.us.archive.org/4/items/torregreenfellaverdadeportrasdodesastre2025-doc-paixaoflix/Torre%20Greenfell%20A%20Verdade%20por%20Tr%C3%A1s%20do%20Desastre%202025_ready.mp4",
@@ -1909,7 +1917,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/8jSNNh3tfQPyZxihqCUSSEt0rK2.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Planeta dos Macacos - O Confronto",
     "url": "https://ia801307.us.archive.org/8/items/planetadosmacacosoconfronto-paixaoflix/Planeta%20dos%20Macacos%20-%20O%20Confronto_ready.mp4",
     "genero": "Ficção",
@@ -1919,7 +1927,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/bFuiF7AvxFJgGowI0vxw37MkwTu.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Planeta dos Macacos - O Reinado",
     "url": "https://ia801707.us.archive.org/22/items/planetadosmacacosoreinado-paixaoflix/Planeta%20dos%20Macacos%20-%20O%20Reinado_ready.mp4",
     "genero": "Ficção",
@@ -1929,7 +1937,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/uXjbKJ57H30YrOQx5GfXoGvnsGY.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Aprendiz",
     "url": "https://ia800801.us.archive.org/16/items/o-aprendiz-paixaoflix/O%20Aprendiz.mp4",
     "genero": "Drama",
@@ -1939,7 +1947,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/kSXqBw3QzKqSx8ZAeWL9ms1zw2n.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Senhor do Vento",
     "url": "https://ia801402.us.archive.org/9/items/senhordovento-paixaoflix/Senhor%20do%20Vento_ready.mp4",
     "genero": "Aventura",
@@ -1959,7 +1967,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/hny8NvwpEV3VS0IseSflWjJhxn4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Auto da Compadecida 2",
     "url": "https://ia601704.us.archive.org/31/items/o-auto-da-compadecida-2-paixaoflix/O%20Auto%20da%20Compadecida%202.mp4",
     "genero": "Comédia",
@@ -1969,7 +1977,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/bO5FHSQYl448fjNKL1b2keAHtfP.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Top Gunner America Vs Russia",
     "url": "https://ia800400.us.archive.org/22/items/topgunneramericavsrussia-paixaoflix/Top%20Gunner%20America%20Vs%20Russia_ready.mp4",
     "genero": "Ação",
@@ -1979,7 +1987,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/v1jtS5Im8RCJJt4WXSZBBnMXgEe.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Alpha Code",
     "url": "https://ia801706.us.archive.org/7/items/alphacode-scifi-paixaoflix/Alpha%20Code_ready.mp4",
     "genero": "Ficção",
@@ -1989,7 +1997,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/y96NfAi9lPUDZFmpDdpH2NEpSJ1.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Assalto ao Banco Central",
     "url": "https://ia801703.us.archive.org/2/items/assaltoaobancocentral-police-paixaoflix/Assalto%20ao%20Banco%20Central_ready.mp4",
     "genero": "Nacional",
@@ -1999,7 +2007,7 @@
     "poster": "https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/Assalto%20ao%20banco%20central.jpeg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Abelhinha Maya e O Ovo Dourado",
     "url": "https://ia800101.us.archive.org/6/items/aabelhinhamayaeoovodourado-kids-paixaoflix/A%20Abelhinha%20Maya%20e%20O%20Ovo%20Dourado_ready.mp4",
     "genero": "Animação",
@@ -2009,7 +2017,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/nA6Jg8fLhJtabQYozYOUM3GzXs7.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Assassinos de Aluguel",
     "url": "https://ia803103.us.archive.org/30/items/assassinosdealuguel-police-paixaoflix/Assassinos%20de%20Aluguel_ready.mp4",
     "genero": "Crime",
@@ -2019,7 +2027,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/1TMr4EPbFXLs6YdOxZkXWveyIWI.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Viagem - Tudo está Conectado",
     "url": "https://ia800101.us.archive.org/26/items/aviagemtudoestaconectado-scifi-paixaoflix/A%20Viagem%20-%20Tudo%20est%C3%A1%20Conectado_ready.mp4",
     "genero": "Ficção",
@@ -2029,7 +2037,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/5YLdum6ZNW8bnHJoyAUbmp7yMrd.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Batman do Futuro - O Retorno do Coringa",
     "url": "https://ia600400.us.archive.org/28/items/batmandofuturooretornodocoringa-police-paixaoflix/Batman%20do%20Futuro%20-%20O%20Retorno%20do%20Coringa_ready.mp4",
     "genero": "Animação",
@@ -2039,7 +2047,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/wd9fppMrD3KbH8jAMTqCF28QejD.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Batman do Futuro - O Retorno do Coringa",
     "url": "https://ia600400.us.archive.org/28/items/batmandofuturooretornodocoringa-police-paixaoflix/Batman%20do%20Futuro%20-%20O%20Retorno%20do%20Coringa_ready.mp4",
     "genero": "Animação",
@@ -2059,7 +2067,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/1ESbIOki2zEDCYeYmdySdRTZvau.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Moana 2",
     "url": "https://ia800307.us.archive.org/34/items/moana2-paixaoflix/Moana%202_ready.mp4",
     "genero": "Animação",
@@ -2069,7 +2077,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/A1NUWVjoKzWzOdGE01NHquyubkx.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Na Natureza Selvagem",
     "url": "https://ia601408.us.archive.org/5/items/nanaturezaselvagem2008720pdubladoalan680-paixaoflix/Na%20Natureza%20Selvagem%20%282008%29%20720p%20Dublado%20-%20Alan_680_ready.mp4",
     "genero": "Drama",
@@ -2079,7 +2087,7 @@
     "poster": "https://m.media-amazon.com/images/I/51enAiczccL._AC_UF894,1000_QL80_.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "James Brown",
     "url": "https://ia600307.us.archive.org/6/items/james-brown-paixaoflix/James%20Brown.mp4",
     "genero": "Documentários",
@@ -2089,7 +2097,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/YnIS9i5JFKfrYn2wOvVyd66rUi.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Diddy - Como Nasce Um Bad Boy",
     "url": "https://ia803106.us.archive.org/29/items/diddycomonasceumbadboy-doc-paixaoflix/Diddy%20-%20Como%20Nasce%20Um%20Bad%20Boy_ready.mp4",
     "genero": "Documentários",
@@ -2109,7 +2117,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/xprVo91kJSpIY5aAXvgNkOU5p62.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Garrincha, Alegria do Povo",
     "url": "https://ia801300.us.archive.org/26/items/garrinchaalegriadopovodocumentariode1963webdl-doc-paixaoflix/Garrincha%2C%20Alegria%20do%20Povo%20%28Document%C3%A1rio%20de%201963%29%20-%20Web-DL_ready.mp4",
     "genero": "Documentários",
@@ -2119,7 +2127,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/mM338nfJiZO8qIqniL5qjX6z087.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Troll da Montanha 1",
     "url": "https://ia801704.us.archive.org/21/items/otrolldamontanha20221080pwebdldual51-paixaoflix/O%20Troll%20da%20Montanha%202022%201080p%20WEB-DL%20DUAL%205.1_ready.mp4",
     "genero": "Aventura",
@@ -2129,7 +2137,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/u54kjux1XnJFDCHgLpfsXp58EXH.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O Troll da Montanha 2",
     "url": "https://ia800505.us.archive.org/17/items/otrolldamontanha220251080pwebdldual51-paixaoflix/O.Troll.da.Montanha.2.2025.1080p.WEB-DL.DUAL.5.1_ready.mp4",
     "genero": "Aventura",
@@ -2149,7 +2157,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/fhB4lr2hs2EgcARV8cTbsXGwj4N.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Mea Culpa",
     "url": "https://ia801300.us.archive.org/9/items/mea-culpa-paixaoflix/Mea%20Culpa.mp4",
     "genero": "Romance",
@@ -2159,7 +2167,7 @@
     "poster": "https://raw.githubusercontent.com/VisorFinances/lista-paixaoflix/refs/heads/main/Mea%20Culpa.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Isto É Pelé",
     "url": "https://ia801703.us.archive.org/20/items/istoepele1974-doc-paixaoflix/Isto%20%C3%89%20Pel%C3%A9%201974_ready.mp4",
     "genero": "Documentários",
@@ -2179,7 +2187,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/2SZw4eBmDRDGjgG7ACxBdiiKBpO.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Lobisomens",
     "url": "https://ia601701.us.archive.org/18/items/lobisomens-paixaoflix/Lobisomens_ready.mp4",
     "genero": "Terror",
@@ -2189,7 +2197,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/qC7kejOLqMtY2Y2uoeAQuYsesnW.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Michael Jackson - MOONWALKER",
     "url": "https://ia600507.us.archive.org/0/items/michaeljacksonmoonwalker-paixaoflix/Michael%20Jackson%20-%20MOONWALKER_ready.mp4",
     "genero": "Musical",
@@ -2199,7 +2207,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/3GwTPQkAcgDeAirRpEuJG8HDdRz.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Grande Noite da Pop",
     "url": "https://ia601307.us.archive.org/28/items/anoitequemudouopop2024webdl1080px264dual51-doc-paixaoflix/A%20Noite%20que%20Mudou%20o%20Pop%202024%20WEB-DL%201080p%20x264%20DUAL%205.1_ready.mp4",
     "genero": "Musical",
@@ -2209,7 +2217,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/c5Dz7xZMxPbdaLn5nte4DCa61Gy.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Eu Sei o Que Vocês Fizeram no Verão Passado",
     "url": "https://ia601701.us.archive.org/11/items/eu-sei-o-que-voces-fizeram-no-verao-passado-2025-paixaoflix/Eu%20Sei%20o%20Que%20Voc%C3%AAs%20Fizeram%20no%20Ver%C3%A3o%20Passado%202025.mp4",
     "genero": "Suspense",
@@ -2219,7 +2227,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/vKuL46GnkOPdLoArUUBihC4YSjv.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Cazuza Boas Novas",
     "url": "https://ia802902.us.archive.org/32/items/cazuzaboasnovas-doc-paixaoflix/Cazuza%20Boas%20Novas_ready.mp4",
     "genero": "Documentários",
@@ -2229,7 +2237,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/3K65Ikh2pe87GARhPXHlsDsKGqm.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Opus",
     "url": "https://ia600200.us.archive.org/15/items/opus-paixaoflix/Opus.mp4",
     "genero": "Terror",
@@ -2249,7 +2257,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/3K65Ikh2pe87GARhPXHlsDsKGqm.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Opus",
     "url": "https://ia600200.us.archive.org/15/items/opus-paixaoflix/Opus.mp4",
     "genero": "Lançamento",
@@ -2259,8 +2267,7 @@
     "poster": "https://media.themoviedb.org/t/p/w300_and_h450_face/m0du9dsiOVeb0SgfqR8ZAEPRxww.jpg",
     "type": "movie"
   },
-
-{
+  {
     "titulo": "Os Smurfs - A Quarta do Waffle",
     "url": "https://ia600806.us.archive.org/34/items/uma-reuniao-secreta-na-vila-smurf-infantil-paixaoflix/Uma%20reuni%C3%A3o%20secreta%20na%20Vila%20Smurf%21.mp4",
     "genero": "Animação",
@@ -2270,7 +2277,7 @@
     "poster": "https://br.web.img2.acsta.net/img/d6/7c/d67c7b019592bda8a7fc33a9f4b9f815.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Moana 1",
     "url": "https://ia801502.us.archive.org/12/items/moana1-paixaoflix/Moana%201_ready.mp4",
     "genero": "Animação",
@@ -2290,7 +2297,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/spMoofhPZfSOMJpbsDfltvWkU9p.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Rustin",
     "url": "https://ia601306.us.archive.org/34/items/rustin-paixaoflix/Rustin.mp4",
     "genero": "Drama",
@@ -2300,7 +2307,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/lCawCmTJhKT7c2ZOzLBTXDIR8JS.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Amadeus",
     "url": "https://ia600307.us.archive.org/19/items/amadeus-1984-1080p-dual-audio-torrentdosfilmeshd-net-paixaoflix/Amadeus.1984.1080p.Dual.%C3%81udio.TorrentDosFilmesHD.net.mp4",
     "genero": "Drama",
@@ -2320,7 +2327,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/sS8Q0Qf5GzTI1OcswDN5Vvvmm97.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "HomeBoy",
     "url": "https://ia801702.us.archive.org/26/items/homeboy-paixaoflix/HomeBoy.mp4",
     "genero": "Drama",
@@ -2330,7 +2337,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wVNcDA5ywbFkT9BEfJJI8qPCy2Q.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "A Rede Social",
     "url": "https://ia600701.us.archive.org/0/items/aredesocial-paixaoflix/A%20Rede%20Social_ready.mp4",
     "genero": "Drama",
@@ -2340,7 +2347,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/jXbqfVHmvCikyTw2Lf5OhKyt9Ym.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Aníkúlápó",
     "url": "https://ia600701.us.archive.org/0/items/aredesocial-paixaoflix/A%20Rede%20Social_ready.mp4",
     "genero": "Ficção",
@@ -2350,7 +2357,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/xb30hkUpBm23stnVgDJGYGsC0R0.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Moneyball - Jogada de Risco",
     "url": "https://ia601704.us.archive.org/33/items/moneyball-o-homem-que-mudo-ou-jogo-paixaoflix/Moneyball%20-%20O%20Homem%20que%20mudo%20ou%20jogo.mp4",
     "genero": "Drama",
@@ -2360,7 +2367,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/hNOsiWJKYWRAj7zURD7QcSAi5t4.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Nas Terras Perdidas",
     "url": "https://ia801702.us.archive.org/33/items/inthelostlands-paixaoflix/In%20The%20Lost%20Lands_ready.mp4",
     "genero": "Faroeste",
@@ -2380,8 +2387,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/c3gA6bnnsXG2JoHBBkXsD6w6emm.jpg",
     "type": "movie"
   },
-
-{
+  {
     "titulo": "O que deixamos pelo Caminho",
     "url": "https://ia801502.us.archive.org/9/items/o-que-deixamos-pelo-caminho-paixaoflix/O%20que%20deixamos%20pelo%20Caminho.mp4",
     "genero": "Drama",
@@ -2391,7 +2397,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/63IM5YpICE0jFuUjJ9ZC8qd5ZCE.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "O que deixamos pelo Caminho",
     "url": "https://ia801502.us.archive.org/9/items/o-que-deixamos-pelo-caminho-paixaoflix/O%20que%20deixamos%20pelo%20Caminho.mp4",
     "genero": "Lançamento",
@@ -2431,7 +2437,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/t3nmSPWX5MOKdpAuTb2t5g69BT3.jpg",
     "type": "movie"
   },
-{
+  {
     "titulo": "Piratas das Caraíbas: O Cofre do Homem Morto",
     "url": "https://ia601706.us.archive.org/28/items/piratas-do-caribe-o-bau-da-morte-paixaoflix/Piratas%20do%20Caribe%20-%20O%20Ba%C3%BA%20da%20Morte_ptbr.mp4",
     "genero": "Drama",
@@ -2491,7 +2497,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/rmIcnSRl65AUa8TJMCJZV2RL4z1.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "O Fogo Interior",
     "url": "https://ia800200.us.archive.org/12/items/o-fogo-interior-paixaoflix/O%20Fogo%20Interior_ptbr.mp4",
     "genero": "Lançamento",
@@ -2521,7 +2527,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wXOoMFofymNspnhkJCKyy7qleGc.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "Cidade de Deus",
     "url": "https://ia801702.us.archive.org/24/items/cidade-de-deus-nacional-paixaoflix/Cidade%20de%20Deus.mp4",
     "genero": "Nacional",
@@ -2551,7 +2557,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/2HwuAarfIgOFMcZadzLZ6crxHLz.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "A Cor Purpura",
     "url": "https://ia803100.us.archive.org/14/items/a-cor-purpura-paixaoflix/A%20Cor%20Purpura.mp4",
     "genero": "Drama",
@@ -2571,7 +2577,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/s1zEsvB5XoS0Gqr7tmnNZExVdRI.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "Air - A Historia Por Tras do Logo",
     "url": "https://ia800908.us.archive.org/0/items/air-a-historia-por-tras-do-logo-paixaoflix/Air%20-%20A%20Historia%20Por%20Tras%20do%20Logo.mp4",
     "genero": "Drama",
@@ -2621,7 +2627,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/iT6yYCAuMQwm1PV4nByrsrsIOhG.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "Fome de Poder",
     "url": "https://ia601709.us.archive.org/33/items/fome-de-poder-paixaoflix/Fome%20de%20Poder.mp4",
     "genero": "Drama",
@@ -2711,7 +2717,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/wv6oWAleCJZUk5htrGg413t3GCy.jpg",
     "type": "movie"
   },
-   {
+  {
     "titulo": "Piratas do Caribe - A Maldição do Pérola Negra",
     "url": "https://ia801708.us.archive.org/24/items/piratas-do-caribe-a-maldicao-do-perola-negra-paixaoflix/Piratas%20do%20Caribe%20-%20A%20Maldi%C3%A7%C3%A3o%20do%20P%C3%A9rola%20Negra_ptbr.mp4",
     "genero": "Aventura",
@@ -2751,7 +2757,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/dYvrB9waQnunTP57QK32khjRd7S.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "O Poderoso Chefinho I",
     "url": "https://ia903100.us.archive.org/9/items/o-poderoso-chefinho-i-infantil-paixaoflix/O%20Poderoso%20Chefinho%20I.mp4",
     "genero": "Animação",
@@ -2761,7 +2767,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/sUJzHEA9Ft1JXoae7QeNYSBhY4q.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "Caramelo",
     "url": "https://ia601707.us.archive.org/23/items/caramelo-nacional-paixaoflix/Caramelo.mp4",
     "genero": "Nacional",
@@ -2851,7 +2857,7 @@
     "poster": "https://image.tmdb.org/t/p/w600_and_h900_face/jSSAVOBc3Kg1QwB2WfVaNWk4LSx.jpg",
     "type": "movie"
   },
- {
+  {
     "titulo": "Harry Potter e a Pedra Filosofal",
     "url": "https://ia600905.us.archive.org/14/items/harry-potter-e-a-pedra-filosofal-paixaoflix/Harry%20Potter%20e%20a%20Pedra%20Filosofal.mp4",
     "genero": "Aventura",
